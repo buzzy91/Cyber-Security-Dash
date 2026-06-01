@@ -92,8 +92,8 @@ export default function InstagramSpy() {
           </div>
 
           <div className="flex-1 min-w-0">
-            <p className="font-bold text-lg blur-sm select-none">███████████</p>
-            <p className="text-sm text-muted-foreground blur-sm select-none mt-0.5">@████████</p>
+            <p className="font-bold text-lg">Ssmugrevski</p>
+            <p className="text-sm text-muted-foreground mt-0.5">@ssmugrevski</p>
             <p className="text-xs text-muted-foreground mt-2 line-clamp-2 blur-sm select-none">
               Bio content intercepted — upgrade to read full profile biography and linked accounts.
             </p>
