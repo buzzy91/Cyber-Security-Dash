@@ -48,55 +48,41 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 font-sans text-foreground overflow-hidden" style={{ background: 'linear-gradient(135deg, hsl(234 20% 4%) 0%, hsl(263 30% 8%) 50%, hsl(234 20% 4%) 100%)' }}>
-      {/* Background glow orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%)' }} />
-      <div className="absolute bottom-1/4 left-1/4 w-64 h-64 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%)' }} />
-
+    <div className="fixed inset-0 flex items-center justify-center bg-background p-4 font-sans text-foreground">
       <motion.div
         animate={error ? { x: [-10, 10, -10, 10, 0] } : {}}
         transition={{ duration: 0.4 }}
-        className="h-full flex flex-col items-center justify-center px-8"
+        className="w-full max-w-sm backdrop-blur-xl bg-card/40 border border-primary/30 rounded-2xl p-8 shadow-2xl shadow-primary/20 flex flex-col items-center relative overflow-hidden"
       >
-        {/* Logo */}
-        <div className="w-28 h-28 rounded-full overflow-hidden mb-6 shadow-[0_0_40px_rgba(139,92,246,0.5)] border-2 border-primary/50">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none" />
+
+        <div className="w-24 h-24 rounded-full overflow-hidden mb-6 shadow-[0_0_25px_rgba(139,92,246,0.6)] border-2 border-primary/40">
           <img src={logoImg} alt="Jeff CyberHelp" className="w-full h-full object-cover" />
         </div>
 
-        <h1 className="text-3xl font-bold tracking-widest text-center mb-1 text-foreground">JEFF CYBERHELP</h1>
-        <p className="text-muted-foreground text-sm mb-10 text-center uppercase tracking-widest">Secure Access Required</p>
+        <h1 className="text-2xl font-bold tracking-widest text-center mb-2">JEFF CYBERHELP</h1>
+        <p className="text-muted-foreground text-sm mb-8 text-center uppercase tracking-wider">Secure Access Required</p>
 
-        {/* PIN dots */}
-        <div className="flex gap-3 mb-3">
+        <div className="flex gap-2 mb-8">
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <div
               key={i}
-              className={`w-12 h-14 rounded-xl flex items-center justify-center text-2xl font-mono border-2 transition-all duration-300 backdrop-blur-sm ${
-                pin.length === i
-                  ? 'border-primary bg-primary/10 shadow-[0_0_12px_rgba(139,92,246,0.8)]'
-                  : pin.length > i
-                  ? 'border-primary/60 bg-primary/5 text-foreground'
-                  : 'border-border/40 bg-white/5 text-transparent'
-              }`}
+              className={`w-10 h-14 rounded-lg flex items-center justify-center text-2xl font-mono border-2 transition-all duration-300 ${pin.length === i ? 'border-primary shadow-[0_0_10px_rgba(139,92,246,0.8)]' : pin.length > i ? 'border-primary/50 text-foreground' : 'border-muted text-transparent'}`}
             >
-              {pin[i] ? '•' : ''}
+              {pin[i] ? "•" : ""}
             </div>
           ))}
         </div>
 
-        {error
-          ? <p className="text-destructive font-bold mb-6 uppercase tracking-widest text-sm animate-pulse">Access Denied</p>
-          : <div className="h-8 mb-2" />
-        }
+        {error && <p className="text-destructive font-bold mb-4 uppercase tracking-widest text-sm animate-pulse">Access Denied</p>}
 
-        {/* Keypad */}
-        <div className="grid grid-cols-3 gap-3 w-full max-w-xs">
+        <div className="grid grid-cols-3 gap-4 w-full max-w-[280px]">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
             <button
               key={num}
               data-testid={`pin-btn-${num}`}
               onClick={() => handleInput(num.toString())}
-              className="h-16 rounded-2xl backdrop-blur-sm border border-white/10 bg-white/5 hover:bg-primary/20 hover:border-primary/50 transition-all text-xl font-semibold active:scale-95 shadow-sm"
+              className="h-14 rounded-xl bg-secondary/50 hover:bg-primary/20 hover:border-primary/50 border border-transparent transition-all text-xl active:scale-95"
             >
               {num}
             </button>
@@ -105,14 +91,14 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
           <button
             data-testid="pin-btn-0"
             onClick={() => handleInput("0")}
-            className="h-16 rounded-2xl backdrop-blur-sm border border-white/10 bg-white/5 hover:bg-primary/20 hover:border-primary/50 transition-all text-xl font-semibold active:scale-95 shadow-sm"
+            className="h-14 rounded-xl bg-secondary/50 hover:bg-primary/20 hover:border-primary/50 border border-transparent transition-all text-xl active:scale-95"
           >
             0
           </button>
           <button
             data-testid="pin-btn-backspace"
             onClick={handleBackspace}
-            className="h-16 rounded-2xl backdrop-blur-sm border border-white/10 bg-white/5 hover:bg-destructive/20 hover:border-destructive/40 transition-all flex items-center justify-center active:scale-95 text-muted-foreground hover:text-destructive"
+            className="h-14 rounded-xl bg-secondary/50 hover:bg-destructive/20 hover:border-destructive/50 border border-transparent transition-all flex items-center justify-center active:scale-95 text-muted-foreground hover:text-destructive"
           >
             <X className="w-6 h-6" />
           </button>
@@ -278,13 +264,13 @@ function MainLayout() {
   }, []);
 
   return (
-    <div className="fixed inset-0 flex flex-col bg-background text-foreground font-sans selection:bg-primary/30 overflow-hidden">
+    <div className="fixed inset-0 bg-background text-foreground font-sans selection:bg-primary/30 overflow-hidden">
       <div className="fixed inset-0 pointer-events-none opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%)' }} />
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} location={location} />
-      
-      <div className="flex-1 flex flex-col relative w-full overflow-hidden">
+
+      {/* Main content — always sits behind/beside the fixed sidebar */}
+      <div className="flex flex-col" style={{ position: 'fixed', top: 0, right: 0, bottom: 0, left: 0 }}>
         <TopHeader onOpenSidebar={() => setSidebarOpen(true)} />
-        
         <main className="flex-1 overflow-y-auto overflow-x-hidden relative">
           <AnimatePresence mode="wait">
             <Switch location={location} key={location}>
