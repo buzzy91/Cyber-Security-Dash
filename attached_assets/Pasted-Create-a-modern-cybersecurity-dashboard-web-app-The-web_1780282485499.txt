@@ -1,0 +1,55 @@
+Create a modern cybersecurity dashboard web app. The web app should have a pin 558295 and without it the dashboard shouldn’t be accessible. 
+
+Use a dark theme with soft purple neon accents and a glassmorphism design style (blurred cards, glowing borders, rounded corners 16px+). Add smooth hover and tap animations.
+
+Dashboard layout should include:
+	1.	Header (Top Bar)
+
+	•	Display a sample user email on the top right (e.g., )
+	•	Include notification and settings icons
+
+	2.	Device Overview Section
+
+	•	Show a sample connected device (e.g., iPhone)
+	•	Display anonymized placeholder phone number (e.g., +61 407 493 614). This names should be added in the hidden chat section with other female names but I want just two of the male names to be visible and the rest blurred. 
+	•	Include status indicators like “Active”, “Last synced”
+
+	3.	cloud Storage Section
+•	When clicked, open a modal that explains:
+“Your current storage plan limits full synchronization. Upgrade to access enhanced storage features.”
+	•	Show upgrade plan with pricing UI $450 and $650
+
+	4.	Activity Intelligence Feed (Redesigned Keylogs Section)
+
+	•	Replace list with card-based UI
+	•	Each card should include:
+	•	Priority indicator (High / Medium / Low with colored dot)
+	•	Sample captured text (dummy placeholder text)
+	•	App source (Chrome, Messenger, YouTube)
+	•	Activity count (e.g., interactions)
+	•	Timestamp (e.g., 2 mins ago)
+	•	Buttons: “View Details” and “Analyze”
+	•	Add section header:
+	•	Title: “Activity Intelligence Feed”
+	•	Subtitle: “Real-time activity insights”
+	•	Summary stats (sessions, apps, interactions)
+
+	5.	Recent Chats Section (Demo Data Only)
+
+	•	Use fictional/sample names
+	•	Clean chat UI layout
+
+	6.	Calls Section 
+
+	•	List sample contacts like kelvin berryhill., Joel.,Sofia R., Eva Brown, Grey.P, Jack 
+	•	Clicking opens a modal with placeholder random Netherlands phone numbers 
+
+	7.	Extra UI Features
+
+	•	Add search/filter icon in headers
+	•	Expandable modal for card details
+	•	Smooth transitions and animations
+
+Ensure:
+	•	No real tracking, monitoring, or personal data usage
+	•	Focus is purely on UI/UX and frontend design
