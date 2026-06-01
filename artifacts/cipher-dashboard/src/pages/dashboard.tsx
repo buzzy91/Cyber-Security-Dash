@@ -1,8 +1,12 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Database, TrendingUp } from "lucide-react";
+import React, { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Database, TrendingUp, TrendingDown, BarChart2, Activity } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { BarChart, Bar, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts";
+import {
+  AreaChart, Area, BarChart, Bar,
+  ResponsiveContainer, XAxis, YAxis, Tooltip,
+  CartesianGrid, ReferenceLine
+} from "recharts";
 
 // Circular Progress component
 export const CircularProgress = ({ value, colorClass, size = 64, strokeWidth = 6 }: { value: number, colorClass: string, size?: number, strokeWidth?: number }) => {
@@ -45,17 +49,79 @@ export const CircularProgress = ({ value, colorClass, size = 64, strokeWidth = 6
   );
 };
 
-const visibilityData = [
-  { date: 'Nov 9', value: 20 },
-  { date: 'Nov 14', value: 45 },
-  { date: 'Nov 19', value: 30 },
-  { date: 'Nov 24', value: 65 },
-  { date: 'Nov 29', value: 50 },
-  { date: 'Dec 4', value: 85 },
-];
+const VISIBILITY_DATASETS: Record<string, { date: string; value: number; events: number }[]> = {
+  "7D": [
+    { date: "Mon", value: 8, events: 42 },
+    { date: "Tue", value: 14, events: 78 },
+    { date: "Wed", value: 11, events: 61 },
+    { date: "Thu", value: 19, events: 104 },
+    { date: "Fri", value: 15, events: 83 },
+    { date: "Sat", value: 7, events: 38 },
+    { date: "Sun", value: 10, events: 55 },
+  ],
+  "1M": [
+    { date: "Nov 9", value: 20, events: 110 },
+    { date: "Nov 14", value: 45, events: 248 },
+    { date: "Nov 19", value: 30, events: 165 },
+    { date: "Nov 24", value: 65, events: 357 },
+    { date: "Nov 29", value: 50, events: 275 },
+    { date: "Dec 4", value: 85, events: 467 },
+  ],
+  "3M": [
+    { date: "Sep", value: 12, events: 66 },
+    { date: "Oct 1", value: 28, events: 154 },
+    { date: "Oct 15", value: 41, events: 225 },
+    { date: "Nov 1", value: 35, events: 192 },
+    { date: "Nov 15", value: 60, events: 330 },
+    { date: "Dec 1", value: 78, events: 429 },
+    { date: "Dec 4", value: 85, events: 467 },
+  ],
+  "6M": [
+    { date: "Jul", value: 5, events: 27 },
+    { date: "Aug", value: 18, events: 99 },
+    { date: "Sep", value: 12, events: 66 },
+    { date: "Oct", value: 38, events: 209 },
+    { date: "Nov", value: 55, events: 302 },
+    { date: "Dec", value: 85, events: 467 },
+  ],
+};
+
+const RANGES = ["7D", "1M", "3M", "6M"] as const;
+type Range = typeof RANGES[number];
+
+function CustomTooltip({ active, payload, label }: any) {
+  if (!active || !payload?.length) return null;
+  return (
+    <div className="bg-card/95 backdrop-blur-xl border border-primary/40 rounded-xl px-4 py-3 shadow-xl shadow-primary/20 text-xs">
+      <p className="text-muted-foreground uppercase tracking-widest mb-2 font-bold">{label}</p>
+      <div className="flex items-center gap-2 mb-1">
+        <span className="w-2 h-2 rounded-full bg-purple-500 inline-block" />
+        <span className="text-foreground font-mono font-bold">{payload[0]?.value}%</span>
+        <span className="text-muted-foreground">visibility</span>
+      </div>
+      {payload[0]?.payload?.events !== undefined && (
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-cyan-500 inline-block" />
+          <span className="text-foreground font-mono font-bold">{payload[0].payload.events}</span>
+          <span className="text-muted-foreground">events</span>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Dashboard() {
   const [storageModalOpen, setStorageModalOpen] = useState(false);
+  const [visRange, setVisRange] = useState<Range>("1M");
+  const [chartType, setChartType] = useState<"area" | "bar">("area");
+
+  const visData = VISIBILITY_DATASETS[visRange];
+  const peak = useMemo(() => Math.max(...visData.map(d => d.value)), [visData]);
+  const avg = useMemo(() => Math.round(visData.reduce((s, d) => s + d.value, 0) / visData.length), [visData]);
+  const totalEvents = useMemo(() => visData.reduce((s, d) => s + d.events, 0), [visData]);
+  const latest = visData[visData.length - 1].value;
+  const prev = visData[visData.length - 2].value;
+  const trend = latest - prev;
 
   return (
     <motion.div 
@@ -186,32 +252,118 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* VISIBILITY — interactive */}
       <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 relative overflow-hidden">
-        <div className="flex items-center justify-between mb-4">
+        {/* Header row */}
+        <div className="flex items-start justify-between mb-4 gap-2 flex-wrap">
           <div>
             <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-1">
-              <TrendingUp className="w-4 h-4" /> Visibility
+              <Activity className="w-4 h-4" /> Visibility
             </h2>
             <div className="flex items-end gap-2 mt-1">
-              <span className="text-3xl font-bold">10.15%</span>
-              <span className="text-sm font-medium text-green-500 mb-1">+2% Since Last Week</span>
+              <span className="text-3xl font-bold">{latest}%</span>
+              <span className={`text-sm font-medium mb-1 flex items-center gap-0.5 ${trend >= 0 ? "text-green-500" : "text-red-400"}`}>
+                {trend >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                {trend >= 0 ? "+" : ""}{trend}% vs prev
+              </span>
+            </div>
+          </div>
+
+          {/* Controls */}
+          <div className="flex flex-col items-end gap-2">
+            {/* Time range tabs */}
+            <div className="flex gap-1 bg-secondary/40 rounded-lg p-1">
+              {RANGES.map((r) => (
+                <button
+                  key={r}
+                  onClick={() => setVisRange(r)}
+                  className={`px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest transition-all ${
+                    visRange === r
+                      ? "bg-primary text-white shadow-[0_0_8px_rgba(139,92,246,0.6)]"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {r}
+                </button>
+              ))}
+            </div>
+            {/* Chart type toggle */}
+            <div className="flex gap-1 bg-secondary/40 rounded-lg p-1">
+              <button
+                onClick={() => setChartType("area")}
+                className={`p-1.5 rounded-md transition-all ${chartType === "area" ? "bg-primary/30 text-primary" : "text-muted-foreground hover:text-foreground"}`}
+                title="Area chart"
+              >
+                <Activity className="w-3 h-3" />
+              </button>
+              <button
+                onClick={() => setChartType("bar")}
+                className={`p-1.5 rounded-md transition-all ${chartType === "bar" ? "bg-primary/30 text-primary" : "text-muted-foreground hover:text-foreground"}`}
+                title="Bar chart"
+              >
+                <BarChart2 className="w-3 h-3" />
+              </button>
             </div>
           </div>
         </div>
-        
-        <div className="h-40 w-full mt-6">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={visibilityData}>
-              <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} dy={10} />
-              <Tooltip 
-                cursor={{ fill: "rgba(139,92,246,0.1)" }}
-                contentStyle={{ backgroundColor: "hsl(var(--card))", borderColor: "rgba(139,92,246,0.3)", borderRadius: "8px", color: "hsl(var(--foreground))" }}
-                itemStyle={{ color: "hsl(var(--foreground))" }}
-              />
-              <Bar dataKey="value" fill="#7f1d1d" radius={[4, 4, 0, 0]} barSize={20} />
-            </BarChart>
-          </ResponsiveContainer>
+
+        {/* Summary stats */}
+        <div className="grid grid-cols-3 gap-2 mb-4">
+          {[
+            { label: "Peak", val: `${peak}%`, color: "text-purple-400" },
+            { label: "Avg", val: `${avg}%`, color: "text-cyan-400" },
+            { label: "Events", val: totalEvents.toLocaleString(), color: "text-green-400" },
+          ].map((s) => (
+            <div key={s.label} className="bg-secondary/30 rounded-xl p-2.5 text-center border border-border/30">
+              <p className={`text-base font-bold ${s.color}`}>{s.val}</p>
+              <p className="text-[9px] text-muted-foreground uppercase tracking-widest mt-0.5">{s.label}</p>
+            </div>
+          ))}
         </div>
+
+        {/* Chart */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={visRange + chartType}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.3 }}
+            className="h-44 w-full"
+          >
+            <ResponsiveContainer width="100%" height="100%">
+              {chartType === "area" ? (
+                <AreaChart data={visData} margin={{ top: 4, right: 4, left: -28, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="visGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.35} />
+                      <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+                  <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} dy={8} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(v) => `${v}%`} />
+                  <Tooltip content={<CustomTooltip />} cursor={{ stroke: "rgba(139,92,246,0.3)", strokeWidth: 1, strokeDasharray: "4 2" }} />
+                  <ReferenceLine y={avg} stroke="rgba(139,92,246,0.3)" strokeDasharray="4 2" />
+                  <Area type="monotone" dataKey="value" stroke="#8b5cf6" strokeWidth={2} fill="url(#visGrad)" dot={{ fill: "#8b5cf6", r: 3, strokeWidth: 0 }} activeDot={{ r: 5, fill: "#8b5cf6", stroke: "rgba(139,92,246,0.4)", strokeWidth: 3 }} />
+                </AreaChart>
+              ) : (
+                <BarChart data={visData} margin={{ top: 4, right: 4, left: -28, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+                  <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} dy={8} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(v) => `${v}%`} />
+                  <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(139,92,246,0.08)" }} />
+                  <ReferenceLine y={avg} stroke="rgba(139,92,246,0.3)" strokeDasharray="4 2" />
+                  <Bar dataKey="value" fill="#8b5cf6" radius={[4, 4, 0, 0]} barSize={18} opacity={0.85} />
+                </BarChart>
+              )}
+            </ResponsiveContainer>
+          </motion.div>
+        </AnimatePresence>
+
+        <p className="text-[9px] text-muted-foreground text-right mt-2 uppercase tracking-widest">
+          Dashed line = {avg}% avg
+        </p>
       </div>
 
       <div 
