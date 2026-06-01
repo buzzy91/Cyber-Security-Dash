@@ -4,12 +4,34 @@ import { Search, Play, Lock, AlertTriangle } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 const videos = [
-  { id: 1, date: "Apr 9", title: "Captured Video — Apr 9", desc: "WhatsApp video captured from device", time: "Apr 9, 6:11 PM", ref: "#1847", flagged: true },
-  { id: 2, date: "Apr 9", title: "Captured Video — Apr 9", desc: "System camera recording intercepted", time: "Apr 9, 4:22 PM", ref: "#1848", flagged: true },
-  { id: 3, date: "Apr 8", title: "Captured Video — Apr 8", desc: "Messenger video clip detected", time: "Apr 8, 11:05 PM", ref: "#1849", flagged: true },
-  { id: 4, date: "Apr 8", title: "Captured Video — Apr 8", desc: "Snapchat video captured", time: "Apr 8, 8:14 PM", ref: "#1850", flagged: false },
-  { id: 5, date: "Apr 7", title: "Captured Video — Apr 7", desc: "Gallery sync video file", time: "Apr 7, 2:30 PM", ref: "#1851", flagged: false },
+  { id: 1,  date: "Dec 4",  title: "Captured Video — Dec 4",  desc: "WhatsApp video captured from device",           time: "Dec 4, 11:42 PM",  ref: "#1847", flagged: true,  size: "48.2 MB",  duration: "01:24" },
+  { id: 2,  date: "Dec 4",  title: "Captured Video — Dec 4",  desc: "System camera recording intercepted",           time: "Dec 4, 9:18 PM",   ref: "#1848", flagged: true,  size: "112.6 MB", duration: "03:51" },
+  { id: 3,  date: "Dec 3",  title: "Captured Video — Dec 3",  desc: "Messenger video clip detected",                 time: "Dec 3, 11:05 PM",  ref: "#1849", flagged: true,  size: "22.4 MB",  duration: "00:44" },
+  { id: 4,  date: "Dec 3",  title: "Captured Video — Dec 3",  desc: "Snapchat video captured via screen intercept",  time: "Dec 3, 8:14 PM",   ref: "#1850", flagged: true,  size: "8.8 MB",   duration: "00:18" },
+  { id: 5,  date: "Dec 2",  title: "Captured Video — Dec 2",  desc: "Instagram DM video received and logged",        time: "Dec 2, 7:30 PM",   ref: "#1851", flagged: true,  size: "31.0 MB",  duration: "01:02" },
+  { id: 6,  date: "Dec 2",  title: "Captured Video — Dec 2",  desc: "TikTok video saved to device gallery",          time: "Dec 2, 5:55 PM",   ref: "#1852", flagged: false, size: "19.3 MB",  duration: "00:31" },
+  { id: 7,  date: "Dec 1",  title: "Captured Video — Dec 1",  desc: "Gallery sync video file intercepted",           time: "Dec 1, 2:30 PM",   ref: "#1853", flagged: false, size: "74.1 MB",  duration: "02:28" },
+  { id: 8,  date: "Dec 1",  title: "Captured Video — Dec 1",  desc: "YouTube download captured in background",       time: "Dec 1, 1:10 PM",   ref: "#1854", flagged: false, size: "245.0 MB", duration: "08:15" },
+  { id: 9,  date: "Nov 30", title: "Captured Video — Nov 30", desc: "WhatsApp status video extracted",               time: "Nov 30, 10:00 PM", ref: "#1855", flagged: true,  size: "5.6 MB",   duration: "00:14" },
+  { id: 10, date: "Nov 30", title: "Captured Video — Nov 30", desc: "Screen recording session intercepted",          time: "Nov 30, 8:45 PM",  ref: "#1856", flagged: true,  size: "88.3 MB",  duration: "02:57" },
+  { id: 11, date: "Nov 29", title: "Captured Video — Nov 29", desc: "Camera roll video synced during backup",        time: "Nov 29, 6:20 PM",  ref: "#1857", flagged: false, size: "55.7 MB",  duration: "01:52" },
+  { id: 12, date: "Nov 29", title: "Captured Video — Nov 29", desc: "Telegram video message intercepted",            time: "Nov 29, 4:00 PM",  ref: "#1858", flagged: true,  size: "14.9 MB",  duration: "00:29" },
+  { id: 13, date: "Nov 28", title: "Captured Video — Nov 28", desc: "FaceTime session recording captured",           time: "Nov 28, 3:15 PM",  ref: "#1859", flagged: true,  size: "130.2 MB", duration: "04:21" },
+  { id: 14, date: "Nov 28", title: "Captured Video — Nov 28", desc: "Safari browser video autoplayed and logged",    time: "Nov 28, 1:00 PM",  ref: "#1860", flagged: false, size: "9.1 MB",   duration: "00:19" },
+  { id: 15, date: "Nov 27", title: "Captured Video — Nov 27", desc: "App-recorded clip saved to hidden directory",   time: "Nov 27, 11:50 AM", ref: "#1861", flagged: true,  size: "40.4 MB",  duration: "01:21" },
 ];
+
+function LoadingSpinner() {
+  return (
+    <div className="flex flex-col items-center justify-center py-10 gap-3">
+      <div className="relative w-10 h-10">
+        <div className="absolute inset-0 rounded-full border-2 border-primary/20" />
+        <div className="absolute inset-0 rounded-full border-2 border-t-primary border-r-transparent border-b-transparent border-l-transparent animate-spin" />
+      </div>
+      <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold animate-pulse">Decrypting video files...</p>
+    </div>
+  );
+}
 
 export default function Videos() {
   const [filter, setFilter] = useState("all");
@@ -49,13 +71,13 @@ export default function Videos() {
           onClick={() => setFilter("all")}
           className={`flex-1 py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-colors ${filter === "all" ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:text-foreground"}`}
         >
-          All Videos
+          All Videos ({videos.length})
         </button>
         <button 
           onClick={() => setFilter("flagged")}
           className={`flex-1 py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-colors ${filter === "flagged" ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:text-foreground"}`}
         >
-          Flagged Only
+          Flagged Only ({videos.filter(v => v.flagged).length})
         </button>
       </div>
 
@@ -72,37 +94,45 @@ export default function Videos() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.05 }}
               key={video.id}
               onClick={() => setSelectedVideo(video)}
-              className="bg-card/30 backdrop-blur-md border border-primary/10 hover:border-primary/40 rounded-xl overflow-hidden cursor-pointer transition-all group flex flex-col sm:flex-row"
+              className="bg-card/30 backdrop-blur-md border border-primary/10 hover:border-primary/40 rounded-xl overflow-hidden cursor-pointer transition-all group flex"
             >
-              <div className="relative h-32 sm:h-auto sm:w-32 bg-secondary/80 flex items-center justify-center border-b sm:border-b-0 sm:border-r border-primary/10 group-hover:bg-primary/10 transition-colors">
-                <Play className="w-8 h-8 text-primary/50 group-hover:text-primary transition-colors" />
-                <div className="absolute top-2 right-2 sm:bottom-2 sm:top-auto">
-                  <div className="w-6 h-6 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center border border-primary/30">
-                    <Lock className="w-3 h-3 text-muted-foreground" />
+              <div className="relative h-auto w-28 bg-secondary/80 flex-shrink-0 flex items-center justify-center border-r border-primary/10 group-hover:bg-primary/10 transition-colors">
+                <Play className="w-7 h-7 text-primary/50 group-hover:text-primary transition-colors" />
+                <div className="absolute bottom-1.5 right-1.5">
+                  <div className="w-5 h-5 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center border border-primary/30">
+                    <Lock className="w-2.5 h-2.5 text-muted-foreground" />
                   </div>
                 </div>
                 {video.flagged && (
-                  <div className="absolute top-2 left-2">
-                    <span className="bg-destructive text-destructive-foreground text-[8px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded">Flagged</span>
+                  <div className="absolute top-1.5 left-1.5">
+                    <span className="bg-destructive text-destructive-foreground text-[7px] font-bold uppercase tracking-widest px-1 py-0.5 rounded">Flag</span>
                   </div>
                 )}
+                <div className="absolute bottom-1.5 left-1.5">
+                  <span className="bg-background/80 text-[8px] font-mono text-foreground/70 px-1 py-0.5 rounded">{video.duration}</span>
+                </div>
               </div>
               
-              <div className="p-3 flex-1 flex flex-col justify-center">
-                <h3 className="font-bold text-sm mb-1">{video.title}</h3>
+              <div className="p-3 flex-1 flex flex-col justify-center min-w-0">
+                <h3 className="font-bold text-sm mb-1 truncate">{video.title}</h3>
                 <p className="text-xs text-muted-foreground mb-2 line-clamp-1">{video.desc}</p>
                 <div className="flex items-center justify-between text-[10px] text-muted-foreground font-mono">
                   <span>{video.time}</span>
-                  <span className="text-primary/70">{video.ref}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-muted-foreground/60">{video.size}</span>
+                    <span className="text-primary/70">{video.ref}</span>
+                  </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
       </div>
+
+      <LoadingSpinner />
 
       <Dialog open={!!selectedVideo} onOpenChange={() => setSelectedVideo(null)}>
         <DialogContent className="bg-card border-primary/30 sm:max-w-md">
@@ -124,22 +154,24 @@ export default function Videos() {
             <div className="bg-primary/10 border border-primary/30 rounded-xl p-4 w-full">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-xs text-muted-foreground uppercase tracking-widest">File Size</span>
-                <span className="font-mono text-sm">~45.2 MB</span>
+                <span className="font-mono text-sm">{selectedVideo?.size}</span>
               </div>
               <div className="flex justify-between items-center mb-2">
                 <span className="text-xs text-muted-foreground uppercase tracking-widest">Format</span>
                 <span className="font-mono text-sm">MP4 (Encrypted)</span>
               </div>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center mb-2">
                 <span className="text-xs text-muted-foreground uppercase tracking-widest">Duration</span>
-                <span className="font-mono text-sm">01:24</span>
+                <span className="font-mono text-sm">{selectedVideo?.duration}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-muted-foreground uppercase tracking-widest">Ref</span>
+                <span className="font-mono text-sm text-primary/70">{selectedVideo?.ref}</span>
               </div>
             </div>
           </div>
           
-          <button 
-            className="w-full py-3 rounded-xl bg-primary text-primary-foreground font-bold uppercase tracking-widest text-sm hover:bg-primary/90 transition-colors shadow-[0_0_15px_rgba(139,92,246,0.3)] active:scale-95"
-          >
+          <button className="w-full py-3 rounded-xl bg-primary text-primary-foreground font-bold uppercase tracking-widest text-sm hover:bg-primary/90 transition-colors shadow-[0_0_15px_rgba(139,92,246,0.3)] active:scale-95">
             Upgrade License
           </button>
         </DialogContent>

@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Database, TrendingUp, TrendingDown, BarChart2, Activity } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -111,6 +112,7 @@ function CustomTooltip({ active, payload, label }: any) {
 }
 
 export default function Dashboard() {
+  const [, navigate] = useLocation();
   const [storageModalOpen, setStorageModalOpen] = useState(false);
   const [visRange, setVisRange] = useState<Range>("1M");
   const [chartType, setChartType] = useState<"area" | "bar">("area");
@@ -143,34 +145,24 @@ export default function Dashboard() {
 
       {/* QUICK MENU — first section */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors hover:-translate-y-1 duration-300">
-          <CircularProgress value={79} colorClass="text-purple-500" size={56} strokeWidth={4} />
-          <div className="text-center">
-            <p className="text-lg font-bold">948</p>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Calls</p>
-          </div>
-        </div>
-        <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors hover:-translate-y-1 duration-300">
-          <CircularProgress value={82} colorClass="text-cyan-500" size={56} strokeWidth={4} />
-          <div className="text-center">
-            <p className="text-lg font-bold">12.3k</p>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Messages</p>
-          </div>
-        </div>
-        <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors hover:-translate-y-1 duration-300">
-          <CircularProgress value={38} colorClass="text-green-500" size={56} strokeWidth={4} />
-          <div className="text-center">
-            <p className="text-lg font-bold">188</p>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Location</p>
-          </div>
-        </div>
-        <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors hover:-translate-y-1 duration-300">
-          <CircularProgress value={60} colorClass="text-pink-500" size={56} strokeWidth={4} />
-          <div className="text-center">
-            <p className="text-lg font-bold">1.2k</p>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Firewall</p>
-          </div>
-        </div>
+        {[
+          { value: 79, color: "text-purple-500", count: "948",  label: "Calls",    route: "/calls"    },
+          { value: 82, color: "text-cyan-500",   count: "12.3k",label: "Messages", route: "/chats"    },
+          { value: 38, color: "text-green-500",  count: "188",  label: "Location", route: "/activity" },
+          { value: 60, color: "text-pink-500",   count: "1.2k", label: "Firewall", route: "/activity" },
+        ].map((item) => (
+          <button
+            key={item.label}
+            onClick={() => navigate(item.route)}
+            className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-all hover:-translate-y-1 duration-300 cursor-pointer active:scale-95 group"
+          >
+            <CircularProgress value={item.value} colorClass={item.color} size={56} strokeWidth={4} />
+            <div className="text-center">
+              <p className="text-lg font-bold">{item.count}</p>
+              <p className="text-[10px] text-muted-foreground uppercase tracking-widest group-hover:text-primary transition-colors">{item.label}</p>
+            </div>
+          </button>
+        ))}
       </div>
 
       {/* TARGET DEVICE */}
@@ -219,36 +211,24 @@ export default function Dashboard() {
         </div>
         
         <div className="grid grid-cols-3 gap-4">
-          <div className="flex flex-col items-center gap-2">
-            <CircularProgress value={79} colorClass="text-purple-500" size={48} strokeWidth={3} />
-            <p className="text-sm font-bold">948</p>
-            <p className="text-[9px] text-muted-foreground uppercase tracking-widest text-center">Calls</p>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <CircularProgress value={82} colorClass="text-cyan-500" size={48} strokeWidth={3} />
-            <p className="text-sm font-bold">12.3k</p>
-            <p className="text-[9px] text-muted-foreground uppercase tracking-widest text-center">Messages</p>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <CircularProgress value={38} colorClass="text-green-500" size={48} strokeWidth={3} />
-            <p className="text-sm font-bold">188</p>
-            <p className="text-[9px] text-muted-foreground uppercase tracking-widest text-center">Location</p>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <CircularProgress value={45} colorClass="text-yellow-500" size={48} strokeWidth={3} />
-            <p className="text-sm font-bold">2.2k</p>
-            <p className="text-[9px] text-muted-foreground uppercase tracking-widest text-center">Keylogs</p>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <CircularProgress value={70} colorClass="text-red-400" size={48} strokeWidth={3} />
-            <p className="text-sm font-bold">348</p>
-            <p className="text-[9px] text-muted-foreground uppercase tracking-widest text-center">Emails</p>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <CircularProgress value={60} colorClass="text-pink-500" size={48} strokeWidth={3} />
-            <p className="text-sm font-bold">1.2k</p>
-            <p className="text-[9px] text-muted-foreground uppercase tracking-widest text-center">Firewall</p>
-          </div>
+          {[
+            { value: 79, color: "text-purple-500", count: "948",  label: "Calls",    route: "/calls"    },
+            { value: 82, color: "text-cyan-500",   count: "12.3k",label: "Messages", route: "/chats"    },
+            { value: 38, color: "text-green-500",  count: "188",  label: "Location", route: "/activity" },
+            { value: 45, color: "text-yellow-500", count: "2.2k", label: "Keylogs",  route: "/activity" },
+            { value: 70, color: "text-red-400",    count: "348",  label: "Emails",   route: "/activity" },
+            { value: 60, color: "text-pink-500",   count: "1.2k", label: "Firewall", route: "/activity" },
+          ].map((item) => (
+            <button
+              key={item.label}
+              onClick={() => navigate(item.route)}
+              className="flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-primary/10 transition-all active:scale-95 group cursor-pointer"
+            >
+              <CircularProgress value={item.value} colorClass={item.color} size={48} strokeWidth={3} />
+              <p className="text-sm font-bold">{item.count}</p>
+              <p className="text-[9px] text-muted-foreground uppercase tracking-widest text-center group-hover:text-primary transition-colors">{item.label}</p>
+            </button>
+          ))}
         </div>
       </div>
 
