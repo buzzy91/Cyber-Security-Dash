@@ -75,6 +75,44 @@ export default function Dashboard() {
         <p className="text-xs text-muted-foreground font-mono">Last Updated: Just Now</p>
       </div>
 
+      {/* TARGET DEVICE — top of page */}
+      <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 relative overflow-hidden">
+        <div className="absolute top-0 right-0 p-4">
+          <span className="bg-green-500/10 text-green-500 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest border border-green-500/20">Active</span>
+        </div>
+        <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-4">Target Device</h2>
+        <div className="grid grid-cols-2 gap-3">
+          <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Target ID</p>
+            <p className="font-mono text-sm">#99457</p>
+          </div>
+          <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Model</p>
+            <p className="font-sans text-sm">📱 iPhone</p>
+          </div>
+          <div className="bg-secondary/40 rounded-xl p-3 border border-border/50 col-span-2">
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Target Mobile</p>
+            <p className="font-mono text-sm">+61 407 493 614</p>
+          </div>
+          <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Location</p>
+            <p className="font-sans text-sm">Australia</p>
+          </div>
+          <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">ICCID</p>
+            <p className="font-mono text-sm">890114...481</p>
+          </div>
+          <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Network</p>
+            <p className="font-sans text-sm text-green-400">Connected</p>
+          </div>
+          <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Last Synced</p>
+            <p className="font-sans text-sm">Just now</p>
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors hover:-translate-y-1 duration-300">
           <CircularProgress value={79} colorClass="text-purple-500" size={56} strokeWidth={4} />
@@ -152,45 +190,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 relative overflow-hidden">
-        <div className="absolute top-0 right-0 p-4">
-          <span className="bg-green-500/10 text-green-500 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest border border-green-500/20">Active</span>
-        </div>
-        
-        <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-4">Target Device</h2>
-        
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Target ID</p>
-            <p className="font-mono text-sm">#99457</p>
-          </div>
-          <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Model</p>
-            <p className="font-sans text-sm">📱 iPhone 14 Pro</p>
-          </div>
-          <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Target Mobile</p>
-            <p className="font-mono text-sm">+61 407 493 614</p>
-          </div>
-          <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Location</p>
-            <p className="font-sans text-sm">Australia</p>
-          </div>
-          <div className="bg-secondary/40 rounded-xl p-3 border border-border/50 md:col-span-2">
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">ICCID</p>
-            <p className="font-mono text-sm">890114103279...481</p>
-          </div>
-          <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Network</p>
-            <p className="font-sans text-sm text-green-400">Connected</p>
-          </div>
-          <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Last Synced</p>
-            <p className="font-sans text-sm">Just now</p>
-          </div>
-        </div>
-      </div>
-      
       <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 relative overflow-hidden">
         <div className="flex items-center justify-between mb-4">
           <div>

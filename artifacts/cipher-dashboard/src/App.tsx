@@ -5,8 +5,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { motion, AnimatePresence } from "framer-motion";
 import NotFound from "@/pages/not-found";
-import { Menu, Bell, Search, Phone, MessageSquare, Video, Image as ImageIcon, Settings, LogOut, Infinity, X, Zap, Shield, Database, Clock } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Menu, Bell, Phone, MessageSquare, Video, Image as ImageIcon, Settings, X, Zap, LayoutDashboard } from "lucide-react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import logoImg from "@assets/WhatsApp_Image_2026-05-31_at_9.54.27_PM_1780289753935.jpeg";
 
 import Dashboard from "@/pages/dashboard";
 import ActivityIntelligence from "@/pages/activity";
@@ -55,11 +56,11 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
       >
         <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none" />
         
-        <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(139,92,246,0.5)]">
-          <Infinity className="w-8 h-8 text-primary" />
+        <div className="w-24 h-24 rounded-full overflow-hidden mb-6 shadow-[0_0_25px_rgba(139,92,246,0.6)] border-2 border-primary/40">
+          <img src={logoImg} alt="Jeff CyberHelp" className="w-full h-full object-cover" />
         </div>
         
-        <h1 className="text-2xl font-bold tracking-widest text-center mb-2">CIPHER<br/>INVESTIGATION</h1>
+        <h1 className="text-2xl font-bold tracking-widest text-center mb-2">JEFF CYBERHELP</h1>
         <p className="text-muted-foreground text-sm mb-8 text-center uppercase tracking-wider">Secure Access Required</p>
         
         <div className="flex gap-2 mb-8">
@@ -106,7 +107,7 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
 
 function Sidebar({ isOpen, onClose, location }: { isOpen: boolean, onClose: () => void, location: string }) {
   const navItems = [
-    { href: "/", label: "Dashboard Overview", icon: <Infinity className="w-5 h-5" /> },
+    { href: "/", label: "Dashboard Overview", icon: <LayoutDashboard className="w-5 h-5" /> },
     { href: "/activity", label: "Activity Intelligence", icon: <Zap className="w-5 h-5" /> },
     { href: "/chats", label: "Chats", icon: <MessageSquare className="w-5 h-5" /> },
     { href: "/calls", label: "Calls", icon: <Phone className="w-5 h-5" /> },
@@ -134,14 +135,17 @@ function Sidebar({ isOpen, onClose, location }: { isOpen: boolean, onClose: () =
         transition={{ type: "spring", damping: 25, stiffness: 200 }}
         className="fixed top-0 left-0 bottom-0 w-72 bg-card/95 backdrop-blur-xl border-r border-primary/20 z-50 flex flex-col md:translate-x-0 md:relative shadow-[0_0_30px_rgba(139,92,246,0.1)]"
       >
-        <div className="p-6 flex items-center gap-3 border-b border-primary/10">
-          <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center shadow-[0_0_10px_rgba(139,92,246,0.5)]">
-            <Infinity className="w-6 h-6 text-primary" />
+        <div className="p-5 flex items-center gap-3 border-b border-primary/10">
+          <div className="w-11 h-11 rounded-full overflow-hidden shadow-[0_0_12px_rgba(139,92,246,0.5)] border border-primary/40 flex-shrink-0">
+            <img src={logoImg} alt="Jeff CyberHelp" className="w-full h-full object-cover" />
           </div>
           <div>
-            <h2 className="font-bold text-lg tracking-wider text-foreground">CIPHER</h2>
+            <h2 className="font-bold text-sm tracking-wider text-foreground leading-tight">JEFF CYBERHELP</h2>
             <p className="text-[10px] uppercase tracking-widest text-primary font-bold">Investigation</p>
           </div>
+          <button onClick={onClose} className="ml-auto text-muted-foreground hover:text-foreground transition-colors">
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
         <div className="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-2">
@@ -183,11 +187,11 @@ function TopHeader({ onOpenSidebar }: { onOpenSidebar: () => void }) {
   return (
     <header className="h-16 border-b border-primary/20 bg-card/50 backdrop-blur-xl sticky top-0 z-30 flex items-center justify-between px-4">
       <div className="flex items-center gap-3">
-        <button onClick={onOpenSidebar} className="p-2 -ml-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-primary/10 md:hidden transition-colors">
+        <button onClick={onOpenSidebar} data-testid="button-open-sidebar" className="p-2 -ml-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors">
           <Menu className="w-6 h-6" />
         </button>
-        <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center shadow-[0_0_8px_rgba(139,92,246,0.4)] md:hidden">
-          <Infinity className="w-5 h-5 text-primary" />
+        <div className="w-9 h-9 rounded-full overflow-hidden shadow-[0_0_10px_rgba(139,92,246,0.5)] border border-primary/40 flex-shrink-0">
+          <img src={logoImg} alt="Jeff CyberHelp" className="w-full h-full object-cover" />
         </div>
       </div>
 
@@ -257,14 +261,14 @@ function MainLayout() {
   }, []);
 
   return (
-    <div className="min-h-screen flex bg-background text-foreground font-sans selection:bg-primary/30">
+    <div className="h-[100dvh] w-screen flex flex-col bg-background text-foreground font-sans selection:bg-primary/30 overflow-hidden">
       <div className="fixed inset-0 pointer-events-none opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%)' }} />
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} location={location} />
       
-      <div className="flex-1 flex flex-col relative w-full overflow-x-hidden">
+      <div className="flex-1 flex flex-col relative w-full overflow-hidden">
         <TopHeader onOpenSidebar={() => setSidebarOpen(true)} />
         
-        <main className="flex-1 overflow-y-auto relative">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden relative">
           <AnimatePresence mode="wait">
             <Switch location={location} key={location}>
               <Route path="/" component={Dashboard} />
