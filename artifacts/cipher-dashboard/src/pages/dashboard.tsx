@@ -75,7 +75,39 @@ export default function Dashboard() {
         <p className="text-xs text-muted-foreground font-mono">Last Updated: Just Now</p>
       </div>
 
-      {/* TARGET DEVICE — top of page */}
+      {/* QUICK MENU — first section */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors hover:-translate-y-1 duration-300">
+          <CircularProgress value={79} colorClass="text-purple-500" size={56} strokeWidth={4} />
+          <div className="text-center">
+            <p className="text-lg font-bold">948</p>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Calls</p>
+          </div>
+        </div>
+        <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors hover:-translate-y-1 duration-300">
+          <CircularProgress value={82} colorClass="text-cyan-500" size={56} strokeWidth={4} />
+          <div className="text-center">
+            <p className="text-lg font-bold">12.3k</p>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Messages</p>
+          </div>
+        </div>
+        <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors hover:-translate-y-1 duration-300">
+          <CircularProgress value={38} colorClass="text-green-500" size={56} strokeWidth={4} />
+          <div className="text-center">
+            <p className="text-lg font-bold">188</p>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Location</p>
+          </div>
+        </div>
+        <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors hover:-translate-y-1 duration-300">
+          <CircularProgress value={60} colorClass="text-pink-500" size={56} strokeWidth={4} />
+          <div className="text-center">
+            <p className="text-lg font-bold">1.2k</p>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Firewall</p>
+          </div>
+        </div>
+      </div>
+
+      {/* TARGET DEVICE */}
       <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 relative overflow-hidden">
         <div className="absolute top-0 right-0 p-4">
           <span className="bg-green-500/10 text-green-500 text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest border border-green-500/20">Active</span>
@@ -113,43 +145,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors hover:-translate-y-1 duration-300">
-          <CircularProgress value={79} colorClass="text-purple-500" size={56} strokeWidth={4} />
-          <div className="text-center">
-            <p className="text-lg font-bold">948</p>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Calls</p>
-          </div>
-        </div>
-        <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors hover:-translate-y-1 duration-300">
-          <CircularProgress value={82} colorClass="text-cyan-500" size={56} strokeWidth={4} />
-          <div className="text-center">
-            <p className="text-lg font-bold">12.3k</p>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Messages</p>
-          </div>
-        </div>
-        <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors hover:-translate-y-1 duration-300">
-          <CircularProgress value={38} colorClass="text-green-500" size={56} strokeWidth={4} />
-          <div className="text-center">
-            <p className="text-lg font-bold">188</p>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Location</p>
-          </div>
-        </div>
-        <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors hover:-translate-y-1 duration-300">
-          <CircularProgress value={60} colorClass="text-pink-500" size={56} strokeWidth={4} />
-          <div className="text-center">
-            <p className="text-lg font-bold">1.2k</p>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Firewall</p>
-          </div>
-        </div>
-      </div>
-      
-      {/* PHONE ACTIVITIES extra rows for 6 metrics? 
-          Actually, the task says:
-          QUICK MENU grid (2x2 cards) -> wait, there are two sections? 
-          "QUICK MENU grid (2x2 cards)" and "PHONE ACTIVITIES section (3x2 grid, all 6 metrics)" 
-          Let's just show 6 metrics in a 3x2 grid as PHONE ACTIVITIES.
-      */}
+      {/* PHONE ACTIVITIES */}
       <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 relative overflow-hidden">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-widest">Phone Activities</h2>
