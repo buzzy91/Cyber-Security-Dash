@@ -48,7 +48,7 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-background p-4 font-sans text-foreground">
+    <div className="fixed inset-0 flex items-center justify-center bg-background p-4 font-sans text-foreground overflow-auto">
       <motion.div 
         animate={error ? { x: [-10, 10, -10, 10, 0] } : {}}
         transition={{ duration: 0.4 }}
@@ -261,7 +261,7 @@ function MainLayout() {
   }, []);
 
   return (
-    <div className="h-[100dvh] w-screen flex flex-col bg-background text-foreground font-sans selection:bg-primary/30 overflow-hidden">
+    <div className="fixed inset-0 flex flex-col bg-background text-foreground font-sans selection:bg-primary/30 overflow-hidden">
       <div className="fixed inset-0 pointer-events-none opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%)' }} />
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} location={location} />
       
