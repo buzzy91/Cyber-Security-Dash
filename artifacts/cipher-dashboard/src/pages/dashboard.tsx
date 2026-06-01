@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Database, TrendingUp, TrendingDown, BarChart2, Activity } from "lucide-react";
+import { Database, TrendingUp, TrendingDown, BarChart2, Activity, Lock, Instagram } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import {
   AreaChart, Area, BarChart, Bar,
@@ -231,6 +231,50 @@ export default function Dashboard() {
           ))}
         </div>
       </div>
+
+      {/* INSTAGRAM SPY CARD */}
+      <motion.div
+        whileHover={{ scale: 1.01, y: -2 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={() => navigate("/instagram")}
+        className="rounded-2xl p-5 relative overflow-hidden cursor-pointer border border-transparent"
+        style={{ background: "linear-gradient(135deg, rgba(240,148,51,0.12) 0%, rgba(220,39,67,0.12) 50%, rgba(188,24,136,0.12) 100%)", borderColor: "rgba(220,39,67,0.25)" }}
+      >
+        {/* Animated gradient shimmer */}
+        <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500" style={{ background: "linear-gradient(135deg, rgba(240,148,51,0.08) 0%, rgba(220,39,67,0.08) 50%, rgba(188,24,136,0.08) 100%)" }} />
+        {/* Top accent bar */}
+        <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: "linear-gradient(90deg, #f09433, #dc2743, #bc1888)" }} />
+
+        <div className="flex items-center gap-4">
+          {/* Icon */}
+          <div className="relative flex-shrink-0">
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-xl" style={{ background: "linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)" }}>
+              <Instagram className="w-7 h-7 text-white" />
+            </div>
+            <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-card flex items-center justify-center border border-border/50">
+              <Lock className="w-2.5 h-2.5 text-muted-foreground" />
+            </div>
+          </div>
+
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-0.5">
+              <h3 className="font-bold text-base tracking-wide">Instagram Spy</h3>
+              <span className="text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded border" style={{ background: "rgba(220,39,67,0.15)", color: "#dc2743", borderColor: "rgba(220,39,67,0.3)" }}>Premium</span>
+            </div>
+            <p className="text-xs text-muted-foreground leading-snug">Full account access — posts, DMs, stories &amp; live activity</p>
+            <div className="flex items-center gap-2 mt-2">
+              <Lock className="w-3 h-3 text-muted-foreground" />
+              <span className="text-[10px] text-muted-foreground uppercase tracking-widest">One-time verification: $300</span>
+            </div>
+          </div>
+
+          <div className="flex-shrink-0">
+            <div className="px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest text-white shadow-lg transition-all" style={{ background: "linear-gradient(135deg, #dc2743, #bc1888)" }}>
+              Access
+            </div>
+          </div>
+        </div>
+      </motion.div>
 
       {/* VISIBILITY — interactive */}
       <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 relative overflow-hidden">

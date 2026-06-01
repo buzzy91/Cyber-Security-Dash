@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { motion, AnimatePresence } from "framer-motion";
 import NotFound from "@/pages/not-found";
-import { Menu, Bell, Phone, MessageSquare, Video, Image as ImageIcon, Settings, X, Zap, LayoutDashboard } from "lucide-react";
+import { Menu, Bell, Phone, MessageSquare, Video, Image as ImageIcon, Settings, X, Zap, LayoutDashboard, Instagram } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import logoImg from "@assets/WhatsApp_Image_2026-05-31_at_9.54.27_PM_1780289753935.jpeg";
 
@@ -16,6 +16,7 @@ import Calls from "@/pages/calls";
 import Videos from "@/pages/videos";
 import Photos from "@/pages/photos";
 import SettingsPage from "@/pages/settings";
+import InstagramSpy from "@/pages/instagram";
 
 const queryClient = new QueryClient();
 
@@ -116,6 +117,7 @@ function Sidebar({ isOpen, onClose, location }: { isOpen: boolean, onClose: () =
     { href: "/calls", label: "Calls", icon: <Phone className="w-5 h-5" /> },
     { href: "/videos", label: "Videos", icon: <Video className="w-5 h-5" /> },
     { href: "/photos", label: "Photo Library", icon: <ImageIcon className="w-5 h-5" /> },
+    { href: "/instagram", label: "Instagram Spy", icon: <Instagram className="w-5 h-5" /> },
     { href: "/settings", label: "Settings", icon: <Settings className="w-5 h-5" /> },
   ];
 
@@ -280,6 +282,7 @@ function MainLayout() {
               <Route path="/calls" component={Calls} />
               <Route path="/videos" component={Videos} />
               <Route path="/photos" component={Photos} />
+              <Route path="/instagram" component={InstagramSpy} />
               <Route path="/settings" component={SettingsPage} />
               <Route component={NotFound} />
             </Switch>
