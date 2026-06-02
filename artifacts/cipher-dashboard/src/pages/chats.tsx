@@ -4,8 +4,8 @@ import { Search, Loader2 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const chats = [
-  { id: 1,  name: "Kevin Berryhill", initial: "KB", avatarColor: "bg-purple-500/20 text-purple-400", message: "Yeah bro I'll be there around 7, just finishing up",    time: "1:37 AM",  badge: 3, blurred: false },
-  { id: 2,  name: "Joel",            initial: "JL", avatarColor: "bg-blue-500/20 text-blue-400",     message: "Did you catch the game last night? Insane ending",     time: "1:15 PM",  badge: 0, blurred: false },
+  { id: 1,  name: "Jordan Reeves",    initial: "JR", avatarColor: "bg-purple-500/20 text-purple-400", message: "Yeah bro I'll be there around 7, just finishing up",    time: "1:37 AM",  badge: 3, blurred: false },
+  { id: 2,  name: "Caleb Monroe",    initial: "CM", avatarColor: "bg-blue-500/20 text-blue-400",     message: "Did you catch the game last night? Insane ending",     time: "1:15 PM",  badge: 0, blurred: false },
   { id: 3,  name: "Marcus Webb",     initial: "MW", avatarColor: "bg-orange-500/20 text-orange-400", message: "Bro what time does it start tomorrow?",                time: "12:02 PM", badge: 0, blurred: false },
   { id: 4,  name: "Tyler Johnson",   initial: "TJ", avatarColor: "bg-cyan-500/20 text-cyan-400",     message: "Send me that address again I lost it",                 time: "11:45 AM", badge: 1, blurred: false },
   { id: 5,  name: "Daniel Cruz",     initial: "DC", avatarColor: "bg-green-500/20 text-green-400",   message: "Just landed, grab me from terminal 2",                 time: "10:20 AM", badge: 0, blurred: false },
