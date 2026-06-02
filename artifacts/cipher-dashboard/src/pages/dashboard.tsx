@@ -182,7 +182,8 @@ export default function Dashboard() {
           </div>
           <div className="bg-secondary/40 rounded-xl p-3 border border-border/50 col-span-2">
             <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Target Mobile</p>
-            <p className="font-mono text-sm">+61 407 493 614</p>
+            <p className="font-mono text-sm">+61 488 721 083</p>
+            <p className="font-mono text-sm text-muted-foreground">+61 407 886 885</p>
           </div>
           <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
             <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Location</p>
