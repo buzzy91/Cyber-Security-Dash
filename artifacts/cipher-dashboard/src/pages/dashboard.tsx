@@ -213,22 +213,21 @@ export default function Dashboard() {
         
         <div className="grid grid-cols-3 gap-4">
           {[
-            { value: 79, color: "text-purple-500", count: "948",  label: "Calls",    route: "/calls"    },
-            { value: 82, color: "text-cyan-500",   count: "12.3k",label: "Messages", route: "/chats"    },
-            { value: 38, color: "text-green-500",  count: "188",  label: "Location", route: "/activity" },
-            { value: 45, color: "text-yellow-500", count: "2.2k", label: "Keylogs",  route: "/activity" },
-            { value: 70, color: "text-red-400",    count: "348",  label: "Emails",   route: "/activity" },
-            { value: 60, color: "text-pink-500",   count: "1.2k", label: "Firewall", route: "/activity" },
+            { value: 79, color: "text-purple-500", count: "948",  label: "Calls"    },
+            { value: 82, color: "text-cyan-500",   count: "12.3k",label: "Messages" },
+            { value: 38, color: "text-green-500",  count: "188",  label: "Location" },
+            { value: 45, color: "text-yellow-500", count: "2.2k", label: "Keylogs"  },
+            { value: 70, color: "text-red-400",    count: "348",  label: "Emails"   },
+            { value: 60, color: "text-pink-500",   count: "1.2k", label: "Firewall" },
           ].map((item) => (
-            <button
+            <div
               key={item.label}
-              onClick={() => navigate(item.route)}
-              className="flex flex-col items-center gap-2 p-2 rounded-xl hover:bg-primary/10 transition-all active:scale-95 group cursor-pointer"
+              className="flex flex-col items-center gap-2 p-2 rounded-xl"
             >
               <CircularProgress value={item.value} colorClass={item.color} size={48} strokeWidth={3} />
               <p className="text-sm font-bold">{item.count}</p>
-              <p className="text-[9px] text-muted-foreground uppercase tracking-widest text-center group-hover:text-primary transition-colors">{item.label}</p>
-            </button>
+              <p className="text-[9px] text-muted-foreground uppercase tracking-widest text-center">{item.label}</p>
+            </div>
           ))}
         </div>
       </div>
