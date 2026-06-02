@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { Search, Loader2 } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const chats = [
   { id: 1,  name: "Kevin Berryhill", initial: "KB", avatarColor: "bg-purple-500/20 text-purple-400", message: "Yeah bro I'll be there around 7, just finishing up",    time: "1:37 AM",  badge: 3, blurred: false },
@@ -21,7 +20,6 @@ const chats = [
 ];
 
 export default function Chats() {
-  const [selectedChat, setSelectedChat] = useState<any>(null);
 
   return (
     <div className="p-4 md:p-6 pb-24 space-y-6">
@@ -42,8 +40,7 @@ export default function Chats() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.05 }}
             key={chat.id}
-            onClick={() => setSelectedChat(chat)}
-            className="bg-card/30 backdrop-blur-md border border-primary/10 hover:border-primary/40 rounded-xl p-3 flex items-center gap-3 cursor-pointer transition-all hover:bg-card/50"
+            className="bg-card/30 backdrop-blur-md border border-primary/10 rounded-xl p-3 flex items-center gap-3"
           >
             <Avatar className={`w-12 h-12 border border-primary/20 ${chat.avatarColor}`}>
               <AvatarFallback className={chat.avatarColor}>{chat.initial}</AvatarFallback>
@@ -77,55 +74,6 @@ export default function Chats() {
         <span className="text-xs uppercase tracking-widest font-bold">Loading more messages...</span>
       </div>
 
-      <Dialog open={!!selectedChat} onOpenChange={() => setSelectedChat(null)}>
-        <DialogContent className="bg-card border-primary/30 sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Chat Investigation</DialogTitle>
-            <DialogDescription>
-              Details for conversation with {selectedChat?.blurred ? 'Unknown Contact' : selectedChat?.name}
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="flex flex-col items-center py-6 text-center">
-            <Avatar className={`w-20 h-20 mb-4 border-2 border-primary/30 ${selectedChat?.avatarColor}`}>
-              <AvatarFallback className={`text-2xl ${selectedChat?.avatarColor}`}>{selectedChat?.initial}</AvatarFallback>
-            </Avatar>
-            <h2 className={`text-xl font-bold mb-1 ${selectedChat?.blurred ? 'blur-sm' : ''}`}>{selectedChat?.name}</h2>
-            <p className="text-muted-foreground text-sm font-mono">+1 (***) ***-**42</p>
-            
-            {selectedChat?.blurred && (
-              <div className="mt-6 p-4 rounded-xl bg-destructive/10 border border-destructive/30 w-full text-left">
-                <h4 className="text-destructive font-bold uppercase tracking-widest text-xs mb-2">Access Restricted</h4>
-                <p className="text-sm text-foreground/80">Full decryption requires an active premium surveillance license. Upgrade to view full conversation history and media attachments.</p>
-              </div>
-            )}
-            
-            {!selectedChat?.blurred && (
-              <div className="mt-6 p-4 rounded-xl bg-secondary/30 border border-primary/20 w-full text-left">
-                <p className="text-xs text-muted-foreground uppercase tracking-widest mb-2">Latest Captured Message</p>
-                <div className="p-3 bg-primary/10 rounded-lg border border-primary/20">
-                  <p className="text-sm">"{selectedChat?.message}"</p>
-                  <p className="text-[10px] text-right text-muted-foreground mt-2">{selectedChat?.time}</p>
-                </div>
-              </div>
-            )}
-          </div>
-          
-          <div className="flex gap-3">
-            <button 
-              onClick={() => setSelectedChat(null)}
-              className="flex-1 py-2.5 rounded-lg border border-border text-foreground hover:bg-secondary transition-colors active:scale-95 text-sm font-bold uppercase tracking-wider"
-            >
-              Close
-            </button>
-            <button 
-              className="flex-1 py-2.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-[0_0_10px_rgba(139,92,246,0.3)] active:scale-95 text-sm font-bold uppercase tracking-wider"
-            >
-              {selectedChat?.blurred ? 'Upgrade Access' : 'View Full Thread'}
-            </button>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
