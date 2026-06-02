@@ -5,13 +5,19 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 const chats = [
-  { id: 1, name: "Kevin Berryhill", initial: "KB", avatarColor: "bg-purple-500/20 text-purple-400", message: "Goodnight... my secret ❤", time: "1:37 AM", badge: 3, blurred: false },
-  { id: 2, name: "Joel", initial: "JL", avatarColor: "bg-purple-500/20 text-purple-400", message: "I'll be there by 9, save me a spot", time: "1:15 PM", badge: 0, blurred: false },
-  { id: 3, name: "Hidden Contact", initial: "AM", avatarColor: "bg-orange-500/20 text-orange-400", message: "Are we still meeting up later? Let me know.", time: "12:02 PM", badge: 0, blurred: true },
-  { id: 4, name: "Hidden Contact", initial: "CW", avatarColor: "bg-orange-500/20 text-orange-400", message: "Sent an attachment.", time: "11:45 AM", badge: 1, blurred: true },
-  { id: 5, name: "Hidden Contact", initial: "DK", avatarColor: "bg-green-500/20 text-green-400", message: "Thanks for the info", time: "10:20 AM", badge: 0, blurred: true },
-  { id: 6, name: "Hidden Contact", initial: "SL", avatarColor: "bg-green-500/20 text-green-400", message: "Call me when you get this", time: "9:55 AM", badge: 2, blurred: true },
-  { id: 7, name: "Hidden Contact", initial: "NR", avatarColor: "bg-cyan-500/20 text-cyan-400", message: "Okay sounds good.", time: "8:40 AM", badge: 0, blurred: true },
+  { id: 1,  name: "Kevin Berryhill", initial: "KB", avatarColor: "bg-purple-500/20 text-purple-400", message: "Yeah bro I'll be there around 7, just finishing up",    time: "1:37 AM",  badge: 3, blurred: false },
+  { id: 2,  name: "Joel",            initial: "JL", avatarColor: "bg-blue-500/20 text-blue-400",     message: "Did you catch the game last night? Insane ending",     time: "1:15 PM",  badge: 0, blurred: false },
+  { id: 3,  name: "Marcus Webb",     initial: "MW", avatarColor: "bg-orange-500/20 text-orange-400", message: "Bro what time does it start tomorrow?",                time: "12:02 PM", badge: 0, blurred: false },
+  { id: 4,  name: "Tyler Johnson",   initial: "TJ", avatarColor: "bg-cyan-500/20 text-cyan-400",     message: "Send me that address again I lost it",                 time: "11:45 AM", badge: 1, blurred: false },
+  { id: 5,  name: "Daniel Cruz",     initial: "DC", avatarColor: "bg-green-500/20 text-green-400",   message: "Just landed, grab me from terminal 2",                 time: "10:20 AM", badge: 0, blurred: false },
+  { id: 6,  name: "Chris Lawson",    initial: "CL", avatarColor: "bg-yellow-500/20 text-yellow-400", message: "Aye you good? Haven't heard from you in a min",        time: "9:55 AM",  badge: 2, blurred: false },
+  { id: 7,  name: "Liam Hartley",    initial: "LH", avatarColor: "bg-pink-500/20 text-pink-400",     message: "Nah I'm free after 3, let's link then",               time: "8:40 AM",  badge: 0, blurred: false },
+  { id: 8,  name: "Brandon Lee",     initial: "BL", avatarColor: "bg-indigo-500/20 text-indigo-400", message: "Haha yeah exactly what I was thinking too",           time: "Yesterday", badge: 0, blurred: false },
+  { id: 9,  name: "Sarah Mitchell",  initial: "SM", avatarColor: "bg-rose-500/20 text-rose-400",     message: "You left your jacket at mine btw",                    time: "Yesterday", badge: 0, blurred: false },
+  { id: 10, name: "Ethan Park",      initial: "EP", avatarColor: "bg-teal-500/20 text-teal-400",     message: "Gym at 6? I'll bring the pre workout",                time: "Mon",       badge: 0, blurred: false },
+  { id: 11, name: "Ryan Torres",     initial: "RT", avatarColor: "bg-orange-500/20 text-orange-400", message: "It's sorted, don't stress about it",                  time: "Mon",       badge: 0, blurred: false },
+  { id: 12, name: "Zoe Campbell",    initial: "ZC", avatarColor: "bg-purple-500/20 text-purple-400", message: "Haha okay okay fair enough 😂",                       time: "Sun",       badge: 0, blurred: false },
+  { id: 13, name: "Nathan Brooks",   initial: "NB", avatarColor: "bg-emerald-500/20 text-emerald-400", message: "Yeah I'll call you later when I'm done with this",  time: "Sun",       badge: 0, blurred: false },
 ];
 
 export default function Chats() {
