@@ -146,22 +146,35 @@ export default function Dashboard() {
       {/* QUICK MENU — first section */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { value: 79, color: "text-purple-500", count: "948",  label: "Calls",    route: "/calls"    },
-          { value: 82, color: "text-cyan-500",   count: "12.3k",label: "Messages", route: "/chats"    },
-          { value: 38, color: "text-green-500",  count: "188",  label: "Location", route: "/activity" },
-          { value: 60, color: "text-pink-500",   count: "1.2k", label: "Firewall", route: "/activity" },
+          { value: 79, color: "text-purple-500", count: "948",  label: "Calls",    route: "/calls"  },
+          { value: 82, color: "text-cyan-500",   count: "12.3k",label: "Messages", route: "/chats"  },
+          { value: 38, color: "text-green-500",  count: "188",  label: "Location", route: null      },
+          { value: 60, color: "text-pink-500",   count: "1.2k", label: "Firewall", route: null      },
         ].map((item) => (
-          <button
-            key={item.label}
-            onClick={() => navigate(item.route)}
-            className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-all hover:-translate-y-1 duration-300 cursor-pointer active:scale-95 group"
-          >
-            <CircularProgress value={item.value} colorClass={item.color} size={56} strokeWidth={4} />
-            <div className="text-center">
-              <p className="text-lg font-bold">{item.count}</p>
-              <p className="text-[10px] text-muted-foreground uppercase tracking-widest group-hover:text-primary transition-colors">{item.label}</p>
+          item.route ? (
+            <button
+              key={item.label}
+              onClick={() => navigate(item.route!)}
+              className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-all hover:-translate-y-1 duration-300 cursor-pointer active:scale-95 group"
+            >
+              <CircularProgress value={item.value} colorClass={item.color} size={56} strokeWidth={4} />
+              <div className="text-center">
+                <p className="text-lg font-bold">{item.count}</p>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-widest group-hover:text-primary transition-colors">{item.label}</p>
+              </div>
+            </button>
+          ) : (
+            <div
+              key={item.label}
+              className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3"
+            >
+              <CircularProgress value={item.value} colorClass={item.color} size={56} strokeWidth={4} />
+              <div className="text-center">
+                <p className="text-lg font-bold">{item.count}</p>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-widest">{item.label}</p>
+              </div>
             </div>
-          </button>
+          )
         ))}
       </div>
 
