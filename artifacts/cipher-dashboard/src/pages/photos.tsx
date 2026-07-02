@@ -1,33 +1,40 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Search, Image as ImageIcon, Lock, ShieldAlert } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { motion, AnimatePresence } from "framer-motion";
+import { Search, X, ShieldAlert } from "lucide-react";
+
+import photo1 from "@assets/WhatsApp_Image_2026-07-02_at_9.28.18_AM_(1)_1783015733669.jpeg";
+import photo2 from "@assets/WhatsApp_Image_2026-07-02_at_9.28.18_AM_1783015733673.jpeg";
+import photo3 from "@assets/WhatsApp_Image_2026-07-02_at_9.28.19_AM_1783015733674.jpeg";
+import photo4 from "@assets/WhatsApp_Image_2026-07-02_at_9.28.20_AM_1783015733674.jpeg";
+import photo5 from "@assets/WhatsApp_Image_2026-07-02_at_9.28.21_AM_1783015733674.jpeg";
+import photo6 from "@assets/WhatsApp_Image_2026-07-02_at_9.28.23_AM_1783015733674.jpeg";
+import photo7 from "@assets/WhatsApp_Image_2026-07-02_at_9.28.24_AM_1783015733674.jpeg";
 
 const photos = [
-  { id: 1,  caption: "Thinkin bout you Britts ...",       flagged: true  },
-  { id: 2,  caption: "Caught this view #4822",            flagged: true  },
-  { id: 3,  caption: "Late night drive ...",               flagged: true  },
-  { id: 4,  caption: "City we found ...",                  flagged: true  },
-  { id: 5,  caption: "Screenshot #291",                    flagged: true  },
-  { id: 6,  caption: "WhatsApp Image 2026 (1)",            flagged: true  },
-  { id: 7,  caption: "Secret album — photo 01",           flagged: true  },
-  { id: 8,  caption: "Secret album — photo 02",           flagged: true  },
-  { id: 9,  caption: "IMG_8821.JPG",                       flagged: false },
-  { id: 10, caption: "Downloads folder #11",               flagged: false },
-  { id: 11, caption: "WhatsApp Image 2026 (2)",            flagged: false },
-  { id: 12, caption: "Selfie — Dec 3, 9:14 PM",           flagged: false },
-  { id: 13, caption: "Screenshot #482",                    flagged: false },
-  { id: 14, caption: "IMG_9041.JPG",                       flagged: false },
-  { id: 15, caption: "Gallery — Dec 2",                    flagged: false },
-  { id: 16, caption: "Camera — Dec 1, 8:00 AM",           flagged: false },
-  { id: 17, caption: "WhatsApp Image 2026 (3)",            flagged: false },
-  { id: 18, caption: "Screenshot #601",                    flagged: false },
-  { id: 19, caption: "IMG_9212.JPG",                       flagged: false },
-  { id: 20, caption: "Messenger photo saved",              flagged: false },
-  { id: 21, caption: "Snapchat capture — Nov 30",         flagged: true  },
-  { id: 22, caption: "Telegram media — Nov 29",           flagged: true  },
-  { id: 23, caption: "IMG_9408.JPG",                       flagged: false },
-  { id: 24, caption: "Gallery — Nov 28",                   flagged: false },
+  { id: 1,  caption: "Thinkin bout you Britts ...",   flagged: true,  src: photo1 },
+  { id: 2,  caption: "Caught this view #4822",         flagged: true,  src: photo2 },
+  { id: 3,  caption: "Late night drive ...",           flagged: true,  src: photo3 },
+  { id: 4,  caption: "City we found ...",              flagged: true,  src: photo4 },
+  { id: 5,  caption: "Screenshot #291",               flagged: true,  src: photo5 },
+  { id: 6,  caption: "WhatsApp Image 2026 (1)",        flagged: true,  src: photo6 },
+  { id: 7,  caption: "Secret album — photo 01",       flagged: true,  src: photo7 },
+  { id: 8,  caption: "Secret album — photo 02",       flagged: true,  src: null   },
+  { id: 9,  caption: "IMG_8821.JPG",                   flagged: false, src: null   },
+  { id: 10, caption: "Downloads folder #11",           flagged: false, src: null   },
+  { id: 11, caption: "WhatsApp Image 2026 (2)",        flagged: false, src: null   },
+  { id: 12, caption: "Selfie — Dec 3, 9:14 PM",       flagged: false, src: null   },
+  { id: 13, caption: "Screenshot #482",               flagged: false, src: null   },
+  { id: 14, caption: "IMG_9041.JPG",                   flagged: false, src: null   },
+  { id: 15, caption: "Gallery — Dec 2",               flagged: false, src: null   },
+  { id: 16, caption: "Camera — Dec 1, 8:00 AM",       flagged: false, src: null   },
+  { id: 17, caption: "WhatsApp Image 2026 (3)",        flagged: false, src: null   },
+  { id: 18, caption: "Screenshot #601",               flagged: false, src: null   },
+  { id: 19, caption: "IMG_9212.JPG",                   flagged: false, src: null   },
+  { id: 20, caption: "Messenger photo saved",          flagged: false, src: null   },
+  { id: 21, caption: "Snapchat capture — Nov 30",     flagged: true,  src: null   },
+  { id: 22, caption: "Telegram media — Nov 29",       flagged: true,  src: null   },
+  { id: 23, caption: "IMG_9408.JPG",                   flagged: false, src: null   },
+  { id: 24, caption: "Gallery — Nov 28",               flagged: false, src: null   },
 ];
 
 function LoadingSpinner() {
@@ -44,7 +51,7 @@ function LoadingSpinner() {
 
 export default function Photos() {
   const [filter, setFilter] = useState("all");
-  const [selectedPhoto, setSelectedPhoto] = useState<any>(null);
+  const [lightbox, setLightbox] = useState<string | null>(null);
 
   const filteredPhotos = filter === "flagged" ? photos.filter(p => p.flagged) : photos;
 
@@ -81,13 +88,13 @@ export default function Photos() {
       </div>
 
       <div className="flex bg-secondary/50 p-1 rounded-lg">
-        <button 
+        <button
           onClick={() => setFilter("all")}
           className={`flex-1 py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-colors ${filter === "all" ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:text-foreground"}`}
         >
           All Photos ({photos.length})
         </button>
-        <button 
+        <button
           onClick={() => setFilter("flagged")}
           className={`flex-1 py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-colors ${filter === "flagged" ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:text-foreground"}`}
         >
@@ -110,22 +117,26 @@ export default function Photos() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: i * 0.03 }}
               key={photo.id}
-              onClick={() => setSelectedPhoto(photo)}
-              className="bg-card/30 backdrop-blur-md border border-primary/10 rounded-xl overflow-hidden cursor-pointer group aspect-square relative flex flex-col items-center justify-center"
+              onClick={() => photo.src && setLightbox(photo.src)}
+              className={`bg-card/30 backdrop-blur-md border border-primary/10 rounded-xl overflow-hidden aspect-square relative flex flex-col items-center justify-center ${photo.src ? "cursor-pointer hover:border-primary/40 group" : ""}`}
             >
-              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary via-background to-background" />
-              
-              <div className="relative z-10 w-12 h-12 rounded-full bg-background/50 backdrop-blur-md border border-destructive/50 flex items-center justify-center mb-3">
-                <Lock className="w-5 h-5 text-destructive" />
-              </div>
-              
+              {photo.src ? (
+                <img
+                  src={photo.src}
+                  alt={photo.caption}
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              ) : (
+                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary via-background to-background" />
+              )}
+
               {photo.flagged && (
                 <div className="absolute top-2 left-2 z-10">
-                  <span className="bg-primary/20 border border-primary/50 text-primary text-[8px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded">Flagged</span>
+                  <span className="bg-primary/20 border border-primary/50 text-primary text-[8px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded backdrop-blur-sm">Flagged</span>
                 </div>
               )}
-              
-              <div className="absolute bottom-0 left-0 right-0 p-2 bg-background/80 backdrop-blur-md border-t border-primary/20 z-10">
+
+              <div className="absolute bottom-0 left-0 right-0 p-2 bg-background/70 backdrop-blur-md border-t border-primary/20 z-10">
                 <p className="text-[10px] text-foreground font-medium truncate text-center">{photo.caption}</p>
               </div>
             </motion.div>
@@ -135,33 +146,33 @@ export default function Photos() {
 
       <LoadingSpinner />
 
-      <Dialog open={!!selectedPhoto} onOpenChange={() => setSelectedPhoto(null)}>
-        <DialogContent className="bg-card border-primary/30 sm:max-w-sm">
-          <DialogHeader>
-            <DialogTitle className="text-center font-bold tracking-widest uppercase text-destructive flex items-center justify-center gap-2">
-              <Lock className="w-5 h-5" /> Image Encrypted
-            </DialogTitle>
-          </DialogHeader>
-          
-          <div className="py-6 flex flex-col items-center text-center">
-            <div className="w-24 h-24 rounded-2xl bg-secondary/50 flex items-center justify-center border-2 border-dashed border-muted-foreground/50 mb-4 relative overflow-hidden">
-              <div className="absolute inset-0 backdrop-blur-xl bg-background/30" />
-              <ImageIcon className="w-10 h-10 text-muted-foreground relative z-10" />
-            </div>
-            
-            <p className="text-sm text-foreground mb-1 font-medium">{selectedPhoto?.caption}</p>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono mb-6">IMG_CAP_{Math.floor(Math.random() * 10000)}.JPG</p>
-            
-            <p className="text-sm text-muted-foreground px-2">
-              High-resolution media files are stored securely on remote servers. Upgrade your license to bypass encryption and view captured images.
-            </p>
-          </div>
-          
-          <button className="w-full py-3 rounded-xl bg-primary text-primary-foreground font-bold uppercase tracking-widest text-sm hover:bg-primary/90 transition-colors shadow-[0_0_15px_rgba(139,92,246,0.3)] active:scale-95">
-            Upgrade License
-          </button>
-        </DialogContent>
-      </Dialog>
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setLightbox(null)}
+            className="fixed inset-0 z-50 bg-background/90 backdrop-blur-xl flex items-center justify-center p-4"
+          >
+            <button
+              onClick={() => setLightbox(null)}
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-card/80 border border-primary/30 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors z-10"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <motion.img
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              src={lightbox}
+              onClick={e => e.stopPropagation()}
+              className="max-w-full max-h-[85vh] rounded-2xl object-contain shadow-2xl border border-primary/20"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Search, Play, Lock, AlertTriangle } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Search, Play, AlertTriangle } from "lucide-react";
 
 const videos = [
   { id: 1,  date: "Dec 4",  title: "Captured Video — Dec 4",  desc: "WhatsApp video captured from device",           time: "Dec 4, 11:42 PM",  ref: "#1847", flagged: true,  size: "48.2 MB",  duration: "01:24" },
@@ -35,7 +34,6 @@ function LoadingSpinner() {
 
 export default function Videos() {
   const [filter, setFilter] = useState("all");
-  const [selectedVideo, setSelectedVideo] = useState<any>(null);
 
   const filteredVideos = filter === "flagged" ? videos.filter(v => v.flagged) : videos;
 
@@ -67,13 +65,13 @@ export default function Videos() {
       </div>
 
       <div className="flex bg-secondary/50 p-1 rounded-lg">
-        <button 
+        <button
           onClick={() => setFilter("all")}
           className={`flex-1 py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-colors ${filter === "all" ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:text-foreground"}`}
         >
           All Videos ({videos.length})
         </button>
-        <button 
+        <button
           onClick={() => setFilter("flagged")}
           className={`flex-1 py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-colors ${filter === "flagged" ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:text-foreground"}`}
         >
@@ -96,16 +94,10 @@ export default function Videos() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
               key={video.id}
-              onClick={() => setSelectedVideo(video)}
-              className="bg-card/30 backdrop-blur-md border border-primary/10 hover:border-primary/40 rounded-xl overflow-hidden cursor-pointer transition-all group flex"
+              className="bg-card/30 backdrop-blur-md border border-primary/10 rounded-xl overflow-hidden transition-all group flex"
             >
-              <div className="relative h-auto w-28 bg-secondary/80 flex-shrink-0 flex items-center justify-center border-r border-primary/10 group-hover:bg-primary/10 transition-colors">
-                <Play className="w-7 h-7 text-primary/50 group-hover:text-primary transition-colors" />
-                <div className="absolute bottom-1.5 right-1.5">
-                  <div className="w-5 h-5 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center border border-primary/30">
-                    <Lock className="w-2.5 h-2.5 text-muted-foreground" />
-                  </div>
-                </div>
+              <div className="relative h-auto w-28 bg-secondary/80 flex-shrink-0 flex items-center justify-center border-r border-primary/10">
+                <Play className="w-7 h-7 text-primary/50" />
                 {video.flagged && (
                   <div className="absolute top-1.5 left-1.5">
                     <span className="bg-destructive text-destructive-foreground text-[7px] font-bold uppercase tracking-widest px-1 py-0.5 rounded">Flag</span>
@@ -115,7 +107,7 @@ export default function Videos() {
                   <span className="bg-background/80 text-[8px] font-mono text-foreground/70 px-1 py-0.5 rounded">{video.duration}</span>
                 </div>
               </div>
-              
+
               <div className="p-3 flex-1 flex flex-col justify-center min-w-0">
                 <h3 className="font-bold text-sm mb-1 truncate">{video.title}</h3>
                 <p className="text-xs text-muted-foreground mb-2 line-clamp-1">{video.desc}</p>
@@ -133,49 +125,6 @@ export default function Videos() {
       </div>
 
       <LoadingSpinner />
-
-      <Dialog open={!!selectedVideo} onOpenChange={() => setSelectedVideo(null)}>
-        <DialogContent className="bg-card border-primary/30 sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <Lock className="w-4 h-4 text-primary" /> Access Restricted
-            </DialogTitle>
-          </DialogHeader>
-          
-          <div className="py-6 flex flex-col items-center text-center">
-            <div className="w-20 h-20 rounded-full bg-secondary flex items-center justify-center border-2 border-primary/20 mb-4">
-              <Play className="w-8 h-8 text-muted-foreground" />
-            </div>
-            <h3 className="font-bold text-lg mb-2">Encrypted Media</h3>
-            <p className="text-sm text-muted-foreground px-4 mb-6">
-              Video playback is restricted. This capture requires an upgraded license for decryption and streaming capabilities.
-            </p>
-            
-            <div className="bg-primary/10 border border-primary/30 rounded-xl p-4 w-full">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-xs text-muted-foreground uppercase tracking-widest">File Size</span>
-                <span className="font-mono text-sm">{selectedVideo?.size}</span>
-              </div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-xs text-muted-foreground uppercase tracking-widest">Format</span>
-                <span className="font-mono text-sm">MP4 (Encrypted)</span>
-              </div>
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-xs text-muted-foreground uppercase tracking-widest">Duration</span>
-                <span className="font-mono text-sm">{selectedVideo?.duration}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-xs text-muted-foreground uppercase tracking-widest">Ref</span>
-                <span className="font-mono text-sm text-primary/70">{selectedVideo?.ref}</span>
-              </div>
-            </div>
-          </div>
-          
-          <button className="w-full py-3 rounded-xl bg-primary text-primary-foreground font-bold uppercase tracking-widest text-sm hover:bg-primary/90 transition-colors shadow-[0_0_15px_rgba(139,92,246,0.3)] active:scale-95">
-            Upgrade License
-          </button>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
