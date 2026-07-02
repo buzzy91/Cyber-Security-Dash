@@ -4,26 +4,26 @@ import { Search, Phone, PhoneIncoming, PhoneOutgoing, PhoneMissed, ShieldAlert }
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 const calls = [
-  { id: 1,  name: "Kevin Berryhill", phone: "+1 (817) 353-8219", duration: "4m 23s",  time: "Today, 9:41 AM",  type: "outgoing", blurred: true },
-  { id: 2,  name: "Joel",            phone: "+1 (210) 771-8727", duration: "12m 01s", time: "Today, 8:15 AM",  type: "incoming", blurred: true },
-  { id: 3,  name: "Unknown",         phone: "Unknown",           duration: "Missed",  time: "Today, 7:02 AM",  type: "missed",   blurred: true },
-  { id: 4,  name: "Unknown",         phone: "Unknown",           duration: "2m 48s",  time: "Yesterday, 11:54 PM", type: "incoming", blurred: true },
-  { id: 5,  name: "Unknown",         phone: "Unknown",           duration: "18m 34s", time: "Yesterday, 9:30 PM",  type: "outgoing", blurred: true },
-  { id: 6,  name: "Unknown",         phone: "Unknown",           duration: "6m 10s",  time: "Yesterday, 6:15 PM",  type: "incoming", blurred: true },
-  { id: 7,  name: "Unknown",         phone: "Unknown",           duration: "Missed",  time: "Yesterday, 4:00 PM",  type: "missed",   blurred: true },
-  { id: 8,  name: "Unknown",         phone: "Unknown",           duration: "1m 05s",  time: "Yesterday, 1:22 PM",  type: "outgoing", blurred: true },
-  { id: 9,  name: "Unknown",         phone: "Unknown",           duration: "Missed",  time: "Mon, 10:45 AM",   type: "missed",   blurred: true },
-  { id: 10, name: "Unknown",         phone: "Unknown",           duration: "33m 19s", time: "Mon, 8:00 AM",    type: "incoming", blurred: true },
-  { id: 11, name: "Unknown",         phone: "Unknown",           duration: "7m 52s",  time: "Sun, 11:30 PM",   type: "outgoing", blurred: true },
-  { id: 12, name: "Unknown",         phone: "Unknown",           duration: "Missed",  time: "Sun, 9:14 PM",    type: "missed",   blurred: true },
-  { id: 13, name: "Unknown",         phone: "Unknown",           duration: "21m 44s", time: "Sun, 4:00 PM",    type: "incoming", blurred: true },
-  { id: 14, name: "Unknown",         phone: "Unknown",           duration: "3m 30s",  time: "Sat, 2:20 PM",    type: "outgoing", blurred: true },
-  { id: 15, name: "Unknown",         phone: "Unknown",           duration: "Missed",  time: "Sat, 11:05 AM",   type: "missed",   blurred: true },
-  { id: 16, name: "Unknown",         phone: "Unknown",           duration: "9m 58s",  time: "Sat, 9:44 AM",    type: "incoming", blurred: true },
-  { id: 17, name: "Unknown",         phone: "Unknown",           duration: "Missed",  time: "Fri, 8:30 PM",    type: "missed",   blurred: true },
-  { id: 18, name: "Unknown",         phone: "Unknown",           duration: "14m 11s", time: "Fri, 6:15 PM",    type: "outgoing", blurred: true },
-  { id: 19, name: "Unknown",         phone: "Unknown",           duration: "5m 03s",  time: "Fri, 3:00 PM",    type: "incoming", blurred: true },
-  { id: 20, name: "Unknown",         phone: "Unknown",           duration: "Missed",  time: "Thu, 10:00 AM",   type: "missed",   blurred: true },
+  { id: 1,  name: "Sophia",          phone: "+1 (541) 293-1847", duration: "4m 23s",  time: "Today, 9:41 AM",      type: "outgoing", blurred: true },
+  { id: 2,  name: "Polina xx",       phone: "+1 (541) 874-3920", duration: "12m 01s", time: "Today, 8:15 AM",      type: "incoming", blurred: true },
+  { id: 3,  name: "Jane Aubrey",     phone: "+1 (503) 761-2948", duration: "Missed",  time: "Today, 7:02 AM",      type: "missed",   blurred: true },
+  { id: 4,  name: "Natalia",         phone: "+1 (971) 482-3715", duration: "2m 48s",  time: "Yesterday, 11:54 PM", type: "incoming", blurred: true },
+  { id: 5,  name: "Iris",            phone: "+1 (541) 604-8273", duration: "18m 34s", time: "Yesterday, 9:30 PM",  type: "outgoing", blurred: true },
+  { id: 6,  name: "Emma Rhodes",     phone: "+1 (503) 329-1074", duration: "6m 10s",  time: "Yesterday, 6:15 PM",  type: "incoming", blurred: true },
+  { id: 7,  name: "Kevin Berryhill", phone: "+1 (817) 353-8219", duration: "Missed",  time: "Yesterday, 4:00 PM",  type: "missed",   blurred: true },
+  { id: 8,  name: "Mia Torres",      phone: "+1 (541) 938-2046", duration: "1m 05s",  time: "Yesterday, 1:22 PM",  type: "outgoing", blurred: true },
+  { id: 9,  name: "Sarah Collins",   phone: "+1 (971) 215-3847", duration: "Missed",  time: "Mon, 10:45 AM",       type: "missed",   blurred: true },
+  { id: 10, name: "Marcus Webb",     phone: "+1 (210) 554-7831", duration: "33m 19s", time: "Mon, 8:00 AM",        type: "incoming", blurred: true },
+  { id: 11, name: "Sophia",          phone: "+1 (541) 293-1847", duration: "7m 52s",  time: "Sun, 11:30 PM",       type: "outgoing", blurred: true },
+  { id: 12, name: "Polina xx",       phone: "+1 (541) 874-3920", duration: "Missed",  time: "Sun, 9:14 PM",        type: "missed",   blurred: true },
+  { id: 13, name: "Tyler Johnson",   phone: "+1 (214) 783-4921", duration: "21m 44s", time: "Sun, 4:00 PM",        type: "incoming", blurred: true },
+  { id: 14, name: "Zoe Campbell",    phone: "+1 (503) 847-2193", duration: "3m 30s",  time: "Sat, 2:20 PM",        type: "outgoing", blurred: true },
+  { id: 15, name: "Iris",            phone: "+1 (541) 604-8273", duration: "Missed",  time: "Sat, 11:05 AM",       type: "missed",   blurred: true },
+  { id: 16, name: "Daniel Cruz",     phone: "+1 (469) 382-7015", duration: "9m 58s",  time: "Sat, 9:44 AM",        type: "incoming", blurred: true },
+  { id: 17, name: "Natalia",         phone: "+1 (971) 482-3715", duration: "Missed",  time: "Fri, 8:30 PM",        type: "missed",   blurred: true },
+  { id: 18, name: "Jane Aubrey",     phone: "+1 (503) 761-2948", duration: "14m 11s", time: "Fri, 6:15 PM",        type: "outgoing", blurred: true },
+  { id: 19, name: "Emma Rhodes",     phone: "+1 (503) 329-1074", duration: "5m 03s",  time: "Fri, 3:00 PM",        type: "incoming", blurred: true },
+  { id: 20, name: "Liam Hartley",    phone: "+1 (512) 294-0381", duration: "Missed",  time: "Thu, 10:00 AM",       type: "missed",   blurred: true },
 ];
 
 function LoadingSpinner() {
@@ -130,7 +130,7 @@ export default function Calls() {
                 {getCallIcon(call.type)}
               </div>
               <div>
-                <h3 className="font-bold text-sm blur-sm select-none text-foreground">
+                <h3 className="font-bold text-sm text-foreground">
                   {call.name}
                 </h3>
                 <p className="text-xs text-muted-foreground font-mono blur-sm select-none">
@@ -166,7 +166,7 @@ export default function Calls() {
                 <div className={`w-16 h-16 rounded-full mx-auto flex items-center justify-center mb-3 border-2 ${getCallStyle(selectedCall?.type)}`}>
                   {getCallIcon(selectedCall?.type)}
                 </div>
-                <h2 className="text-xl font-bold blur-sm select-none">{selectedCall?.name}</h2>
+                <h2 className="text-xl font-bold">{selectedCall?.name}</h2>
                 <p className="text-lg font-mono text-primary mt-1 blur-sm select-none">+•• (•••) •••-••••</p>
                 <p className="text-xs uppercase tracking-widest text-muted-foreground mt-2">{selectedCall?.type} CALL • {selectedCall?.duration}</p>
                 <p className="text-[10px] text-muted-foreground mt-1 font-mono">{selectedCall?.time}</p>
@@ -183,7 +183,7 @@ export default function Calls() {
             <button className="flex-1 py-2.5 rounded-lg border border-destructive/50 text-destructive hover:bg-destructive/10 transition-colors active:scale-95 text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2">
               Block
             </button>
-            <button className="flex-1 py-2.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-[0_0_10px_rgba(139,92,246,0.3)] active:scale-95 text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2">
+            <button className="flex-1 py-2.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-[0_0_10px_rgba(204,0,255,0.3)] active:scale-95 text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2">
               <Phone className="w-4 h-4" /> Trace
             </button>
           </div>
