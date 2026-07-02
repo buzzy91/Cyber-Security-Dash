@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import NotFound from "@/pages/not-found";
 import { Menu, Bell, Phone, MessageSquare, Video, Image as ImageIcon, Settings, X, Zap, LayoutDashboard, Instagram } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import logoImg from "@assets/WhatsApp_Image_2026-05-31_at_9.54.27_PM_1780289753935.jpeg";
+import logoImg from "@assets/WhatsApp_Image_2026-07-02_at_9.38.54_AM_1783011372119.jpeg";
 
 import Dashboard from "@/pages/dashboard";
 import ActivityIntelligence from "@/pages/activity";
@@ -57,12 +57,12 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
       >
         <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none" />
 
-        <div className="w-24 h-24 rounded-full overflow-hidden mb-6 shadow-[0_0_25px_rgba(139,92,246,0.6)] border-2 border-primary/40">
-          <img src={logoImg} alt="Jeff CyberHelp" className="w-full h-full object-cover" />
+        <div className="w-28 h-28 rounded-2xl overflow-hidden mb-6 shadow-[0_0_30px_rgba(204,0,255,0.7)] border-2 border-primary/50">
+          <img src={logoImg} alt="Cipher Tech" className="w-full h-full object-cover" />
         </div>
 
-        <h1 className="text-2xl font-bold tracking-widest text-center mb-2">JEFF CYBERHELP</h1>
-        <p className="text-muted-foreground text-sm mb-8 text-center uppercase tracking-wider">Secure Access Required</p>
+        <h1 className="text-2xl font-bold tracking-widest text-center mb-2">CIPHER TECH</h1>
+        <p className="text-muted-foreground text-sm mb-8 text-center uppercase tracking-wider">Let's Get You In</p>
 
         <div className="flex gap-2 mb-8">
           {[0, 1, 2, 3, 4, 5].map((i) => (
@@ -138,15 +138,15 @@ function Sidebar({ isOpen, onClose, location }: { isOpen: boolean, onClose: () =
         initial={{ x: "-100%" }}
         animate={{ x: isOpen ? 0 : "-100%" }}
         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="fixed top-0 left-0 bottom-0 w-72 bg-card/95 backdrop-blur-xl border-r border-primary/20 z-50 flex flex-col md:translate-x-0 md:relative shadow-[0_0_30px_rgba(139,92,246,0.1)]"
+        className="fixed top-0 left-0 bottom-0 w-72 bg-card/95 backdrop-blur-xl border-r border-primary/20 z-50 flex flex-col md:translate-x-0 md:relative shadow-[0_0_30px_rgba(204,0,255,0.15)]"
       >
         <div className="p-5 flex items-center gap-3 border-b border-primary/10">
-          <div className="w-11 h-11 rounded-full overflow-hidden shadow-[0_0_12px_rgba(139,92,246,0.5)] border border-primary/40 flex-shrink-0">
-            <img src={logoImg} alt="Jeff CyberHelp" className="w-full h-full object-cover" />
+          <div className="w-11 h-11 rounded-xl overflow-hidden shadow-[0_0_14px_rgba(204,0,255,0.6)] border border-primary/40 flex-shrink-0">
+            <img src={logoImg} alt="Cipher Tech" className="w-full h-full object-cover" />
           </div>
           <div>
-            <h2 className="font-bold text-sm tracking-wider text-foreground leading-tight">JEFF CYBERHELP</h2>
-            <p className="text-[10px] uppercase tracking-widest text-primary font-bold">Investigation</p>
+            <h2 className="font-bold text-sm tracking-wider text-foreground leading-tight">CIPHER TECH</h2>
+            <p className="text-[10px] uppercase tracking-widest text-primary font-bold">Cyber Intelligence</p>
           </div>
           <button onClick={onClose} className="ml-auto text-muted-foreground hover:text-foreground transition-colors">
             <X className="w-5 h-5" />
@@ -195,8 +195,8 @@ function TopHeader({ onOpenSidebar }: { onOpenSidebar: () => void }) {
         <button onClick={onOpenSidebar} data-testid="button-open-sidebar" className="p-2 -ml-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors">
           <Menu className="w-6 h-6" />
         </button>
-        <div className="w-9 h-9 rounded-full overflow-hidden shadow-[0_0_10px_rgba(139,92,246,0.5)] border border-primary/40 flex-shrink-0">
-          <img src={logoImg} alt="Jeff CyberHelp" className="w-full h-full object-cover" />
+        <div className="w-9 h-9 rounded-xl overflow-hidden shadow-[0_0_12px_rgba(204,0,255,0.6)] border border-primary/40 flex-shrink-0">
+          <img src={logoImg} alt="Cipher Tech" className="w-full h-full object-cover" />
         </div>
       </div>
 
@@ -267,7 +267,7 @@ function MainLayout() {
 
   return (
     <div className="fixed inset-0 bg-background text-foreground font-sans selection:bg-primary/30 overflow-hidden">
-      <div className="fixed inset-0 pointer-events-none opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%)' }} />
+      <div className="fixed inset-0 pointer-events-none opacity-30" style={{ backgroundImage: 'radial-gradient(circle at 50% 0%, rgba(204, 0, 255, 0.18) 0%, rgba(0, 204, 255, 0.06) 50%, transparent 70%)' }} />
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} location={location} />
 
       {/* Main content — always sits behind/beside the fixed sidebar */}
