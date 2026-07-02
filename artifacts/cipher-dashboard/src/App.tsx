@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { motion, AnimatePresence } from "framer-motion";
 import NotFound from "@/pages/not-found";
-import { Menu, Bell, Phone, MessageSquare, Video, Image as ImageIcon, Settings, X, Zap, LayoutDashboard, Instagram } from "lucide-react";
+import { Menu, Bell, Phone, MessageSquare, Video, Image as ImageIcon, Settings, X, Zap, LayoutDashboard } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import logoImg from "@assets/WhatsApp_Image_2026-07-02_at_9.38.54_AM_1783011372119.jpeg";
 
@@ -117,7 +117,6 @@ function Sidebar({ isOpen, onClose, location }: { isOpen: boolean, onClose: () =
     { href: "/calls", label: "Calls", icon: <Phone className="w-5 h-5" /> },
     { href: "/videos", label: "Videos", icon: <Video className="w-5 h-5" /> },
     { href: "/photos", label: "Photo Library", icon: <ImageIcon className="w-5 h-5" /> },
-    { href: "/instagram", label: "Instagram Spy", icon: <Instagram className="w-5 h-5" /> },
     { href: "/settings", label: "Settings", icon: <Settings className="w-5 h-5" /> },
   ];
 
@@ -173,7 +172,7 @@ function Sidebar({ isOpen, onClose, location }: { isOpen: boolean, onClose: () =
               <AvatarFallback className="bg-primary/20 text-primary">D</AvatarFallback>
             </Avatar>
             <div className="overflow-hidden">
-              <p className="text-xs font-medium truncate text-foreground">Davidjtaguirre@gmail.com</p>
+              <p className="text-xs font-medium truncate text-foreground">olegzaikov87@gmail.com</p>
               <div className="flex items-center gap-1.5 mt-1">
                 <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_5px_rgba(34,197,94,0.8)] animate-pulse" />
                 <span className="text-[10px] text-green-500 uppercase tracking-wider font-bold">Active Now</span>
@@ -188,6 +187,7 @@ function Sidebar({ isOpen, onClose, location }: { isOpen: boolean, onClose: () =
 
 function TopHeader({ onOpenSidebar }: { onOpenSidebar: () => void }) {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
 
   return (
     <header className="h-16 border-b border-primary/20 bg-card/50 backdrop-blur-xl sticky top-0 z-30 flex items-center justify-between px-4">
@@ -249,9 +249,47 @@ function TopHeader({ onOpenSidebar }: { onOpenSidebar: () => void }) {
           </AnimatePresence>
         </div>
         
-        <Avatar className="w-8 h-8 border border-primary/30 cursor-pointer hover:shadow-[0_0_10px_rgba(139,92,246,0.5)] transition-all">
-          <AvatarFallback className="bg-primary/20 text-primary text-xs">D</AvatarFallback>
-        </Avatar>
+        <div className="relative">
+          <button
+            onClick={() => setProfileOpen(!profileOpen)}
+            className="block"
+          >
+            <Avatar className="w-8 h-8 border border-primary/30 cursor-pointer hover:shadow-[0_0_10px_rgba(204,0,255,0.5)] transition-all">
+              <AvatarFallback className="bg-primary/20 text-primary text-xs">D</AvatarFallback>
+            </Avatar>
+          </button>
+          <AnimatePresence>
+            {profileOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                className="absolute right-0 top-10 w-64 bg-card border border-primary/30 rounded-xl shadow-2xl overflow-hidden z-50"
+              >
+                <div className="p-4 border-b border-primary/10 bg-secondary/30 flex items-center gap-3">
+                  <Avatar className="w-10 h-10 border border-primary/40 bg-primary/10">
+                    <AvatarFallback className="text-primary font-bold text-sm">D</AvatarFallback>
+                  </Avatar>
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold text-foreground truncate">olegzaikov87@gmail.com</p>
+                    <div className="flex items-center gap-1.5 mt-0.5">
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_4px_rgba(34,197,94,0.8)] animate-pulse" />
+                      <span className="text-[10px] text-green-500 uppercase tracking-wider font-bold">Active</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-2">
+                  <button className="w-full text-left px-3 py-2 text-xs text-muted-foreground hover:text-foreground hover:bg-primary/10 rounded-lg transition-colors uppercase tracking-widest font-bold">
+                    Profile
+                  </button>
+                  <button className="w-full text-left px-3 py-2 text-xs text-destructive hover:bg-destructive/10 rounded-lg transition-colors uppercase tracking-widest font-bold">
+                    Sign Out
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </header>
   );
