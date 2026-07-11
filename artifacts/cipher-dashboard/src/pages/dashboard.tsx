@@ -474,7 +474,7 @@ export default function Dashboard() {
           <span className="text-lg font-bold text-destructive">98%</span>
         </div>
         
-        <p className="text-sm mb-3 font-medium">49 GB used of 50 GB</p>
+        <p className="text-sm mb-3 font-medium">4.9 TB used of 5 TB</p>
         <div className="w-full h-2 bg-secondary rounded-full overflow-hidden mb-2">
           <div className="h-full bg-destructive rounded-full w-[98%]" />
         </div>
@@ -500,7 +500,7 @@ export default function Dashboard() {
                   <span className="font-mono font-bold">$450/mo</span>
                 </div>
                 <ul className="text-xs text-muted-foreground space-y-1">
-                  <li>• 100 GB Encrypted Storage</li>
+                  <li>• 100 TB Encrypted Storage</li>
                   <li>• Standard sync priority</li>
                   <li>• 30-day retention</li>
                 </ul>
@@ -516,7 +516,7 @@ export default function Dashboard() {
                   <span className="font-mono font-bold">$650/mo</span>
                 </div>
                 <ul className="text-xs text-foreground/80 space-y-1">
-                  <li>• 500 GB Encrypted Storage</li>
+                  <li>• 500 TB Encrypted Storage</li>
                   <li>• Real-time high-priority sync</li>
                   <li>• 90-day retention</li>
                   <li>• Direct media decryption</li>
