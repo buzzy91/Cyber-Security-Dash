@@ -17,6 +17,7 @@ import Videos from "@/pages/videos";
 import Photos from "@/pages/photos";
 import SettingsPage from "@/pages/settings";
 import InstagramSpy from "@/pages/instagram";
+import TinderPage from "@/pages/tinder";
 
 const queryClient = new QueryClient();
 
@@ -321,6 +322,7 @@ function MainLayout() {
               <Route path="/videos" component={Videos} />
               <Route path="/photos" component={Photos} />
               <Route path="/instagram" component={InstagramSpy} />
+              <Route path="/tinder" component={TinderPage} />
               <Route path="/settings" component={SettingsPage} />
               <Route component={NotFound} />
             </Switch>

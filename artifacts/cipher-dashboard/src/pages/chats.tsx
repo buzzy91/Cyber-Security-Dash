@@ -4,23 +4,15 @@ import { Search, Loader2 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const chats = [
-  { id: 1,  name: "Matt",            initial: "M",  avatarColor: "bg-blue-500/20 text-blue-400",     message: "Miss you already 😘 last night was everything...",              time: "1:37 AM",  badge: 3, blurred: false },
-  { id: 2,  name: "Craig",           initial: "C",  avatarColor: "bg-purple-500/20 text-purple-400", message: "Don't tell anyone about us okay? 🥺 I keep thinking about you", time: "1:15 PM",  badge: 2, blurred: false },
-  { id: 3,  name: "Jane Aubrey",     initial: "JA", avatarColor: "bg-rose-500/20 text-rose-400",     message: "Can we meet tonight? Same place as before 💋",                 time: "12:02 PM", badge: 0, blurred: true  },
-  { id: 4,  name: "Natalia",         initial: "N",  avatarColor: "bg-cyan-500/20 text-cyan-400",     message: "Hey you... are you free this weekend? 😏",                     time: "11:45 AM", badge: 1, blurred: true  },
-  { id: 5,  name: "Iris",            initial: "I",  avatarColor: "bg-orange-500/20 text-orange-400", message: "I told you I'm not like the others 🖤",                        time: "10:20 AM", badge: 0, blurred: true  },
-  { id: 6,  name: "Emma Rhodes",     initial: "ER", avatarColor: "bg-emerald-500/20 text-emerald-400",message: "You never replied last night, everything ok? 💭",              time: "9:55 AM",  badge: 0, blurred: true  },
-  { id: 7,  name: "Kevin Berryhill", initial: "KB", avatarColor: "bg-blue-500/20 text-blue-400",     message: "Yo what time are we meeting up?",                              time: "8:40 AM",  badge: 0, blurred: true  },
-  { id: 8,  name: "Mia Torres",      initial: "MT", avatarColor: "bg-indigo-500/20 text-indigo-400", message: "You're so different and I like it 🖤",                         time: "Yesterday", badge: 0, blurred: true  },
-  { id: 9,  name: "Sarah Collins",   initial: "SC", avatarColor: "bg-yellow-500/20 text-yellow-400", message: "Stop leaving me on read when you know I'm thinking of you",   time: "Yesterday", badge: 0, blurred: true  },
-  { id: 10, name: "Marcus Webb",     initial: "MW", avatarColor: "bg-teal-500/20 text-teal-400",     message: "Bro call me back when you get a chance",                       time: "Mon",       badge: 0, blurred: true  },
-  { id: 11, name: "Tyler Johnson",   initial: "TJ", avatarColor: "bg-green-500/20 text-green-400",   message: "Still on for Sunday right?",                                   time: "Mon",       badge: 0, blurred: true  },
-  { id: 12, name: "Zoe Campbell",    initial: "ZC", avatarColor: "bg-pink-500/20 text-pink-400",     message: "You looked so good yesterday btw 👀",                         time: "Sun",       badge: 0, blurred: true  },
-  { id: 13, name: "Daniel Cruz",     initial: "DC", avatarColor: "bg-orange-500/20 text-orange-400", message: "Let's link up this week",                                      time: "Sun",       badge: 0, blurred: true  },
+  { id: 1, name: "Matt",       initial: "M",  avatarColor: "bg-blue-500/20 text-blue-400",     message: "Dixie, I can't stop thinking about you... last night meant everything 💕", time: "1:37 AM",  badge: 3 },
+  { id: 2, name: "Craig",      initial: "C",  avatarColor: "bg-purple-500/20 text-purple-400", message: "You free tonight? Wanna grab some food",                                 time: "9:12 AM",  badge: 1 },
+  { id: 3, name: "Ashley",     initial: "A",  avatarColor: "bg-rose-500/20 text-rose-400",     message: "Ok cool, see you then 👍",                                               time: "11:20 AM", badge: 0 },
+  { id: 4, name: "Justin",     initial: "J",  avatarColor: "bg-cyan-500/20 text-cyan-400",     message: "Yo did you see the game last night?",                                    time: "2:05 PM",  badge: 0 },
+  { id: 5, name: "John Smith", initial: "JS", avatarColor: "bg-green-500/20 text-green-400",   message: "I'll call you later when I'm done",                                      time: "Yesterday", badge: 0 },
+  { id: 6, name: "Sophia",     initial: "S",  avatarColor: "bg-pink-500/20 text-pink-400",     message: "Haha yeah that was so funny 😂",                                         time: "Yesterday", badge: 0 },
 ];
 
 export default function Chats() {
-
   return (
     <div className="p-4 md:p-6 pb-24 space-y-6">
       <div className="flex items-center justify-between">
@@ -45,19 +37,13 @@ export default function Chats() {
             <Avatar className={`w-12 h-12 border border-primary/20 ${chat.avatarColor}`}>
               <AvatarFallback className={chat.avatarColor}>{chat.initial}</AvatarFallback>
             </Avatar>
-            
+
             <div className="flex-1 min-w-0">
               <div className="flex justify-between items-baseline mb-1">
-                <h3 className={`font-bold text-sm truncate ${chat.blurred ? 'blur-sm select-none' : ''}`}>
-                  {chat.name}
-                </h3>
-                <span className="text-[10px] text-muted-foreground whitespace-nowrap ml-2">
-                  {chat.time}
-                </span>
+                <h3 className="font-bold text-sm truncate">{chat.name}</h3>
+                <span className="text-[10px] text-muted-foreground whitespace-nowrap ml-2">{chat.time}</span>
               </div>
-              <p className={`text-xs text-muted-foreground truncate ${chat.blurred ? 'blur-sm select-none' : ''}`}>
-                {chat.message}
-              </p>
+              <p className="text-xs text-muted-foreground truncate">{chat.message}</p>
             </div>
 
             {chat.badge > 0 && (
@@ -73,7 +59,6 @@ export default function Chats() {
         <Loader2 className="w-4 h-4 animate-spin text-primary" />
         <span className="text-xs uppercase tracking-widest font-bold">Loading more messages...</span>
       </div>
-
     </div>
   );
 }
