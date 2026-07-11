@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Search, Play, AlertTriangle } from "lucide-react";
+import { Search, Play, AlertTriangle, Loader2 } from "lucide-react";
 
 const videos = [
   { id: 1,  date: "Dec 4",  title: "Captured Video — Dec 4",  desc: "WhatsApp video captured from device",           time: "Dec 4, 11:42 PM",  ref: "#1847", flagged: true,  size: "48.2 MB",  duration: "01:24" },
@@ -39,6 +39,18 @@ export default function Videos() {
 
   return (
     <div className="p-4 md:p-6 pb-24 space-y-6">
+      {/* Sync banner */}
+      <div className="flex items-center gap-3 px-4 py-3 bg-primary/5 border border-primary/20 rounded-xl">
+        <Loader2 className="w-4 h-4 animate-spin text-primary shrink-0" />
+        <div className="flex-1 min-w-0">
+          <p className="text-xs font-bold text-primary uppercase tracking-widest">Syncing Videos</p>
+          <p className="text-[10px] text-muted-foreground">More video files are still being decrypted from the device...</p>
+        </div>
+        <div className="w-16 h-1.5 bg-secondary rounded-full overflow-hidden shrink-0">
+          <div className="h-full bg-primary rounded-full w-1/2 animate-pulse" />
+        </div>
+      </div>
+
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-wide">Videos</h1>

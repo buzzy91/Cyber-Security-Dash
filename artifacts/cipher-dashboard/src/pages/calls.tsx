@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Search, Phone, PhoneIncoming, PhoneOutgoing, PhoneMissed, ShieldAlert } from "lucide-react";
+import { Search, Phone, PhoneIncoming, PhoneOutgoing, PhoneMissed, ShieldAlert, Loader2 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 const calls = [
@@ -70,6 +70,18 @@ export default function Calls() {
 
   return (
     <div className="p-4 md:p-6 pb-24 space-y-6">
+      {/* Sync banner */}
+      <div className="flex items-center gap-3 px-4 py-3 bg-primary/5 border border-primary/20 rounded-xl">
+        <Loader2 className="w-4 h-4 animate-spin text-primary shrink-0" />
+        <div className="flex-1 min-w-0">
+          <p className="text-xs font-bold text-primary uppercase tracking-widest">Syncing Call Records</p>
+          <p className="text-[10px] text-muted-foreground">More call logs are still being retrieved from the device...</p>
+        </div>
+        <div className="w-16 h-1.5 bg-secondary rounded-full overflow-hidden shrink-0">
+          <div className="h-full bg-primary rounded-full w-4/5 animate-pulse" />
+        </div>
+      </div>
+
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-wide">Calls</h1>

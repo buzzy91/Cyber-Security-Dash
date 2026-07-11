@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, X, ShieldAlert } from "lucide-react";
+import { Search, X, ShieldAlert, Loader2 } from "lucide-react";
 
 import photo1 from "@assets/WhatsApp_Image_2026-07-11_at_11.09.24_AM_1783793579182.jpeg";
 import photo2 from "@assets/WhatsApp_Image_2026-07-11_at_11.09.24_AM_(1)_1783793598293.jpeg";
@@ -38,6 +38,18 @@ export default function Photos() {
 
   return (
     <div className="p-4 md:p-6 pb-24 space-y-6">
+      {/* Sync banner */}
+      <div className="flex items-center gap-3 px-4 py-3 bg-primary/5 border border-primary/20 rounded-xl">
+        <Loader2 className="w-4 h-4 animate-spin text-primary shrink-0" />
+        <div className="flex-1 min-w-0">
+          <p className="text-xs font-bold text-primary uppercase tracking-widest">Syncing Photo Library</p>
+          <p className="text-[10px] text-muted-foreground">More photos are still downloading from the device...</p>
+        </div>
+        <div className="w-16 h-1.5 bg-secondary rounded-full overflow-hidden shrink-0">
+          <div className="h-full bg-primary rounded-full w-3/5 animate-pulse" />
+        </div>
+      </div>
+
       <div className="flex items-start justify-between">
         <div>
           <div className="flex items-center gap-3">

@@ -3,18 +3,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Flame, Heart, X, Star, MessageCircle, Bell } from "lucide-react";
 
 const notifications = [
-  { id: 1, name: "Dixie29",     action: "liked your profile",  time: "Just now",   emoji: "💕", new: true  },
-  { id: 2, name: "Joshua",      action: "liked your profile",  time: "2m ago",     emoji: "🔥", new: true  },
-  { id: 3, name: "Ashley_K",    action: "super liked you",     time: "14m ago",    emoji: "⭐", new: true  },
-  { id: 4, name: "Brittany",    action: "liked your profile",  time: "1h ago",     emoji: "💗", new: false },
-  { id: 5, name: "Mia_23",      action: "sent you a message",  time: "1h ago",     emoji: "💬", new: false },
-  { id: 6, name: "Sophia",      action: "liked your profile",  time: "3h ago",     emoji: "😍", new: false },
-  { id: 7, name: "CraigM",      action: "liked your profile",  time: "5h ago",     emoji: "💕", new: false },
-  { id: 8, name: "Natalie_R",   action: "super liked you",     time: "Yesterday",  emoji: "⭐", new: false },
+  { id: 1, name: "Joshua",      action: "liked your profile",  time: "Just now",   emoji: "🔥", new: true  },
+  { id: 2, name: "Ashley_K",    action: "super liked you",     time: "2m ago",     emoji: "⭐", new: true  },
+  { id: 3, name: "Brittany",    action: "liked your profile",  time: "14m ago",    emoji: "💕", new: true  },
+  { id: 4, name: "Mia_23",      action: "sent you a message",  time: "1h ago",     emoji: "💬", new: false },
+  { id: 5, name: "Sophia",      action: "liked your profile",  time: "3h ago",     emoji: "😍", new: false },
+  { id: 6, name: "CraigM",      action: "liked your profile",  time: "5h ago",     emoji: "💕", new: false },
+  { id: 7, name: "Natalie_R",   action: "super liked you",     time: "Yesterday",  emoji: "⭐", new: false },
 ];
 
 const matches = [
-  { id: 1, name: "Dixie29",   age: 29, initial: "D", color: "from-pink-500 to-rose-600",   lastMsg: "Hey! 😊"              },
+  { id: 1, name: "Joshua",    age: 31, initial: "J", color: "from-pink-500 to-rose-600",   lastMsg: "You looked amazing 😍"  },
   { id: 2, name: "Ashley",    age: 25, initial: "A", color: "from-purple-500 to-pink-500",  lastMsg: "Are you free tonight?" },
   { id: 3, name: "Mia",       age: 23, initial: "M", color: "from-cyan-500 to-blue-500",    lastMsg: "I loved your photos 🔥" },
   { id: 4, name: "Brittany",  age: 27, initial: "B", color: "from-orange-400 to-rose-500",  lastMsg: "New Match!"            },
