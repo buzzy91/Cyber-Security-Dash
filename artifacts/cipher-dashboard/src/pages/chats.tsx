@@ -1,87 +1,118 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Loader2, ArrowLeft, Send } from "lucide-react";
+import { Search, Loader2, ArrowLeft, Send, TrendingUp } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-
-const sparkData = {
-  Matt:       [2,5,3,8,6,12,9],
-  Craig:      [1,3,2,4,3,5,4],
-  Ashley:     [0,1,2,1,3,2,2],
-  Justin:     [3,2,4,3,2,1,3],
-  "John Smith":[1,1,2,1,1,2,1],
-  Sophia:     [0,1,0,2,1,1,2],
-};
-
-function Spark({ data, color }: { data: number[]; color: string }) {
-  const max = Math.max(...data);
-  const w = 40, h = 18;
-  const pts = data.map((v, i) => {
-    const x = (i / (data.length - 1)) * w;
-    const y = h - (v / max) * h;
-    return `${x},${y}`;
-  }).join(" ");
-  return (
-    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="shrink-0">
-      <polyline points={pts} fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
 
 const threads: Record<string, { from: "me" | "them"; text: string; time: string }[]> = {
   Matt: [
-    { from: "them", text: "Hey... are you awake? 🌙",                                    time: "12:48 AM" },
-    { from: "me",   text: "Yeah, can't sleep lol",                                       time: "12:50 AM" },
-    { from: "them", text: "Me neither. Keep thinking about you 😔",                       time: "12:51 AM" },
-    { from: "me",   text: "Same honestly... tonight was so good",                         time: "12:53 AM" },
-    { from: "them", text: "You have no idea how much you mean to me",                    time: "12:55 AM" },
-    { from: "me",   text: "❤️ stop you're making me blush",                               time: "12:57 AM" },
-    { from: "them", text: "Dixie, I can't stop thinking about you... last night meant everything 💕", time: "1:37 AM" },
+    { from: "them", text: "Hey... are you awake? 🌙",                                              time: "12:48 AM" },
+    { from: "me",   text: "Yeah, can't sleep lol",                                                  time: "12:50 AM" },
+    { from: "them", text: "Me neither. Keep thinking about you 😔",                                  time: "12:51 AM" },
+    { from: "me",   text: "Same honestly... tonight was so good",                                    time: "12:53 AM" },
+    { from: "them", text: "You have no idea how much you mean to me",                               time: "12:55 AM" },
+    { from: "me",   text: "❤️ stop you're making me blush",                                          time: "12:57 AM" },
+    { from: "them", text: "Dixie, I can't stop thinking about you... last night meant everything 💕", time: "1:37 AM"  },
   ],
   Craig: [
-    { from: "them", text: "Hey what's up",                                               time: "8:50 AM" },
-    { from: "me",   text: "Not much, just got up",                                       time: "9:02 AM" },
-    { from: "them", text: "You free tonight? Wanna grab some food",                      time: "9:12 AM" },
+    { from: "them", text: "Hey what's up",                          time: "8:50 AM"  },
+    { from: "me",   text: "Not much, just got up",                  time: "9:02 AM"  },
+    { from: "them", text: "You free tonight? Wanna grab some food", time: "9:12 AM"  },
   ],
   Ashley: [
-    { from: "me",   text: "Hey, what time works for you?",                               time: "10:40 AM" },
-    { from: "them", text: "Maybe around 6?",                                             time: "10:55 AM" },
-    { from: "me",   text: "Works for me",                                                time: "11:10 AM" },
-    { from: "them", text: "Ok cool, see you then 👍",                                     time: "11:20 AM" },
+    { from: "me",   text: "Hey, what time works for you?",          time: "10:40 AM" },
+    { from: "them", text: "Maybe around 6?",                        time: "10:55 AM" },
+    { from: "me",   text: "Works for me",                           time: "11:10 AM" },
+    { from: "them", text: "Ok cool, see you then 👍",                time: "11:20 AM" },
   ],
   Justin: [
-    { from: "them", text: "Broooo",                                                      time: "1:30 PM" },
-    { from: "me",   text: "What lol",                                                    time: "1:45 PM" },
-    { from: "them", text: "Yo did you see the game last night?",                         time: "2:05 PM" },
+    { from: "them", text: "Broooo",                                  time: "1:30 PM"  },
+    { from: "me",   text: "What lol",                                time: "1:45 PM"  },
+    { from: "them", text: "Yo did you see the game last night?",     time: "2:05 PM"  },
   ],
   "John Smith": [
-    { from: "me",   text: "Can you call me when you're done?",                           time: "3:10 PM" },
-    { from: "them", text: "I'll call you later when I'm done",                           time: "3:45 PM" },
+    { from: "me",   text: "Can you call me when you're done?",       time: "3:10 PM"  },
+    { from: "them", text: "I'll call you later when I'm done",       time: "3:45 PM"  },
   ],
   Sophia: [
-    { from: "them", text: "Did you see that video I sent?",                              time: "12:30 PM" },
-    { from: "me",   text: "Yes omg 😂😂",                                                 time: "12:40 PM" },
-    { from: "them", text: "Haha yeah that was so funny 😂",                              time: "12:55 PM" },
+    { from: "them", text: "Did you see that video I sent?",          time: "12:30 PM" },
+    { from: "me",   text: "Yes omg 😂😂",                             time: "12:40 PM" },
+    { from: "them", text: "Haha yeah that was so funny 😂",          time: "12:55 PM" },
   ],
 };
 
+const trendData: Record<string, number[]> = {
+  Matt:         [2, 5, 3, 8, 6, 12, 9],
+  Craig:        [1, 3, 2, 4, 3,  5, 4],
+  Ashley:       [0, 1, 2, 1, 3,  2, 2],
+  Justin:       [3, 2, 4, 3, 2,  1, 3],
+  "John Smith": [1, 1, 2, 1, 1,  2, 1],
+  Sophia:       [0, 1, 0, 2, 1,  1, 2],
+};
+
 const chats = [
-  { id: 1, name: "Matt",       initial: "M",  avatarColor: "bg-blue-500/20 text-blue-400",     sparkColor: "#60a5fa", message: "Dixie, I can't stop thinking about you... last night meant everything 💕", time: "1:37 AM",   badge: 3 },
-  { id: 2, name: "Craig",      initial: "C",  avatarColor: "bg-purple-500/20 text-purple-400", sparkColor: "#a78bfa", message: "You free tonight? Wanna grab some food",                                 time: "9:12 AM",   badge: 1 },
-  { id: 3, name: "Ashley",     initial: "A",  avatarColor: "bg-rose-500/20 text-rose-400",     sparkColor: "#fb7185", message: "Ok cool, see you then 👍",                                               time: "11:20 AM",  badge: 0 },
-  { id: 4, name: "Justin",     initial: "J",  avatarColor: "bg-cyan-500/20 text-cyan-400",     sparkColor: "#22d3ee", message: "Yo did you see the game last night?",                                    time: "2:05 PM",   badge: 0 },
-  { id: 5, name: "John Smith", initial: "JS", avatarColor: "bg-green-500/20 text-green-400",   sparkColor: "#4ade80", message: "I'll call you later when I'm done",                                      time: "Yesterday", badge: 0 },
-  { id: 6, name: "Sophia",     initial: "S",  avatarColor: "bg-pink-500/20 text-pink-400",     sparkColor: "#f472b6", message: "Haha yeah that was so funny 😂",                                         time: "Yesterday", badge: 0 },
+  { id: 1, name: "Matt",       initial: "M",  avatarColor: "bg-blue-500/20 text-blue-400",     barColor: "bg-blue-400",   message: "Dixie, I can't stop thinking about you... last night meant everything 💕", time: "1:37 AM",   badge: 3 },
+  { id: 2, name: "Craig",      initial: "C",  avatarColor: "bg-purple-500/20 text-purple-400", barColor: "bg-purple-400", message: "You free tonight? Wanna grab some food",                                 time: "9:12 AM",   badge: 1 },
+  { id: 3, name: "Ashley",     initial: "A",  avatarColor: "bg-rose-500/20 text-rose-400",     barColor: "bg-rose-400",   message: "Ok cool, see you then 👍",                                               time: "11:20 AM",  badge: 0 },
+  { id: 4, name: "Justin",     initial: "J",  avatarColor: "bg-cyan-500/20 text-cyan-400",     barColor: "bg-cyan-400",   message: "Yo did you see the game last night?",                                    time: "2:05 PM",   badge: 0 },
+  { id: 5, name: "John Smith", initial: "JS", avatarColor: "bg-green-500/20 text-green-400",   barColor: "bg-green-400",  message: "I'll call you later when I'm done",                                      time: "Yesterday", badge: 0 },
+  { id: 6, name: "Sophia",     initial: "S",  avatarColor: "bg-pink-500/20 text-pink-400",     barColor: "bg-pink-400",   message: "Haha yeah that was so funny 😂",                                         time: "Yesterday", badge: 0 },
 ];
+
+function MiniBarChart({ data, colorClass }: { data: number[]; colorClass: string }) {
+  const max = Math.max(...data);
+  return (
+    <div className="flex items-end gap-[2px] h-5">
+      {data.map((v, i) => (
+        <div
+          key={i}
+          className={`w-[4px] rounded-sm ${colorClass} opacity-80`}
+          style={{ height: `${Math.max(2, (v / max) * 20)}px` }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function ThreadTrend({ data, colorClass, name }: { data: number[]; colorClass: string; name: string }) {
+  const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const max = Math.max(...data);
+  const total = data.reduce((a, b) => a + b, 0);
+  return (
+    <div className="mx-4 mb-3 bg-card/40 border border-primary/10 rounded-xl p-3">
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center gap-1.5">
+          <TrendingUp className="w-3 h-3 text-primary" />
+          <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">Message Activity · {name}</p>
+        </div>
+        <span className="text-[10px] text-primary font-bold">{total} msgs / 7d</span>
+      </div>
+      <div className="flex items-end gap-1 h-10">
+        {data.map((v, i) => (
+          <div key={i} className="flex-1 flex flex-col items-center gap-1">
+            <div
+              className={`w-full rounded-sm ${colorClass} opacity-70 transition-all`}
+              style={{ height: `${Math.max(3, (v / max) * 32)}px` }}
+            />
+            <span className="text-[7px] text-muted-foreground">{days[i]}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function ChatThread({ chat, onBack }: { chat: typeof chats[0]; onBack: () => void }) {
   const messages = threads[chat.name] || [];
+  const trend = trendData[chat.name] || [1, 1, 1, 1, 1, 1, 1];
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 30 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 30 }}
-      className="flex flex-col h-full"
+      className="flex flex-col"
     >
+      {/* Thread header */}
       <div className="flex items-center gap-3 p-4 border-b border-primary/10 bg-card/40 backdrop-blur-md sticky top-0 z-10">
         <button onClick={onBack} className="w-8 h-8 rounded-full bg-secondary/80 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
           <ArrowLeft className="w-4 h-4" />
@@ -91,7 +122,6 @@ function ChatThread({ chat, onBack }: { chat: typeof chats[0]; onBack: () => voi
         </Avatar>
         <div>
           <p className="font-bold text-sm">{chat.name}</p>
-          <p className="text-[10px] text-green-400 uppercase tracking-widest font-bold">Online</p>
         </div>
         <div className="ml-auto flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20">
           <Loader2 className="w-2.5 h-2.5 animate-spin text-primary" />
@@ -99,7 +129,17 @@ function ChatThread({ chat, onBack }: { chat: typeof chats[0]; onBack: () => voi
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-3 pb-20">
+      {/* Sync loading banner inside thread */}
+      <div className="flex items-center gap-2 mx-4 mt-3 mb-1 px-3 py-2 bg-primary/5 border border-primary/15 rounded-lg">
+        <Loader2 className="w-3 h-3 animate-spin text-primary shrink-0" />
+        <p className="text-[10px] text-muted-foreground">Retrieving earlier messages from device sync...</p>
+      </div>
+
+      {/* 7-day trend chart */}
+      <ThreadTrend data={trend} colorClass={chat.barColor} name={chat.name} />
+
+      {/* Messages */}
+      <div className="p-4 space-y-3 pb-28">
         {messages.map((msg, i) => (
           <motion.div
             key={i}
@@ -166,27 +206,32 @@ export default function Chats() {
                   transition={{ delay: i * 0.05 }}
                   key={chat.id}
                   onClick={() => setOpenChat(chat)}
-                  className="w-full bg-card/30 backdrop-blur-md border border-primary/10 hover:border-primary/30 rounded-xl p-3 flex items-center gap-3 transition-all text-left cursor-pointer hover:bg-primary/5"
+                  className="w-full bg-card/30 backdrop-blur-md border border-primary/10 hover:border-primary/30 rounded-xl p-3 flex flex-col gap-2 transition-all text-left cursor-pointer hover:bg-primary/5"
                 >
-                  <Avatar className={`w-12 h-12 border border-primary/20 ${chat.avatarColor} shrink-0`}>
-                    <AvatarFallback className={chat.avatarColor}>{chat.initial}</AvatarFallback>
-                  </Avatar>
+                  <div className="flex items-center gap-3">
+                    <Avatar className={`w-12 h-12 border border-primary/20 ${chat.avatarColor} shrink-0`}>
+                      <AvatarFallback className={chat.avatarColor}>{chat.initial}</AvatarFallback>
+                    </Avatar>
 
-                  <div className="flex-1 min-w-0">
-                    <div className="flex justify-between items-baseline mb-1">
-                      <h3 className="font-bold text-sm truncate">{chat.name}</h3>
-                      <span className="text-[10px] text-muted-foreground whitespace-nowrap ml-2">{chat.time}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex justify-between items-baseline mb-1">
+                        <h3 className="font-bold text-sm truncate">{chat.name}</h3>
+                        <span className="text-[10px] text-muted-foreground whitespace-nowrap ml-2">{chat.time}</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground truncate">{chat.message}</p>
                     </div>
-                    <p className="text-xs text-muted-foreground truncate">{chat.message}</p>
-                  </div>
 
-                  <div className="flex flex-col items-end gap-1.5 shrink-0">
-                    <Spark data={sparkData[chat.name as keyof typeof sparkData] || [1,1,1,1,1,1,1]} color={chat.sparkColor} />
                     {chat.badge > 0 && (
-                      <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-primary-foreground shadow-[0_0_8px_rgba(204,0,255,0.6)]">
+                      <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-primary-foreground shadow-[0_0_8px_rgba(204,0,255,0.6)] shrink-0">
                         {chat.badge}
                       </div>
                     )}
+                  </div>
+
+                  {/* Mini trend bar chart below each chat row */}
+                  <div className="pl-[60px] flex items-center gap-2">
+                    <MiniBarChart data={trendData[chat.name as keyof typeof trendData] || [1,1,1,1,1,1,1]} colorClass={chat.barColor} />
+                    <span className="text-[9px] text-muted-foreground uppercase tracking-widest">7d trend</span>
                   </div>
                 </motion.button>
               ))}

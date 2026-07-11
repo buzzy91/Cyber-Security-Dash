@@ -1,23 +1,24 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Flame, Heart, X, Star, MessageCircle, Bell } from "lucide-react";
+import { Flame, Heart, MessageCircle, Bell } from "lucide-react";
 
 const notifications = [
-  { id: 1, name: "Joshua",      action: "liked your profile",  time: "Just now",   emoji: "🔥", new: true  },
-  { id: 2, name: "Ashley_K",    action: "super liked you",     time: "2m ago",     emoji: "⭐", new: true  },
-  { id: 3, name: "Brittany",    action: "liked your profile",  time: "14m ago",    emoji: "💕", new: true  },
-  { id: 4, name: "Mia_23",      action: "sent you a message",  time: "1h ago",     emoji: "💬", new: false },
-  { id: 5, name: "Sophia",      action: "liked your profile",  time: "3h ago",     emoji: "😍", new: false },
-  { id: 6, name: "CraigM",      action: "liked your profile",  time: "5h ago",     emoji: "💕", new: false },
-  { id: 7, name: "Natalie_R",   action: "super liked you",     time: "Yesterday",  emoji: "⭐", new: false },
+  { id: 1, name: "Joshua",   action: "liked Dixie29's profile",   time: "Just now",  emoji: "🔥", new: true  },
+  { id: 2, name: "Ryan",     action: "super liked Dixie29",        time: "4m ago",    emoji: "⭐", new: true  },
+  { id: 3, name: "Tyler",    action: "liked Dixie29's profile",    time: "18m ago",   emoji: "💕", new: true  },
+  { id: 4, name: "Jake",     action: "sent Dixie29 a message",     time: "1h ago",    emoji: "💬", new: false },
+  { id: 5, name: "Marcus",   action: "liked Dixie29's profile",    time: "2h ago",    emoji: "😍", new: false },
+  { id: 6, name: "Derek",    action: "liked Dixie29's profile",    time: "4h ago",    emoji: "💕", new: false },
+  { id: 7, name: "Brandon",  action: "super liked Dixie29",        time: "Yesterday", emoji: "⭐", new: false },
+  { id: 8, name: "Kevin",    action: "liked Dixie29's profile",    time: "Yesterday", emoji: "🔥", new: false },
 ];
 
 const matches = [
-  { id: 1, name: "Joshua",    age: 31, initial: "J", color: "from-pink-500 to-rose-600",   lastMsg: "You looked amazing 😍"  },
-  { id: 2, name: "Ashley",    age: 25, initial: "A", color: "from-purple-500 to-pink-500",  lastMsg: "Are you free tonight?" },
-  { id: 3, name: "Mia",       age: 23, initial: "M", color: "from-cyan-500 to-blue-500",    lastMsg: "I loved your photos 🔥" },
-  { id: 4, name: "Brittany",  age: 27, initial: "B", color: "from-orange-400 to-rose-500",  lastMsg: "New Match!"            },
-  { id: 5, name: "Sophia",    age: 24, initial: "S", color: "from-emerald-400 to-cyan-500", lastMsg: "New Match!"            },
+  { id: 1, name: "Joshua",  age: 31, initial: "J", color: "from-pink-500 to-rose-600",    lastMsg: "You're stunning 😍"      },
+  { id: 2, name: "Ryan",    age: 28, initial: "R", color: "from-purple-500 to-pink-500",   lastMsg: "Are you free tonight?"   },
+  { id: 3, name: "Tyler",   age: 26, initial: "T", color: "from-cyan-500 to-blue-500",     lastMsg: "I loved your photos 🔥"  },
+  { id: 4, name: "Jake",    age: 29, initial: "J", color: "from-orange-400 to-rose-500",   lastMsg: "New Match!"              },
+  { id: 5, name: "Marcus",  age: 33, initial: "M", color: "from-emerald-400 to-cyan-500",  lastMsg: "New Match!"              },
 ];
 
 export default function TinderPage() {
@@ -35,7 +36,7 @@ export default function TinderPage() {
         </div>
         <div>
           <h1 className="text-2xl font-bold tracking-wide">Tinder</h1>
-          <p className="text-xs text-muted-foreground uppercase tracking-widest mt-0.5">Dating activity intercepted</p>
+          <p className="text-xs text-muted-foreground uppercase tracking-widest mt-0.5">Dating activity intercepted · @Dixie29</p>
         </div>
         <div className="ml-auto flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-green-500/10 border border-green-500/20">
           <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
@@ -80,7 +81,7 @@ export default function TinderPage() {
           <motion.div key="activity" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="space-y-3">
             <div className="flex items-center gap-2 mb-2">
               <div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
-              <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">{visibleNotifs.filter(n => n.new).length} new notifications</p>
+              <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">{visibleNotifs.filter(n => n.new).length} new notifications for Dixie29</p>
             </div>
 
             {visibleNotifs.map((notif, i) => (
@@ -92,12 +93,13 @@ export default function TinderPage() {
                 transition={{ delay: i * 0.04 }}
                 className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${notif.new ? "bg-rose-500/10 border-rose-500/30" : "bg-card/30 border-primary/10"}`}
               >
-                <div className={`w-11 h-11 rounded-full flex items-center justify-center text-white font-bold shrink-0 text-sm`} style={{ background: "linear-gradient(135deg,#fd297b,#ff6f91)" }}>
+                <div className="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold shrink-0 text-sm" style={{ background: "linear-gradient(135deg,#fd297b,#ff6f91)" }}>
                   {notif.name.charAt(0).toUpperCase()}
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-foreground">
-                    <span className="text-rose-400">{notif.name}</span> {notif.action}
+                    <span className="text-rose-400">{notif.name}</span>{" "}
+                    <span className="text-muted-foreground font-normal">{notif.action}</span>
                   </p>
                   <p className="text-[10px] text-muted-foreground font-mono">{notif.time}</p>
                 </div>
@@ -110,7 +112,7 @@ export default function TinderPage() {
           </motion.div>
         ) : (
           <motion.div key="matches" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="space-y-3">
-            <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold mb-2">{matches.length} mutual matches</p>
+            <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold mb-2">{matches.length} mutual matches for Dixie29</p>
             {matches.map((match, i) => (
               <motion.div
                 key={match.id}
