@@ -4,8 +4,8 @@ import { Search, Loader2 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const chats = [
-  { id: 1,  name: "Sophia",          initial: "S",  avatarColor: "bg-pink-500/20 text-pink-400",     message: "Miss you already 😘 last night was everything...",              time: "1:37 AM",  badge: 3, blurred: false },
-  { id: 2,  name: "Polina xx",       initial: "P",  avatarColor: "bg-purple-500/20 text-purple-400", message: "Don't tell anyone about us okay? 🥺 I keep thinking about you", time: "1:15 PM",  badge: 2, blurred: false },
+  { id: 1,  name: "Matt",            initial: "M",  avatarColor: "bg-blue-500/20 text-blue-400",     message: "Miss you already 😘 last night was everything...",              time: "1:37 AM",  badge: 3, blurred: false },
+  { id: 2,  name: "Craig",           initial: "C",  avatarColor: "bg-purple-500/20 text-purple-400", message: "Don't tell anyone about us okay? 🥺 I keep thinking about you", time: "1:15 PM",  badge: 2, blurred: false },
   { id: 3,  name: "Jane Aubrey",     initial: "JA", avatarColor: "bg-rose-500/20 text-rose-400",     message: "Can we meet tonight? Same place as before 💋",                 time: "12:02 PM", badge: 0, blurred: true  },
   { id: 4,  name: "Natalia",         initial: "N",  avatarColor: "bg-cyan-500/20 text-cyan-400",     message: "Hey you... are you free this weekend? 😏",                     time: "11:45 AM", badge: 1, blurred: true  },
   { id: 5,  name: "Iris",            initial: "I",  avatarColor: "bg-orange-500/20 text-orange-400", message: "I told you I'm not like the others 🖤",                        time: "10:20 AM", badge: 0, blurred: true  },

@@ -133,8 +133,8 @@ export default function Calls() {
                 <h3 className="font-bold text-sm text-foreground">
                   {call.name}
                 </h3>
-                <p className="text-xs text-muted-foreground font-mono blur-sm select-none">
-                  {call.blurred ? "+•• (•••) •••-••••" : call.phone}
+                <p className="text-xs text-muted-foreground font-mono">
+                  {call.phone}
                 </p>
               </div>
             </div>
@@ -167,7 +167,7 @@ export default function Calls() {
                   {getCallIcon(selectedCall?.type)}
                 </div>
                 <h2 className="text-xl font-bold">{selectedCall?.name}</h2>
-                <p className="text-lg font-mono text-primary mt-1 blur-sm select-none">+•• (•••) •••-••••</p>
+                <p className="text-lg font-mono text-primary mt-1">{selectedCall?.phone}</p>
                 <p className="text-xs uppercase tracking-widest text-muted-foreground mt-2">{selectedCall?.type} CALL • {selectedCall?.duration}</p>
                 <p className="text-[10px] text-muted-foreground mt-1 font-mono">{selectedCall?.time}</p>
               </div>
