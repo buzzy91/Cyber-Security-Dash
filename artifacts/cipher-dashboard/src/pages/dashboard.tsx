@@ -199,7 +199,7 @@ export default function Dashboard() {
           </div>
           <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
             <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Location</p>
-            <p className="font-sans text-sm">Oregon, USA</p>
+            <p className="font-sans text-sm">USA</p>
           </div>
           <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
             <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">ICCID</p>
