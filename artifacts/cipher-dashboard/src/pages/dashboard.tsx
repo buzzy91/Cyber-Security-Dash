@@ -191,11 +191,11 @@ export default function Dashboard() {
           </div>
           <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
             <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Model</p>
-            <p className="font-sans text-sm">📱 iPhone</p>
+            <p className="font-sans text-sm">📱 iPhone · AT&T</p>
           </div>
           <div className="bg-secondary/40 rounded-xl p-3 border border-border/50 col-span-2">
             <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Target Mobile</p>
-            <p className="font-mono text-sm">+1 (541)-968-4111</p>
+            <p className="font-mono text-sm">+1 (573)-578-4490</p>
           </div>
           <div className="bg-secondary/40 rounded-xl p-3 border border-border/50">
             <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Location</p>

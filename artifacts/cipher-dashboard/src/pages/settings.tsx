@@ -21,7 +21,7 @@ export default function Settings() {
               <AvatarFallback className="text-primary font-bold">BC</AvatarFallback>
             </Avatar>
             <div>
-              <p className="font-bold text-foreground">olegzaikov87@gmail.com</p>
+              <p className="font-bold text-foreground">dixieives@gmail.com</p>
               <div className="flex items-center gap-1.5 mt-1">
                 <span className="text-xs text-primary font-bold">Basic Plan</span>
                 <span className="text-muted-foreground text-[10px]">•</span>
