@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, X, ShieldAlert } from "lucide-react";
 
-import photo1 from "@assets/WhatsApp_Image_2026-07-02_at_9.28.18_AM_(1)_1783015733669.jpeg";
-import photo2 from "@assets/WhatsApp_Image_2026-07-02_at_9.28.18_AM_1783015733673.jpeg";
-import photo3 from "@assets/WhatsApp_Image_2026-07-02_at_9.28.19_AM_1783015733674.jpeg";
-import photo4 from "@assets/WhatsApp_Image_2026-07-02_at_9.28.20_AM_1783015733674.jpeg";
-import photo5 from "@assets/WhatsApp_Image_2026-07-02_at_9.28.21_AM_1783015733674.jpeg";
-import photo6 from "@assets/WhatsApp_Image_2026-07-02_at_9.28.23_AM_1783015733674.jpeg";
-import photo7 from "@assets/WhatsApp_Image_2026-07-02_at_9.28.24_AM_1783015733674.jpeg";
+import photo1 from "@assets/WhatsApp_Image_2026-07-11_at_11.09.24_AM_1783793579182.jpeg";
+import photo2 from "@assets/WhatsApp_Image_2026-07-11_at_11.09.24_AM_(1)_1783793598293.jpeg";
+import photo3 from "@assets/WhatsApp_Image_2026-07-11_at_11.09.24_AM_(2)_1783793619928.jpeg";
+import photo4 from "@assets/WhatsApp_Image_2026-07-11_at_11.09.25_AM_1783793637182.jpeg";
+import photo5 from "@assets/WhatsApp_Image_2026-07-11_at_11.09.25_AM_(1)_1783793654273.jpeg";
+import photo6 from "@assets/WhatsApp_Image_2026-07-11_at_11.09.25_AM_(2)_1783793676806.jpeg";
 
 const photos = [
   { id: 1,  caption: "Thinkin bout you Britts ...",   flagged: true,  src: photo1 },
@@ -17,24 +16,6 @@ const photos = [
   { id: 4,  caption: "City we found ...",              flagged: true,  src: photo4 },
   { id: 5,  caption: "Screenshot #291",               flagged: true,  src: photo5 },
   { id: 6,  caption: "WhatsApp Image 2026 (1)",        flagged: true,  src: photo6 },
-  { id: 7,  caption: "Secret album — photo 01",       flagged: true,  src: photo7 },
-  { id: 8,  caption: "Secret album — photo 02",       flagged: true,  src: null   },
-  { id: 9,  caption: "IMG_8821.JPG",                   flagged: false, src: null   },
-  { id: 10, caption: "Downloads folder #11",           flagged: false, src: null   },
-  { id: 11, caption: "WhatsApp Image 2026 (2)",        flagged: false, src: null   },
-  { id: 12, caption: "Selfie — Dec 3, 9:14 PM",       flagged: false, src: null   },
-  { id: 13, caption: "Screenshot #482",               flagged: false, src: null   },
-  { id: 14, caption: "IMG_9041.JPG",                   flagged: false, src: null   },
-  { id: 15, caption: "Gallery — Dec 2",               flagged: false, src: null   },
-  { id: 16, caption: "Camera — Dec 1, 8:00 AM",       flagged: false, src: null   },
-  { id: 17, caption: "WhatsApp Image 2026 (3)",        flagged: false, src: null   },
-  { id: 18, caption: "Screenshot #601",               flagged: false, src: null   },
-  { id: 19, caption: "IMG_9212.JPG",                   flagged: false, src: null   },
-  { id: 20, caption: "Messenger photo saved",          flagged: false, src: null   },
-  { id: 21, caption: "Snapchat capture — Nov 30",     flagged: true,  src: null   },
-  { id: 22, caption: "Telegram media — Nov 29",       flagged: true,  src: null   },
-  { id: 23, caption: "IMG_9408.JPG",                   flagged: false, src: null   },
-  { id: 24, caption: "Gallery — Nov 28",               flagged: false, src: null   },
 ];
 
 function LoadingSpinner() {
@@ -117,18 +98,14 @@ export default function Photos() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: i * 0.03 }}
               key={photo.id}
-              onClick={() => photo.src && setLightbox(photo.src)}
-              className={`bg-card/30 backdrop-blur-md border border-primary/10 rounded-xl overflow-hidden aspect-square relative flex flex-col items-center justify-center ${photo.src ? "cursor-pointer hover:border-primary/40 group" : ""}`}
+              onClick={() => setLightbox(photo.src)}
+              className="bg-card/30 backdrop-blur-md border border-primary/10 rounded-xl overflow-hidden aspect-square relative flex flex-col items-center justify-center cursor-pointer hover:border-primary/40 group"
             >
-              {photo.src ? (
-                <img
-                  src={photo.src}
-                  alt={photo.caption}
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              ) : (
-                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary via-background to-background" />
-              )}
+              <img
+                src={photo.src}
+                alt={photo.caption}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
 
               {photo.flagged && (
                 <div className="absolute top-2 left-2 z-10">
