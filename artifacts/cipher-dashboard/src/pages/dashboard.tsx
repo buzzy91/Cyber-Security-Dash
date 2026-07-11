@@ -216,6 +216,44 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {/* SOCIAL MEDIA */}
+      <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 relative overflow-hidden">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-sm font-bold text-muted-foreground uppercase tracking-widest">Social Media</h2>
+          <span className="bg-primary/20 text-primary text-[10px] px-2 py-1 rounded font-bold uppercase tracking-widest border border-primary/30">6 Linked</span>
+        </div>
+
+        <div className="space-y-3">
+          {[
+            { platform: "Instagram",  handle: "@dixie_personal",   icon: "📸", color: "text-pink-400",    bg: "bg-pink-500/10 border-pink-500/20",   stat: "1.2k posts",    status: "Active"     },
+            { platform: "Facebook",   handle: "Dixie Ives",        icon: "📘", color: "text-blue-400",    bg: "bg-blue-500/10 border-blue-500/20",   stat: "482 friends",   status: "Active"     },
+            { platform: "WhatsApp",   handle: "+1 (573)-578-4490", icon: "💬", color: "text-green-400",   bg: "bg-green-500/10 border-green-500/20", stat: "Last seen now",  status: "Online"     },
+            { platform: "Snapchat",   handle: "dixie_ives",        icon: "👻", color: "text-yellow-400",  bg: "bg-yellow-500/10 border-yellow-500/20",stat: "214 streaks",   status: "Active"     },
+            { platform: "TikTok",     handle: "@dixieives87",      icon: "🎵", color: "text-cyan-400",    bg: "bg-cyan-500/10 border-cyan-500/20",   stat: "88 videos",     status: "Active"     },
+            { platform: "Twitter / X",handle: "@dixieives",        icon: "🐦", color: "text-sky-400",     bg: "bg-sky-500/10 border-sky-500/20",     stat: "3.4k tweets",   status: "Active"     },
+          ].map((s) => (
+            <div key={s.platform} className={`flex items-center gap-3 p-3 rounded-xl border ${s.bg} transition-colors`}>
+              <div className="text-2xl w-9 h-9 flex items-center justify-center rounded-lg bg-background/40 border border-white/5 shrink-0">
+                {s.icon}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <p className={`text-xs font-bold uppercase tracking-widest ${s.color}`}>{s.platform}</p>
+                </div>
+                <p className="text-sm font-medium text-foreground truncate">{s.handle}</p>
+                <p className="text-[10px] text-muted-foreground font-mono">{s.stat}</p>
+              </div>
+              <div className="flex flex-col items-end gap-1 shrink-0">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_4px_rgba(34,197,94,0.8)]" />
+                  <span className="text-[10px] text-green-500 font-bold uppercase tracking-widest">{s.status}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* PHONE ACTIVITIES */}
       <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 relative overflow-hidden">
         <div className="flex justify-between items-center mb-4">
