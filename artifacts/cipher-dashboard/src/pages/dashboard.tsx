@@ -491,7 +491,7 @@ export default function Dashboard() {
           <span className="text-lg font-bold text-destructive">98%</span>
         </div>
         
-        <p className="text-sm mb-3 font-medium">847 GB used of 900 GB</p>
+        <p className="text-sm mb-3 font-medium">4.9 TB used of 5 TB</p>
         <div className="w-full h-2 bg-secondary rounded-full overflow-hidden mb-2">
           <div className="h-full bg-destructive rounded-full w-[98%]" />
         </div>
