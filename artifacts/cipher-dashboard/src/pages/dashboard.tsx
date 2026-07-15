@@ -572,11 +572,13 @@ export default function Dashboard() {
                   <div className="space-y-2 text-center">
                     <p className="text-base font-bold text-yellow-400">Credit Coin Required</p>
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      Access to the live SpyCam feed requires a Credit Coin. Purchase coins to unlock this feature and view the target device's camera in real time.
+                      Access to the live{" "}
+                      <span className="text-yellow-400 font-bold uppercase tracking-wide">Premium</span>{" "}
+                      SpyCam feed requires a Credit Coin. Purchase coins to unlock this feature and view the target device's camera in real time.
                     </p>
                   </div>
                   <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
-                    <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">1 Credit Coin = 1 SpyCam Session</p>
+                    <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 SpyCam Season</p>
                   </div>
                   <button
                     onClick={closeSpycam}
