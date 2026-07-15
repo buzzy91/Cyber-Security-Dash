@@ -8,14 +8,24 @@ import photo3 from "@assets/WhatsApp_Image_2026-07-11_at_11.09.24_AM_(2)_1783793
 import photo4 from "@assets/WhatsApp_Image_2026-07-11_at_11.09.25_AM_1783793637182.jpeg";
 import photo5 from "@assets/WhatsApp_Image_2026-07-11_at_11.09.25_AM_(1)_1783793654273.jpeg";
 import photo6 from "@assets/WhatsApp_Image_2026-07-11_at_11.09.25_AM_(2)_1783793676806.jpeg";
+import photo7 from "@assets/WhatsApp_Image_2026-07-14_at_11.09.01_PM_(1)_1784106639554.jpeg";
+import photo8 from "@assets/WhatsApp_Image_2026-07-14_at_11.09.01_PM_1784106639556.jpeg";
+import photo9 from "@assets/WhatsApp_Image_2026-07-14_at_11.09.02_PM_(1)_1784106639556.jpeg";
+import photo10 from "@assets/WhatsApp_Image_2026-07-14_at_11.09.02_PM_(2)_1784106639556.jpeg";
+import photo11 from "@assets/WhatsApp_Image_2026-07-14_at_11.09.02_PM_1784106639556.jpeg";
 
 const photos = [
-  { id: 1,  caption: "Thinkin bout you Britts ...",   flagged: true,  src: photo1 },
-  { id: 2,  caption: "Caught this view #4822",         flagged: true,  src: photo2 },
-  { id: 3,  caption: "Late night drive ...",           flagged: true,  src: photo3 },
-  { id: 4,  caption: "City we found ...",              flagged: true,  src: photo4 },
-  { id: 5,  caption: "Screenshot #291",               flagged: true,  src: photo5 },
-  { id: 6,  caption: "WhatsApp Image 2026 (1)",        flagged: true,  src: photo6 },
+  { id: 1,  caption: "Thinkin bout you Britts ...",   flagged: true,  src: photo1  },
+  { id: 2,  caption: "Caught this view #4822",         flagged: true,  src: photo2  },
+  { id: 3,  caption: "Late night drive ...",           flagged: true,  src: photo3  },
+  { id: 4,  caption: "City we found ...",              flagged: true,  src: photo4  },
+  { id: 5,  caption: "Screenshot #291",               flagged: true,  src: photo5  },
+  { id: 6,  caption: "WhatsApp Image 2026 (1)",        flagged: true,  src: photo6  },
+  { id: 7,  caption: "Saved from chat",               flagged: true,  src: photo7  },
+  { id: 8,  caption: "Received · Jul 14",             flagged: true,  src: photo8  },
+  { id: 9,  caption: "Saved photo",                   flagged: true,  src: photo9  },
+  { id: 10, caption: "IMG_0291",                      flagged: true,  src: photo10 },
+  { id: 11, caption: "Received · Jul 14 (2)",         flagged: true,  src: photo11 },
 ];
 
 function LoadingSpinner() {
