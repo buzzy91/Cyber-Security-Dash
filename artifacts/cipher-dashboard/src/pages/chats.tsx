@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Loader2, ArrowLeft, Send, Trash2, EyeOff } from "lucide-react";
+import { Search, Loader2, ArrowLeft, Send, Trash2, EyeOff, ChevronRight } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const deletedMessages = [
@@ -203,6 +203,8 @@ const chats = [
   { id: 6, name: "Sophia",     initial: "S",  avatarColor: "bg-pink-500/20 text-pink-400",     message: "Haha yeah that was so funny 😂",                                         time: "Yesterday", badge: 0 },
 ];
 
+type View = "list" | "deleted-folder" | "deleted-thread" | "chat-thread";
+
 function DeletedThread({ item, onBack }: { item: typeof deletedMessages[0]; onBack: () => void }) {
   return (
     <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 30 }} className="flex flex-col">
@@ -225,7 +227,7 @@ function DeletedThread({ item, onBack }: { item: typeof deletedMessages[0]; onBa
 
       <div className="flex items-center gap-2 mx-4 mt-3 mb-1 px-3 py-2 bg-red-500/5 border border-red-500/15 rounded-lg">
         <Trash2 className="w-3 h-3 text-red-400 shrink-0" />
-        <p className="text-[10px] text-red-400">These messages were deleted by the user · Deleted {item.deletedAt}</p>
+        <p className="text-[10px] text-red-400">Messages deleted by user · Recovered {item.deletedAt}</p>
       </div>
 
       <div className="p-4 space-y-3 pb-28">
@@ -250,6 +252,62 @@ function DeletedThread({ item, onBack }: { item: typeof deletedMessages[0]; onBa
           <input className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground" placeholder="Recovered deleted thread — read only" readOnly />
           <Send className="w-4 h-4 text-muted-foreground" />
         </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function DeletedFolder({ onBack, onOpen }: { onBack: () => void; onOpen: (item: typeof deletedMessages[0]) => void }) {
+  return (
+    <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 30 }} className="flex flex-col">
+      <div className="flex items-center gap-3 p-4 border-b border-red-500/20 bg-card/40 backdrop-blur-md sticky top-0 z-10">
+        <button onClick={onBack} className="w-8 h-8 rounded-full bg-secondary/80 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
+          <ArrowLeft className="w-4 h-4" />
+        </button>
+        <div className="w-9 h-9 rounded-full bg-red-500/20 border border-red-500/30 flex items-center justify-center">
+          <Trash2 className="w-4 h-4 text-red-400" />
+        </div>
+        <div>
+          <p className="font-bold text-sm">Deleted Messages</p>
+          <p className="text-[9px] text-red-400 uppercase tracking-widest font-bold">Recovered from device cache</p>
+        </div>
+        <div className="ml-auto flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-red-500/10 border border-red-500/20">
+          <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+          <span className="text-[9px] text-red-400 font-bold uppercase tracking-widest">{deletedMessages.length} found</span>
+        </div>
+      </div>
+
+      <div className="p-4 space-y-3 pb-24">
+        <div className="flex items-center gap-2 px-3 py-2 bg-red-500/5 border border-red-500/15 rounded-lg mb-2">
+          <Loader2 className="w-3 h-3 animate-spin text-red-400 shrink-0" />
+          <p className="text-[10px] text-red-400/80">Scanning device storage for deleted conversations...</p>
+        </div>
+
+        {deletedMessages.map((item, i) => (
+          <motion.button
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: i * 0.05 }}
+            key={item.id}
+            onClick={() => onOpen(item)}
+            className="w-full bg-red-500/5 backdrop-blur-md border border-red-500/15 hover:border-red-500/40 rounded-xl p-3 flex items-center gap-3 transition-all text-left cursor-pointer hover:bg-red-500/10"
+          >
+            <Avatar className={`w-11 h-11 border border-red-500/20 ${item.avatarColor} shrink-0`}>
+              <AvatarFallback className={item.avatarColor}>{item.initial}</AvatarFallback>
+            </Avatar>
+            <div className="flex-1 min-w-0">
+              <div className="flex justify-between items-baseline mb-0.5">
+                <h3 className="font-bold text-sm truncate">{item.name}</h3>
+                <span className="text-[9px] text-red-400/70 whitespace-nowrap ml-2 font-mono shrink-0">{item.deletedAt}</span>
+              </div>
+              {item.name !== item.number && (
+                <p className="text-[10px] text-muted-foreground font-mono mb-0.5">{item.number}</p>
+              )}
+              <p className="text-xs text-muted-foreground truncate italic">"{item.preview}"</p>
+            </div>
+            <ChevronRight className="w-4 h-4 text-red-400/50 shrink-0" />
+          </motion.button>
+        ))}
       </div>
     </motion.div>
   );
@@ -306,16 +364,31 @@ function ChatThread({ chat, onBack }: { chat: typeof chats[0]; onBack: () => voi
 }
 
 export default function Chats() {
+  const [view, setView] = useState<View>("list");
   const [openChat, setOpenChat] = useState<typeof chats[0] | null>(null);
   const [openDeleted, setOpenDeleted] = useState<typeof deletedMessages[0] | null>(null);
 
   return (
     <div className="pb-24">
       <AnimatePresence mode="wait">
-        {openDeleted ? (
-          <DeletedThread key="deleted" item={openDeleted} onBack={() => setOpenDeleted(null)} />
-        ) : openChat ? (
-          <ChatThread key="thread" chat={openChat} onBack={() => setOpenChat(null)} />
+        {view === "deleted-thread" && openDeleted ? (
+          <DeletedThread
+            key="deleted-thread"
+            item={openDeleted}
+            onBack={() => { setView("deleted-folder"); setOpenDeleted(null); }}
+          />
+        ) : view === "deleted-folder" ? (
+          <DeletedFolder
+            key="deleted-folder"
+            onBack={() => setView("list")}
+            onOpen={(item) => { setOpenDeleted(item); setView("deleted-thread"); }}
+          />
+        ) : view === "chat-thread" && openChat ? (
+          <ChatThread
+            key="chat-thread"
+            chat={openChat}
+            onBack={() => { setView("list"); setOpenChat(null); }}
+          />
         ) : (
           <motion.div key="list" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="p-4 md:p-6 space-y-5">
             {/* Sync banner */}
@@ -330,85 +403,66 @@ export default function Chats() {
               </div>
             </div>
 
-            {/* ── DELETED MESSAGES ── */}
-            <div>
-              <div className="flex items-center justify-between mb-3">
+            {/* Header */}
+            <div className="flex items-center justify-between">
+              <div>
                 <div className="flex items-center gap-2">
-                  <Trash2 className="w-4 h-4 text-red-400" />
-                  <h2 className="text-base font-bold tracking-wide">Deleted Messages</h2>
-                  <span className="text-[9px] bg-red-500/20 text-red-400 border border-red-500/30 px-1.5 py-0.5 rounded-full font-bold uppercase tracking-widest">{deletedMessages.length} recovered</span>
+                  <EyeOff className="w-5 h-5 text-primary" />
+                  <h1 className="text-2xl font-bold tracking-wide">Hidden Chats</h1>
                 </div>
+                <p className="text-xs text-muted-foreground uppercase tracking-widest mt-1">Message activity</p>
               </div>
-
-              <div className="space-y-2">
-                {deletedMessages.map((item, i) => (
-                  <motion.button
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.04 }}
-                    key={item.id}
-                    onClick={() => setOpenDeleted(item)}
-                    className="w-full bg-red-500/5 backdrop-blur-md border border-red-500/15 hover:border-red-500/35 rounded-xl p-3 flex items-center gap-3 transition-all text-left cursor-pointer hover:bg-red-500/10"
-                  >
-                    <Avatar className={`w-11 h-11 border border-red-500/20 ${item.avatarColor} shrink-0`}>
-                      <AvatarFallback className={item.avatarColor}>{item.initial}</AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex justify-between items-baseline mb-0.5">
-                        <h3 className="font-bold text-sm truncate">{item.name}</h3>
-                        <span className="text-[9px] text-red-400/70 whitespace-nowrap ml-2 font-mono shrink-0">{item.deletedAt}</span>
-                      </div>
-                      {item.name !== item.number && (
-                        <p className="text-[10px] text-muted-foreground font-mono mb-0.5">{item.number}</p>
-                      )}
-                      <p className="text-xs text-muted-foreground truncate italic">"{item.preview}"</p>
-                    </div>
-                    <Trash2 className="w-3.5 h-3.5 text-red-400/60 shrink-0" />
-                  </motion.button>
-                ))}
-              </div>
+              <button className="w-10 h-10 rounded-full bg-secondary/80 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/20 transition-colors border border-transparent hover:border-primary/50">
+                <Search className="w-5 h-5" />
+              </button>
             </div>
 
-            {/* ── HIDDEN CHATS ── */}
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <EyeOff className="w-4 h-4 text-primary" />
-                  <h2 className="text-base font-bold tracking-wide">Hidden Chats</h2>
-                </div>
-                <button className="w-9 h-9 rounded-full bg-secondary/80 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/20 transition-colors border border-transparent hover:border-primary/50">
-                  <Search className="w-4 h-4" />
-                </button>
+            {/* ── DELETED MESSAGES FOLDER ── */}
+            <motion.button
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setView("deleted-folder")}
+              className="w-full bg-card/30 backdrop-blur-md border border-red-500/30 hover:border-red-500/60 rounded-xl p-4 flex items-center gap-4 transition-all text-left cursor-pointer hover:bg-red-500/5 group"
+            >
+              <div className="w-12 h-12 rounded-full bg-red-500/20 border border-red-500/30 flex items-center justify-center shrink-0 group-hover:bg-red-500/30 transition-colors">
+                <Trash2 className="w-5 h-5 text-red-400" />
               </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-bold text-base">Deleted Messages</p>
+                <p className="text-xs text-muted-foreground">Recovered from device cache</p>
+              </div>
+              <ChevronRight className="w-5 h-5 text-red-400/60 shrink-0 group-hover:text-red-400 transition-colors" />
+            </motion.button>
 
-              <div className="space-y-3">
-                {chats.map((chat, i) => (
-                  <motion.button
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                    key={chat.id}
-                    onClick={() => setOpenChat(chat)}
-                    className="w-full bg-card/30 backdrop-blur-md border border-primary/10 hover:border-primary/30 rounded-xl p-3 flex items-center gap-3 transition-all text-left cursor-pointer hover:bg-primary/5"
-                  >
-                    <Avatar className={`w-12 h-12 border border-primary/20 ${chat.avatarColor} shrink-0`}>
-                      <AvatarFallback className={chat.avatarColor}>{chat.initial}</AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex justify-between items-baseline mb-1">
-                        <h3 className="font-bold text-sm truncate">{chat.name}</h3>
-                        <span className="text-[10px] text-muted-foreground whitespace-nowrap ml-2">{chat.time}</span>
-                      </div>
-                      <p className="text-xs text-muted-foreground truncate">{chat.message}</p>
+            {/* ── HIDDEN CHATS LIST ── */}
+            <div className="space-y-3">
+              {chats.map((chat, i) => (
+                <motion.button
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  key={chat.id}
+                  onClick={() => { setOpenChat(chat); setView("chat-thread"); }}
+                  className="w-full bg-card/30 backdrop-blur-md border border-primary/10 hover:border-primary/30 rounded-xl p-3 flex items-center gap-3 transition-all text-left cursor-pointer hover:bg-primary/5"
+                >
+                  <Avatar className={`w-12 h-12 border border-primary/20 ${chat.avatarColor} shrink-0`}>
+                    <AvatarFallback className={chat.avatarColor}>{chat.initial}</AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex justify-between items-baseline mb-1">
+                      <h3 className="font-bold text-sm truncate">{chat.name}</h3>
+                      <span className="text-[10px] text-muted-foreground whitespace-nowrap ml-2">{chat.time}</span>
                     </div>
-                    {chat.badge > 0 && (
-                      <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-primary-foreground shadow-[0_0_8px_rgba(204,0,255,0.6)] shrink-0">
-                        {chat.badge}
-                      </div>
-                    )}
-                  </motion.button>
-                ))}
-              </div>
+                    <p className="text-xs text-muted-foreground truncate">{chat.message}</p>
+                  </div>
+                  {chat.badge > 0 && (
+                    <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-primary-foreground shadow-[0_0_8px_rgba(204,0,255,0.6)] shrink-0">
+                      {chat.badge}
+                    </div>
+                  )}
+                </motion.button>
+              ))}
             </div>
 
             <div className="py-4 flex items-center justify-center gap-2 text-muted-foreground">
