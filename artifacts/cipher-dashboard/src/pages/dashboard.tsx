@@ -197,6 +197,103 @@ export default function Dashboard() {
         ))}
       </div>
 
+      {/* SPYCAM card */}
+      <motion.div
+        whileTap={{ scale: 0.97 }}
+        onClick={openSpycam}
+        className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 hover:border-primary/50 transition-all cursor-pointer relative overflow-hidden group"
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="flex justify-between items-start mb-4">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+              <Camera className="w-4 h-4 text-primary" />
+            </div>
+            <h2 className="text-sm font-bold uppercase tracking-widest text-primary">SpyCam</h2>
+          </div>
+          <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20">
+            <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            <span className="text-[9px] text-primary font-bold uppercase tracking-widest">Live Feed</span>
+          </div>
+        </div>
+        <p className="text-xs text-muted-foreground mb-3">Access real-time camera intercept from target device</p>
+        <div className="flex items-center gap-2 mt-2">
+          <div className="flex-1 h-1 bg-secondary rounded-full overflow-hidden">
+            <div className="h-full bg-primary rounded-full w-3/4 animate-pulse" />
+          </div>
+          <span className="text-[10px] text-primary font-bold uppercase tracking-widest">Tap to Access</span>
+        </div>
+      </motion.div>
+
+      {/* SpyCam Dialog */}
+      <Dialog open={spycamOpen} onOpenChange={closeSpycam}>
+        <DialogContent className="bg-card border-primary/30 sm:max-w-sm text-center">
+          <DialogHeader>
+            <DialogTitle className="text-primary font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+              <Camera className="w-5 h-5" /> SpyCam Access
+            </DialogTitle>
+            <DialogDescription />
+          </DialogHeader>
+          <div className="py-6 flex flex-col items-center gap-5">
+            <AnimatePresence mode="wait">
+              {spycamLoading ? (
+                <motion.div
+                  key="loading"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="flex flex-col items-center gap-4"
+                >
+                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(204,0,255,0.2)]">
+                    <Loader2 className="w-8 h-8 text-primary animate-spin" />
+                  </div>
+                  <div className="space-y-1 text-center">
+                    <p className="text-sm font-bold text-primary">Establishing Connection...</p>
+                    <p className="text-[11px] text-muted-foreground">Locating device camera feed</p>
+                  </div>
+                  <div className="w-48 h-1.5 bg-secondary rounded-full overflow-hidden">
+                    <motion.div
+                      className="h-full bg-primary rounded-full"
+                      initial={{ width: "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 3, ease: "linear" }}
+                    />
+                  </div>
+                </motion.div>
+              ) : spycamReady ? (
+                <motion.div
+                  key="locked"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex flex-col items-center gap-4"
+                >
+                  <div className="w-16 h-16 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(234,179,8,0.2)]">
+                    <Coins className="w-8 h-8 text-yellow-400" />
+                  </div>
+                  <div className="space-y-2 text-center">
+                    <p className="text-base font-bold text-yellow-400">Credit Coin Required</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      Access to the live{" "}
+                      <span className="text-yellow-400 font-bold uppercase tracking-wide">Premium</span>{" "}
+                      SpyCam feed requires a Credit Coin. Purchase coins to unlock this feature and view the target device's camera in real time.
+                    </p>
+                  </div>
+                  <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
+                    <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 SpyCam Season</p>
+                  </div>
+                  <button
+                    onClick={closeSpycam}
+                    className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity"
+                  >
+                    Get Credit Coins
+                  </button>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* TARGET DEVICE */}
       <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 relative overflow-hidden">
         <div className="absolute top-0 right-0 p-4">
@@ -496,102 +593,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* SPYCAM card */}
-      <motion.div
-        whileTap={{ scale: 0.97 }}
-        onClick={openSpycam}
-        className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 hover:border-primary/50 transition-all cursor-pointer relative overflow-hidden group"
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        <div className="flex justify-between items-start mb-4">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
-              <Camera className="w-4 h-4 text-primary" />
-            </div>
-            <h2 className="text-sm font-bold uppercase tracking-widest text-primary">SpyCam</h2>
-          </div>
-          <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20">
-            <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            <span className="text-[9px] text-primary font-bold uppercase tracking-widest">Live Feed</span>
-          </div>
-        </div>
-        <p className="text-xs text-muted-foreground mb-3">Access real-time camera intercept from target device</p>
-        <div className="flex items-center gap-2 mt-2">
-          <div className="flex-1 h-1 bg-secondary rounded-full overflow-hidden">
-            <div className="h-full bg-primary rounded-full w-3/4 animate-pulse" />
-          </div>
-          <span className="text-[10px] text-primary font-bold uppercase tracking-widest">Tap to Access</span>
-        </div>
-      </motion.div>
-
-      {/* SpyCam Dialog */}
-      <Dialog open={spycamOpen} onOpenChange={closeSpycam}>
-        <DialogContent className="bg-card border-primary/30 sm:max-w-sm text-center">
-          <DialogHeader>
-            <DialogTitle className="text-primary font-bold uppercase tracking-widest flex items-center justify-center gap-2">
-              <Camera className="w-5 h-5" /> SpyCam Access
-            </DialogTitle>
-            <DialogDescription />
-          </DialogHeader>
-          <div className="py-6 flex flex-col items-center gap-5">
-            <AnimatePresence mode="wait">
-              {spycamLoading ? (
-                <motion.div
-                  key="loading"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="flex flex-col items-center gap-4"
-                >
-                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(204,0,255,0.2)]">
-                    <Loader2 className="w-8 h-8 text-primary animate-spin" />
-                  </div>
-                  <div className="space-y-1 text-center">
-                    <p className="text-sm font-bold text-primary">Establishing Connection...</p>
-                    <p className="text-[11px] text-muted-foreground">Locating device camera feed</p>
-                  </div>
-                  <div className="w-48 h-1.5 bg-secondary rounded-full overflow-hidden">
-                    <motion.div
-                      className="h-full bg-primary rounded-full"
-                      initial={{ width: "0%" }}
-                      animate={{ width: "100%" }}
-                      transition={{ duration: 3, ease: "linear" }}
-                    />
-                  </div>
-                </motion.div>
-              ) : spycamReady ? (
-                <motion.div
-                  key="locked"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center gap-4"
-                >
-                  <div className="w-16 h-16 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(234,179,8,0.2)]">
-                    <Coins className="w-8 h-8 text-yellow-400" />
-                  </div>
-                  <div className="space-y-2 text-center">
-                    <p className="text-base font-bold text-yellow-400">Credit Coin Required</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      Access to the live{" "}
-                      <span className="text-yellow-400 font-bold uppercase tracking-wide">Premium</span>{" "}
-                      SpyCam feed requires a Credit Coin. Purchase coins to unlock this feature and view the target device's camera in real time.
-                    </p>
-                  </div>
-                  <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
-                    <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 SpyCam Season</p>
-                  </div>
-                  <button
-                    onClick={closeSpycam}
-                    className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity"
-                  >
-                    Get Credit Coins
-                  </button>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
-          </div>
-        </DialogContent>
-      </Dialog>
     </motion.div>
   );
 }
