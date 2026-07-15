@@ -480,22 +480,20 @@ export default function Dashboard() {
       </div>
 
       <div 
-        className="bg-card/40 backdrop-blur-xl border border-destructive/30 rounded-2xl p-5 relative overflow-hidden"
+        className="bg-card/40 backdrop-blur-xl border border-green-500/30 rounded-2xl p-5 relative overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-destructive/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
         <div className="flex justify-between items-start mb-4">
           <div className="flex items-center gap-2">
-            <Database className="w-5 h-5 text-destructive" />
-            <h2 className="text-sm font-bold uppercase tracking-widest text-destructive">File Storage</h2>
+            <Database className="w-5 h-5 text-green-500" />
+            <h2 className="text-sm font-bold uppercase tracking-widest text-green-500">File Storage</h2>
           </div>
-          <span className="text-lg font-bold text-destructive">10%</span>
+          <span className="text-lg font-bold text-green-500">10%</span>
         </div>
         
         <p className="text-sm mb-3 font-medium">500 GB used of 5 TB</p>
-        <div className="w-full h-2 bg-secondary rounded-full overflow-hidden mb-2">
-          <div className="h-full bg-destructive rounded-full w-[10%]" />
+        <div className="w-full h-2 bg-secondary rounded-full overflow-hidden">
+          <div className="h-full bg-green-500 rounded-full w-[10%]" />
         </div>
-        <p className="text-[10px] text-destructive uppercase tracking-widest font-bold animate-pulse">Storage almost full - Action Required</p>
       </div>
 
       {/* SPYCAM card */}
