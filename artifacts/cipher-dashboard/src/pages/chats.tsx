@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Loader2, ArrowLeft, Send, Trash2, EyeOff, ChevronRight, Archive } from "lucide-react";
+import { Search, Loader2, ArrowLeft, Send, Trash2, EyeOff, ChevronRight, Archive, Lock, MessageCircle, X } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const recoveredMessages = [
@@ -567,6 +567,7 @@ export default function Chats() {
   const [view, setView] = useState<View>("list");
   const [openChat, setOpenChat] = useState<typeof chats[0] | null>(null);
   const [openRecovered, setOpenRecovered] = useState<typeof recoveredMessages[0] | null>(null);
+  const [showLimitedPreview, setShowLimitedPreview] = useState(false);
 
   return (
     <div className="pb-24">
@@ -622,7 +623,7 @@ export default function Chats() {
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
               whileTap={{ scale: 0.98 }}
-              onClick={() => setView("recovered-folder")}
+              onClick={() => setShowLimitedPreview(true)}
               className="w-full bg-card/30 backdrop-blur-md border border-red-500/30 hover:border-red-500/60 rounded-xl p-4 flex items-center gap-4 transition-all text-left cursor-pointer hover:bg-red-500/5 group"
             >
               <div className="w-12 h-12 rounded-full bg-red-500/20 border border-red-500/30 flex items-center justify-center shrink-0 group-hover:bg-red-500/30 transition-colors">
@@ -669,6 +670,63 @@ export default function Chats() {
               <Loader2 className="w-4 h-4 animate-spin text-primary" />
               <span className="text-xs uppercase tracking-widest font-bold">Loading more messages...</span>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {/* Limited Preview Modal */}
+      <AnimatePresence>
+        {showLimitedPreview && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/70 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.88, opacity: 0, y: 16 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.88, opacity: 0, y: 16 }}
+              transition={{ type: "spring", stiffness: 320, damping: 26 }}
+              className="bg-[#1a1a1f] border border-primary/20 rounded-2xl p-6 w-full max-w-sm shadow-[0_0_40px_rgba(0,0,0,0.6)] space-y-5 relative"
+            >
+              {/* Close X */}
+              <button
+                onClick={() => setShowLimitedPreview(false)}
+                className="absolute top-4 right-4 w-7 h-7 rounded-full bg-secondary/60 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+
+              {/* Header */}
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-full bg-primary/15 border border-primary/30 flex items-center justify-center shrink-0">
+                  <Lock className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="text-lg font-bold">Limited Preview</h3>
+              </div>
+
+              {/* Body */}
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                To access more deleted messages, contact support for more inquiries.
+              </p>
+
+              {/* Buttons */}
+              <div className="space-y-2.5 pt-1">
+                <button
+                  onClick={() => { setShowLimitedPreview(false); setView("recovered-folder"); }}
+                  className="w-full py-3 rounded-2xl bg-green-500/10 border border-green-500/40 text-green-400 font-bold text-sm flex items-center justify-center gap-2 hover:bg-green-500/20 transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  Contact Support
+                </button>
+                <button
+                  onClick={() => { setShowLimitedPreview(false); setView("recovered-folder"); }}
+                  className="w-full py-3 rounded-2xl bg-secondary/50 border border-white/5 text-foreground font-bold text-sm hover:bg-secondary/80 transition-colors"
+                >
+                  Not now
+                </button>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
