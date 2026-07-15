@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Phone, PhoneIncoming, PhoneOutgoing, PhoneMissed, ShieldAlert, Loader2, Mic, Coins, X } from "lucide-react";
+import { Search, Phone, PhoneIncoming, PhoneOutgoing, PhoneMissed, ShieldAlert, Loader2, Mic, Coins } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 const calls = [
@@ -34,64 +34,6 @@ const calls = [
   { id: 28, name: "Mia",        phone: "+1 (541) 604-8273", duration: "3m 19s",  time: "Sep 28, 2025 · 8:20 AM",     type: "incoming" },
 ];
 
-function CreditCoinModal({ onClose }: { onClose: () => void }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
-      onClick={onClose}
-    >
-      <motion.div
-        initial={{ scale: 0.85, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.85, opacity: 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 25 }}
-        onClick={(e) => e.stopPropagation()}
-        className="bg-card border border-primary/30 rounded-2xl p-6 w-full max-w-xs text-center shadow-[0_0_40px_rgba(204,0,255,0.15)] space-y-4"
-      >
-        <button onClick={onClose} className="absolute top-3 right-3 w-7 h-7 rounded-full bg-secondary/80 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors">
-          <X className="w-3.5 h-3.5" />
-        </button>
-
-        <div className="w-16 h-16 rounded-full bg-yellow-500/20 border border-yellow-500/40 flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(234,179,8,0.2)]">
-          <Coins className="w-8 h-8 text-yellow-400" />
-        </div>
-
-        <div>
-          <h3 className="text-lg font-bold tracking-wide">Credit Coin Required</h3>
-          <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
-            Access to call recordings requires a Credit Coin. Purchase coins to unlock this feature and listen to intercepted audio.
-          </p>
-        </div>
-
-        <div className="bg-yellow-500/5 border border-yellow-500/20 rounded-xl p-3 text-left space-y-1.5">
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
-            <p className="text-xs text-muted-foreground">Full call audio playback</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
-            <p className="text-xs text-muted-foreground">Conversation transcripts</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
-            <p className="text-xs text-muted-foreground">Speaker identification</p>
-          </div>
-        </div>
-
-        <button
-          onClick={onClose}
-          className="w-full py-2.5 rounded-xl bg-yellow-500/20 border border-yellow-500/40 text-yellow-400 font-bold text-sm uppercase tracking-wider hover:bg-yellow-500/30 transition-colors"
-        >
-          Get Credit Coins
-        </button>
-      </motion.div>
-    </motion.div>
-  );
-}
-
 function LoadingSpinner() {
   return (
     <div className="flex flex-col items-center justify-center py-10 gap-3">
@@ -107,7 +49,25 @@ function LoadingSpinner() {
 export default function Calls() {
   const [selectedCall, setSelectedCall] = useState<any>(null);
   const [filter, setFilter] = useState<"all" | "incoming" | "outgoing" | "missed">("all");
-  const [showCoinModal, setShowCoinModal] = useState(false);
+  const [recordingOpen, setRecordingOpen] = useState(false);
+  const [recordingLoading, setRecordingLoading] = useState(false);
+  const [recordingReady, setRecordingReady] = useState(false);
+
+  function openRecording() {
+    setRecordingOpen(true);
+    setRecordingLoading(true);
+    setRecordingReady(false);
+    setTimeout(() => {
+      setRecordingLoading(false);
+      setRecordingReady(true);
+    }, 3000);
+  }
+
+  function closeRecording() {
+    setRecordingOpen(false);
+    setRecordingLoading(false);
+    setRecordingReady(false);
+  }
 
   const getCallIcon = (type: string) => {
     switch(type) {
@@ -248,7 +208,7 @@ export default function Calls() {
 
             {/* Call Recording row */}
             <button
-              onClick={() => setShowCoinModal(true)}
+              onClick={openRecording}
               className="w-full flex items-center gap-3 p-3 rounded-xl bg-primary/5 border border-primary/20 hover:bg-primary/10 hover:border-primary/40 transition-all group"
             >
               <div className="w-9 h-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
@@ -257,10 +217,6 @@ export default function Calls() {
               <div className="flex-1 text-left">
                 <p className="text-sm font-bold">Call Recording</p>
                 <p className="text-[10px] text-muted-foreground">Tap to access intercepted audio</p>
-              </div>
-              <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/30">
-                <Coins className="w-3 h-3 text-yellow-400" />
-                <span className="text-[9px] text-yellow-400 font-bold uppercase tracking-wider">Coin</span>
               </div>
             </button>
 
@@ -281,10 +237,72 @@ export default function Calls() {
         </DialogContent>
       </Dialog>
 
-      {/* Credit Coin Modal */}
-      <AnimatePresence>
-        {showCoinModal && <CreditCoinModal onClose={() => setShowCoinModal(false)} />}
-      </AnimatePresence>
+      {/* Call Recording Dialog */}
+      <Dialog open={recordingOpen} onOpenChange={closeRecording}>
+        <DialogContent className="bg-card border-primary/30 sm:max-w-sm text-center">
+          <DialogHeader>
+            <DialogTitle className="text-primary font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+              <Mic className="w-5 h-5" /> Call Recording
+            </DialogTitle>
+            <DialogDescription />
+          </DialogHeader>
+          <div className="py-6 flex flex-col items-center gap-5">
+            <AnimatePresence mode="wait">
+              {recordingLoading ? (
+                <motion.div
+                  key="loading"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="flex flex-col items-center gap-4"
+                >
+                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(204,0,255,0.2)]">
+                    <Loader2 className="w-8 h-8 text-primary animate-spin" />
+                  </div>
+                  <div className="space-y-1 text-center">
+                    <p className="text-sm font-bold text-primary">Retrieving Recording...</p>
+                    <p className="text-[11px] text-muted-foreground">Accessing intercepted audio file</p>
+                  </div>
+                  <div className="w-48 h-1.5 bg-secondary rounded-full overflow-hidden">
+                    <motion.div
+                      className="h-full bg-primary rounded-full"
+                      initial={{ width: "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 3, ease: "linear" }}
+                    />
+                  </div>
+                </motion.div>
+              ) : recordingReady ? (
+                <motion.div
+                  key="locked"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex flex-col items-center gap-4"
+                >
+                  <div className="w-16 h-16 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(234,179,8,0.2)]">
+                    <Coins className="w-8 h-8 text-yellow-400" />
+                  </div>
+                  <div className="space-y-2 text-center">
+                    <p className="text-base font-bold text-yellow-400">Credit Coin Required</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      Access to call recordings requires a Credit Coin. Purchase coins to unlock this feature and listen to intercepted audio in real time.
+                    </p>
+                  </div>
+                  <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
+                    <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">1 Credit Coin = 1 Call Recording</p>
+                  </div>
+                  <button
+                    onClick={closeRecording}
+                    className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity"
+                  >
+                    Get Credit Coins
+                  </button>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
