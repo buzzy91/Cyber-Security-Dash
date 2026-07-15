@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Database, TrendingUp, TrendingDown, BarChart2, Activity, Camera, Coins, Loader2 } from "lucide-react";
+import { Database, TrendingUp, TrendingDown, BarChart2, Activity, Camera, Coins, Loader2, MapPin } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import {
   AreaChart, Area, BarChart, Bar,
@@ -133,6 +133,27 @@ export default function Dashboard() {
     setSpycamLoading(false);
     setSpycamReady(false);
   }
+
+  const [locationOpen, setLocationOpen] = useState(false);
+  const [locationLoading, setLocationLoading] = useState(false);
+  const [locationReady, setLocationReady] = useState(false);
+
+  function openLocation() {
+    setLocationOpen(true);
+    setLocationLoading(true);
+    setLocationReady(false);
+    setTimeout(() => {
+      setLocationLoading(false);
+      setLocationReady(true);
+    }, 3000);
+  }
+
+  function closeLocation() {
+    setLocationOpen(false);
+    setLocationLoading(false);
+    setLocationReady(false);
+  }
+
   const [visRange, setVisRange] = useState<Range>("1M");
   const [chartType, setChartType] = useState<"area" | "bar">("area");
 
@@ -167,13 +188,25 @@ export default function Dashboard() {
         {[
           { value: 79, color: "text-purple-500", count: "948",  label: "Calls",    route: "/calls"  },
           { value: 82, color: "text-cyan-500",   count: "12.3k",label: "Messages", route: "/chats"  },
-          { value: 38, color: "text-green-500",  count: "188",  label: "Location", route: null      },
-          { value: 60, color: "text-pink-500",   count: "1.2k", label: "Firewall", route: null      },
+          { value: 38, color: "text-green-500",  count: "188",  label: "Location", route: null, onClick: openLocation },
+          { value: 60, color: "text-pink-500",   count: "1.2k", label: "Firewall", route: null, onClick: undefined   },
         ].map((item) => (
           item.route ? (
             <button
               key={item.label}
               onClick={() => navigate(item.route!)}
+              className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-all hover:-translate-y-1 duration-300 cursor-pointer active:scale-95 group"
+            >
+              <CircularProgress value={item.value} colorClass={item.color} size={56} strokeWidth={4} />
+              <div className="text-center">
+                <p className="text-lg font-bold">{item.count}</p>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-widest group-hover:text-primary transition-colors">{item.label}</p>
+              </div>
+            </button>
+          ) : item.onClick ? (
+            <button
+              key={item.label}
+              onClick={item.onClick}
               className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-4 flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-all hover:-translate-y-1 duration-300 cursor-pointer active:scale-95 group"
             >
               <CircularProgress value={item.value} colorClass={item.color} size={56} strokeWidth={4} />
@@ -283,6 +316,75 @@ export default function Dashboard() {
                   </div>
                   <button
                     onClick={closeSpycam}
+                    className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity"
+                  >
+                    Get Credit Coins
+                  </button>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Location Dialog */}
+      <Dialog open={locationOpen} onOpenChange={closeLocation}>
+        <DialogContent className="bg-card border-primary/30 sm:max-w-sm text-center">
+          <DialogHeader>
+            <DialogTitle className="text-primary font-bold uppercase tracking-widest flex items-center justify-center gap-2">
+              <MapPin className="w-5 h-5" /> Location Access
+            </DialogTitle>
+            <DialogDescription />
+          </DialogHeader>
+          <div className="py-6 flex flex-col items-center gap-5">
+            <AnimatePresence mode="wait">
+              {locationLoading ? (
+                <motion.div
+                  key="loading"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="flex flex-col items-center gap-4"
+                >
+                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(204,0,255,0.2)]">
+                    <Loader2 className="w-8 h-8 text-primary animate-spin" />
+                  </div>
+                  <div className="space-y-1 text-center">
+                    <p className="text-sm font-bold text-primary">Establishing Connection...</p>
+                    <p className="text-[11px] text-muted-foreground">Locating device GPS feed</p>
+                  </div>
+                  <div className="w-48 h-1.5 bg-secondary rounded-full overflow-hidden">
+                    <motion.div
+                      className="h-full bg-primary rounded-full"
+                      initial={{ width: "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 3, ease: "linear" }}
+                    />
+                  </div>
+                </motion.div>
+              ) : locationReady ? (
+                <motion.div
+                  key="locked"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex flex-col items-center gap-4"
+                >
+                  <div className="w-16 h-16 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(234,179,8,0.2)]">
+                    <Coins className="w-8 h-8 text-yellow-400" />
+                  </div>
+                  <div className="space-y-2 text-center">
+                    <p className="text-base font-bold text-yellow-400">Credit Coin Required</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      Access to the live{" "}
+                      <span className="text-yellow-400 font-bold uppercase tracking-wide">Premium</span>{" "}
+                      location feed requires a Credit Coin. Purchase coins to unlock this feature and track the target device's real-time GPS in real time.
+                    </p>
+                  </div>
+                  <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
+                    <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 Location Season</p>
+                  </div>
+                  <button
+                    onClick={closeLocation}
                     className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity"
                   >
                     Get Credit Coins
