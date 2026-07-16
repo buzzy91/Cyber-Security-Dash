@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Coins, Bitcoin, Copy, Check, ArrowLeft, XCircle } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import btcQrCode from "@assets/WhatsApp_Image_2026-07-16_at_7.48.47_AM_1784213755185.jpeg";
+import btcQrCode from "@assets/WhatsApp_Image_2026-07-16_at_8.05.03_AM_1784214397515.jpeg";
 
 const BTC_WALLET = "bc1qu2ewhas7d5va96ssqhut5778hfp9ud85jmn2nx";
 
