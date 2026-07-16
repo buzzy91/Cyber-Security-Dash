@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Coins, Bitcoin, Copy, Check, ArrowLeft, XCircle } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import btcQrCode from "@assets/WhatsApp_Image_2026-07-16_at_7.48.47_AM_1784213755185.jpeg";
 
 const BTC_WALLET = "bc1qu2ewhas7d5va96ssqhut5778hfp9ud85jmn2nx";
 
@@ -164,9 +165,9 @@ export default function CreditCoinShop({ open, onClose }: Props) {
                 exit={{ opacity: 0, y: -10 }}
                 className="w-full flex flex-col gap-4"
               >
-                <div className="flex items-center justify-center gap-2">
-                  <div className="w-12 h-12 rounded-full bg-orange-500/10 border border-orange-500/30 flex items-center justify-center shadow-[0_0_16px_rgba(249,115,22,0.2)]">
-                    <Bitcoin className="w-6 h-6 text-orange-400" />
+                <div className="flex items-center justify-center">
+                  <div className="p-2 rounded-xl bg-white border border-orange-500/30 shadow-[0_0_16px_rgba(249,115,22,0.2)]">
+                    <img src={btcQrCode} alt="BTC QR Code" className="w-40 h-40 object-contain rounded-lg" />
                   </div>
                 </div>
 
