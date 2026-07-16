@@ -212,15 +212,29 @@ export default function Dashboard() {
       exit={{ opacity: 0 }}
       className="p-4 md:p-6 pb-24 space-y-6"
     >
-      <div className="flex flex-col gap-1">
-        <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold tracking-wide">Dashboard Overview</h1>
-          <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-green-500/10 border border-green-500/20">
-            <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-[10px] text-green-500 uppercase tracking-widest font-bold">Live</span>
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl font-bold tracking-wide">Dashboard Overview</h1>
+            <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-green-500/10 border border-green-500/20">
+              <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+              <span className="text-[10px] text-green-500 uppercase tracking-widest font-bold">Live</span>
+            </div>
           </div>
+          <p className="text-xs text-muted-foreground font-mono">Last Updated: Just Now</p>
         </div>
-        <p className="text-xs text-muted-foreground font-mono">Last Updated: Just Now</p>
+
+        {/* Credit Coin Balance */}
+        <button
+          onClick={openCoinShop}
+          className="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-yellow-500/10 border border-yellow-500/30 hover:bg-yellow-500/20 hover:border-yellow-500/50 transition-all active:scale-95 group"
+        >
+          <Coins className="w-4 h-4 text-yellow-400" />
+          <div className="text-left">
+            <p className="text-[9px] text-yellow-500/70 uppercase tracking-widest font-bold leading-none mb-0.5">Balance</p>
+            <p className="text-sm font-bold text-yellow-400 leading-none">0 Coins</p>
+          </div>
+        </button>
       </div>
 
       {/* QUICK MENU — first section */}
@@ -269,6 +283,35 @@ export default function Dashboard() {
           )
         ))}
       </div>
+
+      {/* GET CREDIT COINS card */}
+      <motion.div
+        whileTap={{ scale: 0.97 }}
+        onClick={openCoinShop}
+        className="bg-gradient-to-r from-yellow-500/10 via-yellow-400/5 to-primary/10 backdrop-blur-xl border border-yellow-500/30 rounded-2xl p-5 hover:border-yellow-500/60 transition-all cursor-pointer relative overflow-hidden group"
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-yellow-500/15 border border-yellow-500/30 flex items-center justify-center shadow-[0_0_14px_rgba(234,179,8,0.2)]">
+              <Coins className="w-5 h-5 text-yellow-400" />
+            </div>
+            <div>
+              <h2 className="text-sm font-bold uppercase tracking-widest text-yellow-400">Get Credit Coins</h2>
+              <p className="text-[11px] text-muted-foreground mt-0.5">Top up to unlock Premium surveillance features</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="hidden sm:flex flex-col items-end gap-1">
+              <span className="text-[9px] text-yellow-500/70 uppercase tracking-widest font-bold">Starting from</span>
+              <span className="text-base font-bold text-yellow-400">$2,000</span>
+            </div>
+            <div className="w-8 h-8 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors">
+              <span className="text-yellow-400 font-bold text-sm">→</span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
 
       {/* SPYCAM card */}
       <motion.div
