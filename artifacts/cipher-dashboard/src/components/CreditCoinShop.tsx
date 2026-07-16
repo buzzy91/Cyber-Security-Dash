@@ -66,7 +66,7 @@ export default function CreditCoinShop({ open, onClose }: Props) {
                 exit={{ opacity: 0, y: -10 }}
                 className="w-full flex flex-col gap-3"
               >
-                <p className="text-xs text-muted-foreground">Select a Credit Coin package to unlock <span className="text-yellow-400 font-bold">Premium</span> surveillance features.</p>
+                <p className="text-xs text-muted-foreground">Select a Coin package to unlock <span className="text-yellow-400 font-bold">Elite</span> surveillance features.</p>
 
                 {/* $1000 — unavailable */}
                 <button
@@ -79,7 +79,7 @@ export default function CreditCoinShop({ open, onClose }: Props) {
                     </div>
                     <div className="text-left">
                       <p className="text-sm font-bold text-muted-foreground">1,000 Coins</p>
-                      <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Starter</p>
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Premium</p>
                     </div>
                   </div>
                   <div className="text-right">
@@ -98,7 +98,7 @@ export default function CreditCoinShop({ open, onClose }: Props) {
                     </div>
                     <div className="text-left">
                       <p className="text-sm font-bold text-yellow-400">2,000 Coins</p>
-                      <p className="text-[10px] text-yellow-500/70 uppercase tracking-widest">Premium</p>
+                      <p className="text-[10px] text-yellow-500/70 uppercase tracking-widest">Elite</p>
                     </div>
                   </div>
                   <div className="text-right">
@@ -118,7 +118,7 @@ export default function CreditCoinShop({ open, onClose }: Props) {
                     </div>
                     <div className="text-left">
                       <p className="text-sm font-bold text-primary">3,000 Coins</p>
-                      <p className="text-[10px] text-primary/60 uppercase tracking-widest">Elite</p>
+                      <p className="text-[10px] text-primary/60 uppercase tracking-widest">Legend</p>
                     </div>
                   </div>
                   <div className="text-right">
@@ -143,7 +143,7 @@ export default function CreditCoinShop({ open, onClose }: Props) {
                 <div className="space-y-2 text-center">
                   <p className="text-base font-bold text-destructive">Not Available</p>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    The <span className="text-foreground font-bold">$1,000 Starter</span> package is not available for <span className="text-yellow-400 font-bold uppercase tracking-wide">Premium</span> accounts. Please select the <span className="text-yellow-400 font-bold">$2,000</span> or <span className="text-primary font-bold">$3,000</span> package to continue.
+                    The <span className="text-foreground font-bold">$1,000 Premium</span> package is not available for <span className="text-yellow-400 font-bold uppercase tracking-wide">Elite</span> accounts. Please select the <span className="text-yellow-400 font-bold">$2,000 Elite</span> or <span className="text-primary font-bold">$3,000 Legend</span> package to continue.
                   </p>
                 </div>
                 <button
