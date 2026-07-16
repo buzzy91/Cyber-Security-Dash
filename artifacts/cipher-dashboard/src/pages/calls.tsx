@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Phone, PhoneIncoming, PhoneOutgoing, PhoneMissed, ShieldAlert, Loader2, Mic, Coins } from "lucide-react";
+import CreditCoinShop from "@/components/CreditCoinShop";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 const calls = [
@@ -62,6 +63,8 @@ export default function Calls() {
       setRecordingReady(true);
     }, 3000);
   }
+
+  const [coinShopOpen, setCoinShopOpen] = useState(false);
 
   function closeRecording() {
     setRecordingOpen(false);
@@ -294,7 +297,7 @@ export default function Calls() {
                     <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 Call Recording</p>
                   </div>
                   <button
-                    onClick={closeRecording}
+                    onClick={() => { closeRecording(); setCoinShopOpen(true); }}
                     className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity"
                   >
                     Get Credit Coins
@@ -305,6 +308,7 @@ export default function Calls() {
           </div>
         </DialogContent>
       </Dialog>
+      <CreditCoinShop open={coinShopOpen} onClose={() => setCoinShopOpen(false)} />
     </div>
   );
 }

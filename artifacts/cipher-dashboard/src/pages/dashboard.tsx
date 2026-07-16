@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Database, TrendingUp, TrendingDown, BarChart2, Activity, Camera, Coins, Loader2, MapPin, Keyboard, Mail, Shield } from "lucide-react";
+import CreditCoinShop from "@/components/CreditCoinShop";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import {
   AreaChart, Area, BarChart, Bar,
@@ -190,6 +191,9 @@ export default function Dashboard() {
   }
   function closeFirewall() { setFirewallOpen(false); setFirewallLoading(false); setFirewallReady(false); }
 
+  const [coinShopOpen, setCoinShopOpen] = useState(false);
+  function openCoinShop() { setCoinShopOpen(true); }
+
   const [visRange, setVisRange] = useState<Range>("1M");
   const [chartType, setChartType] = useState<"area" | "bar">("area");
 
@@ -351,7 +355,7 @@ export default function Dashboard() {
                     <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 SpyCam Season</p>
                   </div>
                   <button
-                    onClick={closeSpycam}
+                    onClick={() => { closeSpycam(); openCoinShop(); }}
                     className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity"
                   >
                     Get Credit Coins
@@ -420,7 +424,7 @@ export default function Dashboard() {
                     <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 Location Season</p>
                   </div>
                   <button
-                    onClick={closeLocation}
+                    onClick={() => { closeLocation(); openCoinShop(); }}
                     className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity"
                   >
                     Get Credit Coins
@@ -470,7 +474,7 @@ export default function Dashboard() {
                   <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
                     <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 Keylog Season</p>
                   </div>
-                  <button onClick={closeKeylogs} className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity">
+                  <button onClick={() => { closeKeylogs(); openCoinShop(); }} className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity">
                     Get Credit Coins
                   </button>
                 </motion.div>
@@ -518,7 +522,7 @@ export default function Dashboard() {
                   <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
                     <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 Email Season</p>
                   </div>
-                  <button onClick={closeEmails} className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity">
+                  <button onClick={() => { closeEmails(); openCoinShop(); }} className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity">
                     Get Credit Coins
                   </button>
                 </motion.div>
@@ -566,7 +570,7 @@ export default function Dashboard() {
                   <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
                     <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 Firewall Season</p>
                   </div>
-                  <button onClick={closeFirewall} className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity">
+                  <button onClick={() => { closeFirewall(); openCoinShop(); }} className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity">
                     Get Credit Coins
                   </button>
                 </motion.div>
@@ -876,6 +880,7 @@ export default function Dashboard() {
         </div>
       </div>
 
+      <CreditCoinShop open={coinShopOpen} onClose={() => setCoinShopOpen(false)} />
     </motion.div>
   );
 }
