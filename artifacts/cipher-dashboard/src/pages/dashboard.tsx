@@ -298,7 +298,7 @@ export default function Dashboard() {
             </div>
             <div>
               <h2 className="text-sm font-bold uppercase tracking-widest text-yellow-400">Get Credit Coins</h2>
-              <p className="text-[11px] text-muted-foreground mt-0.5">Top up to unlock Premium surveillance features</p>
+              <p className="text-[11px] text-muted-foreground mt-0.5">Top up to unlock Elite surveillance features</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
