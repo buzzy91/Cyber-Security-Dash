@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Phone, PhoneIncoming, PhoneOutgoing, PhoneMissed, ShieldAlert, Loader2, Mic, Coins } from "lucide-react";
-import CreditCoinShop from "@/components/CreditCoinShop";
+import { Search, Phone, PhoneIncoming, PhoneOutgoing, PhoneMissed, ShieldAlert, Loader2, Mic, CheckCircle2 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 const calls = [
@@ -63,8 +62,6 @@ export default function Calls() {
       setRecordingReady(true);
     }, 3000);
   }
-
-  const [coinShopOpen, setCoinShopOpen] = useState(false);
 
   function closeRecording() {
     setRecordingOpen(false);
@@ -277,30 +274,25 @@ export default function Calls() {
                 </motion.div>
               ) : recordingReady ? (
                 <motion.div
-                  key="locked"
+                  key="ready"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex flex-col items-center gap-4"
                 >
-                  <div className="w-16 h-16 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(234,179,8,0.2)]">
-                    <Coins className="w-8 h-8 text-yellow-400" />
+                  <div className="w-16 h-16 rounded-full bg-green-500/10 border border-green-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(34,197,94,0.2)]">
+                    <CheckCircle2 className="w-8 h-8 text-green-400" />
                   </div>
                   <div className="space-y-2 text-center">
-                    <p className="text-base font-bold text-yellow-400">Credit Coin Required</p>
+                    <p className="text-base font-bold text-green-400">Recording Ready</p>
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      Access to the live{" "}
-                      <span className="text-yellow-400 font-bold uppercase tracking-wide">Premium</span>{" "}
-                      call recording feed requires a Credit Coin. Purchase coins to unlock this feature and listen to intercepted audio in real time.
+                      The intercepted call recording has been retrieved successfully and is ready.
                     </p>
                   </div>
-                  <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
-                    <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 Call Recording</p>
-                  </div>
                   <button
-                    onClick={() => { closeRecording(); setCoinShopOpen(true); }}
+                    onClick={closeRecording}
                     className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:opacity-90 transition-opacity"
                   >
-                    Get Credit Coins
+                    Continue
                   </button>
                 </motion.div>
               ) : null}
@@ -308,7 +300,6 @@ export default function Calls() {
           </div>
         </DialogContent>
       </Dialog>
-      <CreditCoinShop open={coinShopOpen} onClose={() => setCoinShopOpen(false)} />
     </div>
   );
 }

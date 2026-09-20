@@ -1,8 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Database, TrendingUp, TrendingDown, BarChart2, Activity, Camera, Coins, Loader2, MapPin, Keyboard, Mail, Shield } from "lucide-react";
-import CreditCoinShop from "@/components/CreditCoinShop";
+import { Database, TrendingUp, TrendingDown, BarChart2, Activity, Camera, Loader2, MapPin, Keyboard, Mail, Shield, CheckCircle2 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import {
   AreaChart, Area, BarChart, Bar,
@@ -112,6 +111,30 @@ function CustomTooltip({ active, payload, label }: any) {
   );
 }
 
+function AccessReady({ message, onClose }: { message: string; onClose: () => void }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="flex flex-col items-center gap-4"
+    >
+      <div className="w-16 h-16 rounded-full bg-green-500/10 border border-green-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(34,197,94,0.2)]">
+        <CheckCircle2 className="w-8 h-8 text-green-400" />
+      </div>
+      <div className="space-y-2 text-center">
+        <p className="text-base font-bold text-green-400">Access Ready</p>
+        <p className="text-xs text-muted-foreground leading-relaxed">{message}</p>
+      </div>
+      <button
+        onClick={onClose}
+        className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:opacity-90 transition-opacity"
+      >
+        Continue
+      </button>
+    </motion.div>
+  );
+}
+
 export default function Dashboard() {
   const [, navigate] = useLocation();
   const [socialDialog, setSocialDialog] = useState<{ label: string; bg: string; icon: React.ReactNode } | null>(null);
@@ -191,9 +214,6 @@ export default function Dashboard() {
   }
   function closeFirewall() { setFirewallOpen(false); setFirewallLoading(false); setFirewallReady(false); }
 
-  const [coinShopOpen, setCoinShopOpen] = useState(false);
-  function openCoinShop() { setCoinShopOpen(true); }
-
   const [visRange, setVisRange] = useState<Range>("1M");
   const [chartType, setChartType] = useState<"area" | "bar">("area");
 
@@ -224,17 +244,6 @@ export default function Dashboard() {
           <p className="text-xs text-muted-foreground font-mono">Last Updated: Just Now</p>
         </div>
 
-        {/* Credit Coin Balance */}
-        <button
-          onClick={openCoinShop}
-          className="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-yellow-500/10 border border-yellow-500/30 hover:bg-yellow-500/20 hover:border-yellow-500/50 transition-all active:scale-95 group"
-        >
-          <Coins className="w-4 h-4 text-yellow-400" />
-          <div className="text-left">
-            <p className="text-[9px] text-yellow-500/70 uppercase tracking-widest font-bold leading-none mb-0.5">Balance</p>
-            <p className="text-sm font-bold text-yellow-400 leading-none">0 Coins</p>
-          </div>
-        </button>
       </div>
 
       {/* QUICK MENU — first section */}
@@ -283,35 +292,6 @@ export default function Dashboard() {
           )
         ))}
       </div>
-
-      {/* GET CREDIT COINS card */}
-      <motion.div
-        whileTap={{ scale: 0.97 }}
-        onClick={openCoinShop}
-        className="bg-gradient-to-r from-yellow-500/10 via-yellow-400/5 to-primary/10 backdrop-blur-xl border border-yellow-500/30 rounded-2xl p-5 hover:border-yellow-500/60 transition-all cursor-pointer relative overflow-hidden group"
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-yellow-500/15 border border-yellow-500/30 flex items-center justify-center shadow-[0_0_14px_rgba(234,179,8,0.2)]">
-              <Coins className="w-5 h-5 text-yellow-400" />
-            </div>
-            <div>
-              <h2 className="text-sm font-bold uppercase tracking-widest text-yellow-400">Get Credit Coins</h2>
-              <p className="text-[11px] text-muted-foreground mt-0.5">Top up to unlock Elite surveillance features</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="hidden sm:flex flex-col items-end gap-1">
-              <span className="text-[9px] text-yellow-500/70 uppercase tracking-widest font-bold">Starting from</span>
-              <span className="text-base font-bold text-yellow-400">$2,000</span>
-            </div>
-            <div className="w-8 h-8 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center group-hover:bg-yellow-500/20 transition-colors">
-              <span className="text-yellow-400 font-bold text-sm">→</span>
-            </div>
-          </div>
-        </div>
-      </motion.div>
 
       {/* SPYCAM card */}
       <motion.div
@@ -377,33 +357,11 @@ export default function Dashboard() {
                   </div>
                 </motion.div>
               ) : spycamReady ? (
-                <motion.div
-                  key="locked"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center gap-4"
-                >
-                  <div className="w-16 h-16 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(234,179,8,0.2)]">
-                    <Coins className="w-8 h-8 text-yellow-400" />
-                  </div>
-                  <div className="space-y-2 text-center">
-                    <p className="text-base font-bold text-yellow-400">Credit Coin Required</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      Access to the live{" "}
-                      <span className="text-yellow-400 font-bold uppercase tracking-wide">Premium</span>{" "}
-                      SpyCam feed requires a Credit Coin. Purchase coins to unlock this feature and view the target device's camera in real time.
-                    </p>
-                  </div>
-                  <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
-                    <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 SpyCam Season</p>
-                  </div>
-                  <button
-                    onClick={() => { closeSpycam(); openCoinShop(); }}
-                    className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:opacity-90 transition-opacity"
-                  >
-                    Get Credit Coins
-                  </button>
-                </motion.div>
+                <AccessReady
+                  key="ready"
+                  message="The live SpyCam connection is established and ready."
+                  onClose={closeSpycam}
+                />
               ) : null}
             </AnimatePresence>
           </div>
@@ -446,33 +404,11 @@ export default function Dashboard() {
                   </div>
                 </motion.div>
               ) : locationReady ? (
-                <motion.div
-                  key="locked"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center gap-4"
-                >
-                  <div className="w-16 h-16 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(234,179,8,0.2)]">
-                    <Coins className="w-8 h-8 text-yellow-400" />
-                  </div>
-                  <div className="space-y-2 text-center">
-                    <p className="text-base font-bold text-yellow-400">Credit Coin Required</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      Access to the live{" "}
-                      <span className="text-yellow-400 font-bold uppercase tracking-wide">Premium</span>{" "}
-                      location feed requires a Credit Coin. Purchase coins to unlock this feature and track the target device's real-time GPS in real time.
-                    </p>
-                  </div>
-                  <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
-                    <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 Location Season</p>
-                  </div>
-                  <button
-                    onClick={() => { closeLocation(); openCoinShop(); }}
-                    className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:opacity-90 transition-opacity"
-                  >
-                    Get Credit Coins
-                  </button>
-                </motion.div>
+                <AccessReady
+                  key="ready"
+                  message="The real-time location connection is established and ready."
+                  onClose={closeLocation}
+                />
               ) : null}
             </AnimatePresence>
           </div>
@@ -504,23 +440,11 @@ export default function Dashboard() {
                   </div>
                 </motion.div>
               ) : keylogsReady ? (
-                <motion.div key="locked" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center gap-4">
-                  <div className="w-16 h-16 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(234,179,8,0.2)]">
-                    <Coins className="w-8 h-8 text-yellow-400" />
-                  </div>
-                  <div className="space-y-2 text-center">
-                    <p className="text-base font-bold text-yellow-400">Credit Coin Required</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      Access to live <span className="text-yellow-400 font-bold uppercase tracking-wide">Premium</span> keylogger data requires a Credit Coin. Purchase coins to unlock every keystroke typed on the target device.
-                    </p>
-                  </div>
-                  <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
-                    <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 Keylog Season</p>
-                  </div>
-                  <button onClick={() => { closeKeylogs(); openCoinShop(); }} className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:opacity-90 transition-opacity">
-                    Get Credit Coins
-                  </button>
-                </motion.div>
+                <AccessReady
+                  key="ready"
+                  message="The live keylogger connection is established and ready."
+                  onClose={closeKeylogs}
+                />
               ) : null}
             </AnimatePresence>
           </div>
@@ -552,23 +476,11 @@ export default function Dashboard() {
                   </div>
                 </motion.div>
               ) : emailsReady ? (
-                <motion.div key="locked" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center gap-4">
-                  <div className="w-16 h-16 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(234,179,8,0.2)]">
-                    <Coins className="w-8 h-8 text-yellow-400" />
-                  </div>
-                  <div className="space-y-2 text-center">
-                    <p className="text-base font-bold text-yellow-400">Credit Coin Required</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      Access to intercepted <span className="text-yellow-400 font-bold uppercase tracking-wide">Premium</span> emails requires a Credit Coin. Purchase coins to read every sent and received email on the target device.
-                    </p>
-                  </div>
-                  <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
-                    <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 Email Season</p>
-                  </div>
-                  <button onClick={() => { closeEmails(); openCoinShop(); }} className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:opacity-90 transition-opacity">
-                    Get Credit Coins
-                  </button>
-                </motion.div>
+                <AccessReady
+                  key="ready"
+                  message="The email intercept connection is established and ready."
+                  onClose={closeEmails}
+                />
               ) : null}
             </AnimatePresence>
           </div>
@@ -600,23 +512,11 @@ export default function Dashboard() {
                   </div>
                 </motion.div>
               ) : firewallReady ? (
-                <motion.div key="locked" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center gap-4">
-                  <div className="w-16 h-16 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(234,179,8,0.2)]">
-                    <Coins className="w-8 h-8 text-yellow-400" />
-                  </div>
-                  <div className="space-y-2 text-center">
-                    <p className="text-base font-bold text-yellow-400">Credit Coin Required</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      Access to <span className="text-yellow-400 font-bold uppercase tracking-wide">Premium</span> firewall monitoring requires a Credit Coin. Purchase coins to view all blocked connections and network traffic on the target device.
-                    </p>
-                  </div>
-                  <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
-                    <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 Firewall Season</p>
-                  </div>
-                  <button onClick={() => { closeFirewall(); openCoinShop(); }} className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:opacity-90 transition-opacity">
-                    Get Credit Coins
-                  </button>
-                </motion.div>
+                <AccessReady
+                  key="ready"
+                  message="The firewall monitoring connection is established and ready."
+                  onClose={closeFirewall}
+                />
               ) : null}
             </AnimatePresence>
           </div>
@@ -923,7 +823,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <CreditCoinShop open={coinShopOpen} onClose={() => setCoinShopOpen(false)} />
     </motion.div>
   );
 }

@@ -5,9 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { motion, AnimatePresence } from "framer-motion";
 import NotFound from "@/pages/not-found";
-import { Menu, Bell, Phone, MessageSquare, Video, Image as ImageIcon, Settings, X, Zap, LayoutDashboard, Coins, AlertTriangle } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import CreditCoinShop from "@/components/CreditCoinShop";
+import { Menu, Bell, Phone, MessageSquare, Video, Image as ImageIcon, Settings, X, Zap, LayoutDashboard } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import logoImg from "@assets/WhatsApp_Image_2026-09-20_at_3.35.26_AM_1789900717098.jpeg";
 
@@ -337,13 +335,6 @@ function MainLayout() {
 
 function App() {
   const [unlocked, setUnlocked] = useState(false);
-  const [showCoinAlert, setShowCoinAlert] = useState(false);
-  const [coinShopOpen, setCoinShopOpen] = useState(false);
-
-  function handleUnlock() {
-    setUnlocked(true);
-    setShowCoinAlert(true);
-  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -352,7 +343,7 @@ function App() {
           <AnimatePresence mode="wait">
             {!unlocked ? (
               <motion.div key="pin" exit={{ opacity: 0, scale: 1.05 }} transition={{ duration: 0.5 }}>
-                <PinScreen onUnlock={handleUnlock} />
+                <PinScreen onUnlock={() => setUnlocked(true)} />
               </motion.div>
             ) : (
               <motion.div key="app" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.2 }}>
@@ -362,45 +353,6 @@ function App() {
           </AnimatePresence>
         </WouterRouter>
         <Toaster />
-
-        {/* Post-PIN credit coin alert */}
-        <Dialog open={showCoinAlert} onOpenChange={setShowCoinAlert}>
-          <DialogContent className="bg-card border-yellow-500/30 sm:max-w-sm text-center">
-            <DialogHeader>
-              <DialogTitle className="text-yellow-400 font-bold uppercase tracking-widest flex items-center justify-center gap-2">
-                <AlertTriangle className="w-5 h-5 text-yellow-400" /> Dashboard Alert
-              </DialogTitle>
-              <DialogDescription />
-            </DialogHeader>
-            <div className="py-4 flex flex-col items-center gap-4">
-              <div className="w-16 h-16 rounded-full bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(234,179,8,0.2)]">
-                <Coins className="w-8 h-8 text-yellow-400" />
-              </div>
-              <div className="space-y-2 text-center">
-                <p className="text-base font-bold text-yellow-400">Dashboard Due for Credit Coins</p>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  Your <span className="text-yellow-400 font-bold uppercase tracking-wide">Premium</span> surveillance dashboard requires Credit Coins to access locked features. Top up now to unlock full monitoring capabilities.
-                </p>
-              </div>
-              <div className="flex gap-3 w-full">
-                <button
-                  onClick={() => { setShowCoinAlert(false); setCoinShopOpen(true); }}
-                  className="flex-1 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:opacity-90 transition-opacity"
-                >
-                  Top Up Now
-                </button>
-                <button
-                  onClick={() => setShowCoinAlert(false)}
-                  className="flex-1 py-2 rounded-lg bg-secondary text-muted-foreground text-xs font-bold uppercase tracking-widest hover:text-foreground transition-colors"
-                >
-                  Later
-                </button>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
-
-        <CreditCoinShop open={coinShopOpen} onClose={() => setCoinShopOpen(false)} />
       </TooltipProvider>
     </QueryClientProvider>
   );
