@@ -256,7 +256,7 @@ function TopHeader({ onOpenSidebar }: { onOpenSidebar: () => void }) {
             className="block"
           >
             <Avatar className="w-8 h-8 border border-primary/30 cursor-pointer hover:shadow-[0_0_10px_rgba(255,0,0,0.5)] transition-all">
-              <AvatarFallback className="bg-primary/20 text-primary text-xs">D</AvatarFallback>
+              <AvatarFallback className="bg-primary/20 text-primary text-xs">G</AvatarFallback>
             </Avatar>
           </button>
           <AnimatePresence>
@@ -269,7 +269,7 @@ function TopHeader({ onOpenSidebar }: { onOpenSidebar: () => void }) {
               >
                 <div className="p-4 border-b border-primary/10 bg-secondary/30 flex items-center gap-3">
                   <Avatar className="w-10 h-10 border border-primary/40 bg-primary/10">
-                    <AvatarFallback className="text-primary font-bold text-sm">D</AvatarFallback>
+                    <AvatarFallback className="text-primary font-bold text-sm">G</AvatarFallback>
                   </Avatar>
                   <div className="min-w-0">
                     <p className="text-xs font-bold text-foreground truncate">gentex760@gmail.com</p>

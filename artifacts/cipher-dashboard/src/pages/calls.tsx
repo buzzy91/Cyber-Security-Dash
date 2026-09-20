@@ -5,34 +5,34 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { VpnAccessDialog } from "@/components/VpnAccessDialog";
 
 const calls = [
-  { id: 1,  name: "Craig",      phone: "+1 (509) 295-3400", duration: "4m 23s",  time: "Jun 3, 2025 · 9:41 AM",      type: "outgoing" },
-  { id: 2,  name: "Ashley",     phone: "+1 (541) 874-3920", duration: "Missed",  time: "Jun 3, 2025 · 8:15 AM",      type: "missed"   },
-  { id: 3,  name: "Justin",     phone: "+1 (919) 920-4726", duration: "7m 10s",  time: "Jun 7, 2025 · 7:02 AM",      type: "incoming" },
-  { id: 4,  name: "Matt",       phone: "+1 (605) 971-6932", duration: "2m 48s",  time: "Jun 11, 2025 · 11:54 PM",    type: "outgoing" },
-  { id: 5,  name: "Sophia",     phone: "+1 (971) 482-3715", duration: "Missed",  time: "Jun 14, 2025 · 9:30 PM",     type: "missed"   },
-  { id: 6,  name: "John Smith", phone: "+1 (757) 280-3698", duration: "18m 34s", time: "Jun 18, 2025 · 6:15 PM",     type: "incoming" },
-  { id: 7,  name: "Craig",      phone: "+1 (509) 295-3400", duration: "Missed",  time: "Jun 22, 2025 · 4:00 PM",     type: "missed"   },
-  { id: 8,  name: "Brittany",   phone: "+1 (503) 329-1074", duration: "6m 05s",  time: "Jun 27, 2025 · 1:22 PM",     type: "incoming" },
-  { id: 9,  name: "Justin",     phone: "+1 (919) 920-4726", duration: "Missed",  time: "Jul 2, 2025 · 10:45 AM",     type: "missed"   },
-  { id: 10, name: "Matt",       phone: "+1 (605) 971-6932", duration: "33m 19s", time: "Jul 8, 2025 · 8:00 AM",      type: "outgoing" },
-  { id: 11, name: "John Smith", phone: "+1 (757) 280-3698", duration: "7m 52s",  time: "Jul 13, 2025 · 11:30 PM",    type: "incoming" },
-  { id: 12, name: "Mia",        phone: "+1 (541) 604-8273", duration: "Missed",  time: "Jul 17, 2025 · 9:14 PM",     type: "missed"   },
-  { id: 13, name: "Craig",      phone: "+1 (509) 295-3400", duration: "21m 44s", time: "Jul 21, 2025 · 4:00 PM",     type: "outgoing" },
-  { id: 14, name: "Justin",     phone: "+1 (919) 920-4726", duration: "3m 30s",  time: "Jul 26, 2025 · 2:20 PM",     type: "incoming" },
-  { id: 15, name: "Ashley",     phone: "+1 (541) 874-3920", duration: "Missed",  time: "Aug 1, 2025 · 11:05 AM",     type: "missed"   },
-  { id: 16, name: "Matt",       phone: "+1 (605) 971-6932", duration: "9m 58s",  time: "Aug 5, 2025 · 9:44 AM",      type: "outgoing" },
-  { id: 17, name: "John Smith", phone: "+1 (757) 280-3698", duration: "Missed",  time: "Aug 10, 2025 · 8:30 PM",     type: "missed"   },
-  { id: 18, name: "Craig",      phone: "+1 (509) 295-3400", duration: "14m 11s", time: "Aug 15, 2025 · 6:15 PM",     type: "incoming" },
-  { id: 19, name: "Sophia",     phone: "+1 (971) 482-3715", duration: "5m 03s",  time: "Aug 20, 2025 · 3:00 PM",     type: "outgoing" },
-  { id: 20, name: "Justin",     phone: "+1 (919) 920-4726", duration: "Missed",  time: "Aug 25, 2025 · 10:00 AM",    type: "missed"   },
-  { id: 21, name: "Brittany",   phone: "+1 (503) 329-1074", duration: "11m 22s", time: "Aug 29, 2025 · 7:45 PM",     type: "incoming" },
-  { id: 22, name: "Matt",       phone: "+1 (605) 971-6932", duration: "Missed",  time: "Sep 3, 2025 · 2:10 PM",      type: "missed"   },
-  { id: 23, name: "Ashley",     phone: "+1 (541) 874-3920", duration: "8m 37s",  time: "Sep 7, 2025 · 10:30 AM",     type: "outgoing" },
-  { id: 24, name: "Craig",      phone: "+1 (509) 295-3400", duration: "Missed",  time: "Sep 11, 2025 · 5:55 PM",     type: "missed"   },
-  { id: 25, name: "John Smith", phone: "+1 (757) 280-3698", duration: "26m 08s", time: "Sep 16, 2025 · 9:00 AM",     type: "incoming" },
-  { id: 26, name: "Sophia",     phone: "+1 (971) 482-3715", duration: "Missed",  time: "Sep 20, 2025 · 4:30 PM",     type: "missed"   },
-  { id: 27, name: "Justin",     phone: "+1 (919) 920-4726", duration: "15m 44s", time: "Sep 25, 2025 · 1:15 PM",     type: "outgoing" },
-  { id: 28, name: "Mia",        phone: "+1 (541) 604-8273", duration: "3m 19s",  time: "Sep 28, 2025 · 8:20 AM",     type: "incoming" },
+  { id: 1,  name: "Craig",      phone: "+1 (509) 295-3400", duration: "4m 23s",  time: "Sep 20, 2026 · 9:41 AM",  type: "outgoing" },
+  { id: 2,  name: "Ashley",     phone: "+1 (541) 874-3920", duration: "Missed",  time: "Sep 19, 2026 · 8:15 AM",  type: "missed"   },
+  { id: 3,  name: "Justin",     phone: "+1 (919) 920-4726", duration: "7m 10s",  time: "Sep 18, 2026 · 7:02 AM",  type: "incoming" },
+  { id: 4,  name: "Matt",       phone: "+1 (605) 971-6932", duration: "2m 48s",  time: "Sep 17, 2026 · 11:54 PM", type: "outgoing" },
+  { id: 5,  name: "Sophia",     phone: "+1 (971) 482-3715", duration: "Missed",  time: "Sep 16, 2026 · 9:30 PM",  type: "missed"   },
+  { id: 6,  name: "John Smith", phone: "+1 (757) 280-3698", duration: "18m 34s", time: "Sep 15, 2026 · 6:15 PM",  type: "incoming" },
+  { id: 7,  name: "Craig",      phone: "+1 (509) 295-3400", duration: "Missed",  time: "Sep 14, 2026 · 4:00 PM",  type: "missed"   },
+  { id: 8,  name: "Brittany",   phone: "+1 (503) 329-1074", duration: "6m 05s",  time: "Sep 13, 2026 · 1:22 PM",  type: "incoming" },
+  { id: 9,  name: "Justin",     phone: "+1 (919) 920-4726", duration: "Missed",  time: "Sep 12, 2026 · 10:45 AM", type: "missed"   },
+  { id: 10, name: "Matt",       phone: "+1 (605) 971-6932", duration: "33m 19s", time: "Sep 11, 2026 · 8:00 AM",  type: "outgoing" },
+  { id: 11, name: "John Smith", phone: "+1 (757) 280-3698", duration: "7m 52s",  time: "Sep 10, 2026 · 11:30 PM", type: "incoming" },
+  { id: 12, name: "Mia",        phone: "+1 (541) 604-8273", duration: "Missed",  time: "Sep 9, 2026 · 9:14 PM",   type: "missed"   },
+  { id: 13, name: "Craig",      phone: "+1 (509) 295-3400", duration: "21m 44s", time: "Sep 8, 2026 · 4:00 PM",   type: "outgoing" },
+  { id: 14, name: "Justin",     phone: "+1 (919) 920-4726", duration: "3m 30s",  time: "Sep 7, 2026 · 2:20 PM",   type: "incoming" },
+  { id: 15, name: "Ashley",     phone: "+1 (541) 874-3920", duration: "Missed",  time: "Sep 6, 2026 · 11:05 AM",  type: "missed"   },
+  { id: 16, name: "Matt",       phone: "+1 (605) 971-6932", duration: "9m 58s",  time: "Sep 5, 2026 · 9:44 AM",   type: "outgoing" },
+  { id: 17, name: "John Smith", phone: "+1 (757) 280-3698", duration: "Missed",  time: "Sep 4, 2026 · 8:30 PM",   type: "missed"   },
+  { id: 18, name: "Craig",      phone: "+1 (509) 295-3400", duration: "14m 11s", time: "Sep 3, 2026 · 6:15 PM",   type: "incoming" },
+  { id: 19, name: "Sophia",     phone: "+1 (971) 482-3715", duration: "5m 03s",  time: "Sep 2, 2026 · 3:00 PM",   type: "outgoing" },
+  { id: 20, name: "Justin",     phone: "+1 (919) 920-4726", duration: "Missed",  time: "Sep 1, 2026 · 10:00 AM",  type: "missed"   },
+  { id: 21, name: "Brittany",   phone: "+1 (503) 329-1074", duration: "11m 22s", time: "Aug 31, 2026 · 7:45 PM",  type: "incoming" },
+  { id: 22, name: "Matt",       phone: "+1 (605) 971-6932", duration: "Missed",  time: "Aug 30, 2026 · 2:10 PM",  type: "missed"   },
+  { id: 23, name: "Ashley",     phone: "+1 (541) 874-3920", duration: "8m 37s",  time: "Aug 29, 2026 · 10:30 AM", type: "outgoing" },
+  { id: 24, name: "Craig",      phone: "+1 (509) 295-3400", duration: "Missed",  time: "Aug 28, 2026 · 5:55 PM",  type: "missed"   },
+  { id: 25, name: "John Smith", phone: "+1 (757) 280-3698", duration: "26m 08s", time: "Aug 27, 2026 · 9:00 AM",  type: "incoming" },
+  { id: 26, name: "Sophia",     phone: "+1 (971) 482-3715", duration: "Missed",  time: "Aug 26, 2026 · 4:30 PM",  type: "missed"   },
+  { id: 27, name: "Justin",     phone: "+1 (919) 920-4726", duration: "15m 44s", time: "Aug 25, 2026 · 1:15 PM",  type: "outgoing" },
+  { id: 28, name: "Mia",        phone: "+1 (541) 604-8273", duration: "3m 19s",  time: "Aug 24, 2026 · 8:20 AM",  type: "incoming" },
 ];
 
 function LoadingSpinner() {
@@ -122,7 +122,7 @@ export default function Calls() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-wide">Calls</h1>
-          <p className="text-xs text-muted-foreground uppercase tracking-widest mt-1">Jun – Sep 2025</p>
+          <p className="text-xs text-muted-foreground uppercase tracking-widest mt-1">Aug – Sep 2026</p>
         </div>
         <button className="w-10 h-10 rounded-full bg-secondary/80 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/20 transition-colors border border-transparent hover:border-primary/50">
           <Search className="w-5 h-5" />
