@@ -173,7 +173,7 @@ function Sidebar({ isOpen, onClose, location }: { isOpen: boolean, onClose: () =
               <AvatarFallback className="bg-primary/20 text-primary">D</AvatarFallback>
             </Avatar>
             <div className="overflow-hidden">
-              <p className="text-xs font-medium truncate text-foreground">dixieives@gmail.com</p>
+              <p className="text-xs font-medium truncate text-foreground">gentex760@gmail.com</p>
               <div className="flex items-center gap-1.5 mt-1">
                 <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_5px_rgba(34,197,94,0.8)] animate-pulse" />
                 <span className="text-[10px] text-green-500 uppercase tracking-wider font-bold">Active Now</span>
@@ -272,7 +272,7 @@ function TopHeader({ onOpenSidebar }: { onOpenSidebar: () => void }) {
                     <AvatarFallback className="text-primary font-bold text-sm">D</AvatarFallback>
                   </Avatar>
                   <div className="min-w-0">
-                    <p className="text-xs font-bold text-foreground truncate">dixieives@gmail.com</p>
+                    <p className="text-xs font-bold text-foreground truncate">gentex760@gmail.com</p>
                     <div className="flex items-center gap-1.5 mt-0.5">
                       <div className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_4px_rgba(34,197,94,0.8)] animate-pulse" />
                       <span className="text-[10px] text-green-500 uppercase tracking-wider font-bold">Active</span>
