@@ -818,12 +818,12 @@ export default function Dashboard() {
             <Database className="w-5 h-5 text-green-500" />
             <h2 className="text-sm font-bold uppercase tracking-widest text-green-500">File Storage</h2>
           </div>
-          <span className="text-lg font-bold text-green-500">10%</span>
+          <span className="text-lg font-bold text-green-500">95%</span>
         </div>
         
-        <p className="text-sm mb-3 font-medium">500 GB used of 5 TB</p>
+        <p className="text-sm mb-3 font-medium">95 MB used of 100 MB</p>
         <div className="w-full h-2 bg-secondary rounded-full overflow-hidden">
-          <div className="h-full bg-green-500 rounded-full w-[10%]" />
+          <div className="h-full bg-green-500 rounded-full w-[95%]" />
         </div>
       </div>
 
