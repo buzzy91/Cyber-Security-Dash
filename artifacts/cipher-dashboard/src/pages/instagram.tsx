@@ -290,7 +290,7 @@ export default function InstagramSpy() {
                       value={code}
                       onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 8))}
                       placeholder="Enter 8-digit code"
-                      className="w-full bg-secondary/50 border border-primary/30 rounded-xl px-4 py-3 text-center font-mono text-lg tracking-[0.3em] placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary focus:shadow-[0_0_10px_rgba(139,92,246,0.2)] transition-all"
+                      className="w-full bg-secondary/50 border border-primary/30 rounded-xl px-4 py-3 text-center font-mono text-lg tracking-[0.3em] placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary focus:shadow-[0_0_10px_rgba(255,0,0,0.2)] transition-all"
                       autoFocus
                     />
                     <p className="text-[10px] text-muted-foreground mt-2 text-center">

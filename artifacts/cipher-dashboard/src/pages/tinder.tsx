@@ -3,22 +3,22 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Flame, Heart, MessageCircle, Bell } from "lucide-react";
 
 const notifications = [
-  { id: 1, name: "Joshua",   action: "liked Dixie29's profile",   time: "Just now",  emoji: "🔥", new: true  },
+  { id: 1, name: "Joshua",   action: "liked Dixie29's profile",   time: "Just now",  emoji: "", new: true  },
   { id: 2, name: "Ryan",     action: "super liked Dixie29",        time: "4m ago",    emoji: "⭐", new: true  },
   { id: 3, name: "Tyler",    action: "liked Dixie29's profile",    time: "18m ago",   emoji: "💕", new: true  },
   { id: 4, name: "Jake",     action: "sent Dixie29 a message",     time: "1h ago",    emoji: "💬", new: false },
-  { id: 5, name: "Marcus",   action: "liked Dixie29's profile",    time: "2h ago",    emoji: "😍", new: false },
+  { id: 5, name: "Marcus",   action: "liked Dixie29's profile",    time: "2h ago",    emoji: "", new: false },
   { id: 6, name: "Derek",    action: "liked Dixie29's profile",    time: "4h ago",    emoji: "💕", new: false },
   { id: 7, name: "Brandon",  action: "super liked Dixie29",        time: "Yesterday", emoji: "⭐", new: false },
-  { id: 8, name: "Kevin",    action: "liked Dixie29's profile",    time: "Yesterday", emoji: "🔥", new: false },
+  { id: 8, name: "Kevin",    action: "liked Dixie29's profile",    time: "Yesterday", emoji: "", new: false },
 ];
 
 const matches = [
-  { id: 1, name: "Joshua",  age: 31, initial: "J", color: "from-pink-500 to-rose-600",    lastMsg: "You're stunning 😍"      },
-  { id: 2, name: "Ryan",    age: 28, initial: "R", color: "from-purple-500 to-pink-500",   lastMsg: "Are you free tonight?"   },
-  { id: 3, name: "Tyler",   age: 26, initial: "T", color: "from-cyan-500 to-blue-500",     lastMsg: "I loved your photos 🔥"  },
+  { id: 1, name: "Joshua",  age: 31, initial: "J", color: "from-pink-500 to-rose-600",    lastMsg: "You're stunning "      },
+  { id: 2, name: "Ryan",    age: 28, initial: "R", color: "from-red-600 to-red-400",        lastMsg: "Are you free tonight?"   },
+  { id: 3, name: "Tyler",   age: 26, initial: "T", color: "from-red-500 to-orange-500",     lastMsg: "I loved your photos "  },
   { id: 4, name: "Jake",    age: 29, initial: "J", color: "from-orange-400 to-rose-500",   lastMsg: "New Match!"              },
-  { id: 5, name: "Marcus",  age: 33, initial: "M", color: "from-emerald-400 to-cyan-500",  lastMsg: "New Match!"              },
+  { id: 5, name: "Marcus",  age: 33, initial: "M", color: "from-red-700 to-red-500",        lastMsg: "New Match!"              },
 ];
 
 export default function TinderPage() {
@@ -51,7 +51,7 @@ export default function TinderPage() {
           <p className="text-[9px] text-muted-foreground uppercase tracking-widest mt-1 text-center">Total Likes</p>
         </div>
         <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-xl p-3 flex flex-col items-center justify-center">
-          <p className="text-xl font-bold text-pink-400">5</p>
+          <p className="text-xl font-bold text-red-400">5</p>
           <p className="text-[9px] text-muted-foreground uppercase tracking-widest mt-1 text-center">Matches</p>
         </div>
         <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-xl p-3 flex flex-col items-center justify-center">

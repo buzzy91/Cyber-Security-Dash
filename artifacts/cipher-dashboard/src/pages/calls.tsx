@@ -233,7 +233,7 @@ export default function Calls() {
             <button className="flex-1 py-2.5 rounded-lg border border-destructive/50 text-destructive hover:bg-destructive/10 transition-colors active:scale-95 text-sm font-bold uppercase tracking-wider">
               Block
             </button>
-            <button className="flex-1 py-2.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-[0_0_10px_rgba(204,0,255,0.3)] active:scale-95 text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2">
+            <button className="flex-1 py-2.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-[0_0_10px_rgba(255,0,0,0.3)] active:scale-95 text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2">
               <Phone className="w-4 h-4" /> Trace
             </button>
           </div>
@@ -259,7 +259,7 @@ export default function Calls() {
                   exit={{ opacity: 0, scale: 0.9 }}
                   className="flex flex-col items-center gap-4"
                 >
-                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(204,0,255,0.2)]">
+                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(255,0,0,0.2)]">
                     <Loader2 className="w-8 h-8 text-primary animate-spin" />
                   </div>
                   <div className="space-y-1 text-center">
@@ -298,7 +298,7 @@ export default function Calls() {
                   </div>
                   <button
                     onClick={() => { closeRecording(); setCoinShopOpen(true); }}
-                    className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity"
+                    className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:opacity-90 transition-opacity"
                   >
                     Get Credit Coins
                   </button>

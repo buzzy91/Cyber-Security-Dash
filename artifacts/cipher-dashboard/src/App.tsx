@@ -9,7 +9,7 @@ import { Menu, Bell, Phone, MessageSquare, Video, Image as ImageIcon, Settings, 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import CreditCoinShop from "@/components/CreditCoinShop";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import logoImg from "@assets/WhatsApp_Image_2026-07-02_at_9.38.54_AM_1783011372119.jpeg";
+import logoImg from "@assets/WhatsApp_Image_2026-09-20_at_3.35.26_AM_1789900717098.jpeg";
 
 import Dashboard from "@/pages/dashboard";
 import ActivityIntelligence from "@/pages/activity";
@@ -60,18 +60,18 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
       >
         <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none" />
 
-        <div className="w-28 h-28 rounded-2xl overflow-hidden mb-6 shadow-[0_0_30px_rgba(204,0,255,0.7)] border-2 border-primary/50">
-          <img src={logoImg} alt="Cipher Tech" className="w-full h-full object-cover" />
+        <div className="h-24 rounded-2xl overflow-hidden mb-6 shadow-[0_0_30px_rgba(255,0,0,0.7)] border-2 border-primary/50 flex items-center justify-center bg-black">
+          <img src={logoImg} alt="CHRIS CYBERHELP" className="max-h-full object-contain" />
         </div>
 
-        <h1 className="text-2xl font-bold tracking-widest text-center mb-2">CIPHER TECH</h1>
+        <h1 className="text-2xl font-bold tracking-widest text-center mb-2">CHRIS CYBERHELP</h1>
         <p className="text-muted-foreground text-sm mb-8 text-center uppercase tracking-wider">Let's Get You In</p>
 
         <div className="flex gap-2 mb-8">
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <div
               key={i}
-              className={`w-10 h-14 rounded-lg flex items-center justify-center text-2xl font-mono border-2 transition-all duration-300 ${pin.length === i ? 'border-primary shadow-[0_0_10px_rgba(139,92,246,0.8)]' : pin.length > i ? 'border-primary/50 text-foreground' : 'border-muted text-transparent'}`}
+              className={`w-10 h-14 rounded-lg flex items-center justify-center text-2xl font-mono border-2 transition-all duration-300 ${pin.length === i ? 'border-primary shadow-[0_0_10px_rgba(255,0,0,0.8)]' : pin.length > i ? 'border-primary/50 text-foreground' : 'border-muted text-transparent'}`}
             >
               {pin[i] ? "•" : ""}
             </div>
@@ -140,15 +140,15 @@ function Sidebar({ isOpen, onClose, location }: { isOpen: boolean, onClose: () =
         initial={{ x: "-100%" }}
         animate={{ x: isOpen ? 0 : "-100%" }}
         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="fixed top-0 left-0 bottom-0 w-72 bg-card/95 backdrop-blur-xl border-r border-primary/20 z-50 flex flex-col md:translate-x-0 md:relative shadow-[0_0_30px_rgba(204,0,255,0.15)]"
+        className="fixed top-0 left-0 bottom-0 w-72 bg-card/95 backdrop-blur-xl border-r border-primary/20 z-50 flex flex-col md:translate-x-0 md:relative shadow-[0_0_30px_rgba(255,0,0,0.15)]"
       >
         <div className="p-5 flex items-center gap-3 border-b border-primary/10">
-          <div className="w-11 h-11 rounded-xl overflow-hidden shadow-[0_0_14px_rgba(204,0,255,0.6)] border border-primary/40 flex-shrink-0">
-            <img src={logoImg} alt="Cipher Tech" className="w-full h-full object-cover" />
+          <div className="w-auto h-11 rounded-xl overflow-hidden shadow-[0_0_14px_rgba(255,0,0,0.6)] border border-primary/40 flex-shrink-0 flex items-center justify-center bg-black">
+            <img src={logoImg} alt="CHRIS CYBERHELP" className="h-full object-contain" />
           </div>
           <div>
-            <h2 className="font-bold text-sm tracking-wider text-foreground leading-tight">CIPHER TECH</h2>
-            <p className="text-[10px] uppercase tracking-widest text-primary font-bold">Cyber Intelligence</p>
+            <h2 className="font-bold text-sm tracking-wider text-foreground leading-tight">CHRIS CYBERHELP</h2>
+            <p className="text-[10px] uppercase tracking-widest text-primary font-bold">Let's Get You In</p>
           </div>
           <button onClick={onClose} className="ml-auto text-muted-foreground hover:text-foreground transition-colors">
             <X className="w-5 h-5" />
@@ -160,7 +160,7 @@ function Sidebar({ isOpen, onClose, location }: { isOpen: boolean, onClose: () =
             const isActive = location === item.href;
             return (
               <Link key={item.href} href={item.href} onClick={onClose}>
-                <div className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 cursor-pointer ${isActive ? 'bg-primary text-primary-foreground shadow-[0_0_15px_rgba(139,92,246,0.4)]' : 'text-muted-foreground hover:bg-primary/10 hover:text-foreground'}`}>
+                <div className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 cursor-pointer ${isActive ? 'bg-primary text-primary-foreground shadow-[0_0_15px_rgba(255,0,0,0.4)]' : 'text-muted-foreground hover:bg-primary/10 hover:text-foreground'}`}>
                   {item.icon}
                   <span className="font-medium text-sm">{item.label}</span>
                 </div>
@@ -198,8 +198,8 @@ function TopHeader({ onOpenSidebar }: { onOpenSidebar: () => void }) {
         <button onClick={onOpenSidebar} data-testid="button-open-sidebar" className="p-2 -ml-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors">
           <Menu className="w-6 h-6" />
         </button>
-        <div className="w-9 h-9 rounded-xl overflow-hidden shadow-[0_0_12px_rgba(204,0,255,0.6)] border border-primary/40 flex-shrink-0">
-          <img src={logoImg} alt="Cipher Tech" className="w-full h-full object-cover" />
+        <div className="w-auto h-9 rounded-xl overflow-hidden shadow-[0_0_12px_rgba(255,0,0,0.6)] border border-primary/40 flex-shrink-0 flex items-center justify-center bg-black">
+          <img src={logoImg} alt="CHRIS CYBERHELP" className="h-full object-contain" />
         </div>
       </div>
 
@@ -207,7 +207,7 @@ function TopHeader({ onOpenSidebar }: { onOpenSidebar: () => void }) {
         <div className="relative">
           <button 
             onClick={() => setNotificationsOpen(!notificationsOpen)}
-            className="w-10 h-10 rounded-full bg-secondary/80 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors hover:shadow-[0_0_10px_rgba(139,92,246,0.3)] relative"
+            className="w-10 h-10 rounded-full bg-secondary/80 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors hover:shadow-[0_0_10px_rgba(255,0,0,0.3)] relative"
           >
             <Bell className="w-5 h-5" />
             <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-destructive shadow-[0_0_5px_rgba(239,68,68,0.8)]" />
@@ -257,7 +257,7 @@ function TopHeader({ onOpenSidebar }: { onOpenSidebar: () => void }) {
             onClick={() => setProfileOpen(!profileOpen)}
             className="block"
           >
-            <Avatar className="w-8 h-8 border border-primary/30 cursor-pointer hover:shadow-[0_0_10px_rgba(204,0,255,0.5)] transition-all">
+            <Avatar className="w-8 h-8 border border-primary/30 cursor-pointer hover:shadow-[0_0_10px_rgba(255,0,0,0.5)] transition-all">
               <AvatarFallback className="bg-primary/20 text-primary text-xs">D</AvatarFallback>
             </Avatar>
           </button>
@@ -308,7 +308,7 @@ function MainLayout() {
 
   return (
     <div className="fixed inset-0 bg-background text-foreground font-sans selection:bg-primary/30 overflow-hidden">
-      <div className="fixed inset-0 pointer-events-none opacity-30" style={{ backgroundImage: 'radial-gradient(circle at 50% 0%, rgba(204, 0, 255, 0.18) 0%, rgba(0, 204, 255, 0.06) 50%, transparent 70%)' }} />
+      <div className="fixed inset-0 pointer-events-none opacity-30" style={{ backgroundImage: 'radial-gradient(circle at 50% 0%, rgba(255, 0, 0, 0.18) 0%, rgba(255, 0, 0, 0.06) 50%, transparent 70%)' }} />
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} location={location} />
 
       {/* Main content — always sits behind/beside the fixed sidebar */}
@@ -385,7 +385,7 @@ function App() {
               <div className="flex gap-3 w-full">
                 <button
                   onClick={() => { setShowCoinAlert(false); setCoinShopOpen(true); }}
-                  className="flex-1 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity"
+                  className="flex-1 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:opacity-90 transition-opacity"
                 >
                   Top Up Now
                 </button>

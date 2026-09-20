@@ -97,13 +97,13 @@ function CustomTooltip({ active, payload, label }: any) {
     <div className="bg-card/95 backdrop-blur-xl border border-primary/40 rounded-xl px-4 py-3 shadow-xl shadow-primary/20 text-xs">
       <p className="text-muted-foreground uppercase tracking-widest mb-2 font-bold">{label}</p>
       <div className="flex items-center gap-2 mb-1">
-        <span className="w-2 h-2 rounded-full bg-purple-500 inline-block" />
+        <span className="w-2 h-2 rounded-full bg-red-500 inline-block" />
         <span className="text-foreground font-mono font-bold">{payload[0]?.value}%</span>
         <span className="text-muted-foreground">visibility</span>
       </div>
       {payload[0]?.payload?.events !== undefined && (
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-cyan-500 inline-block" />
+          <span className="w-2 h-2 rounded-full bg-white inline-block" />
           <span className="text-foreground font-mono font-bold">{payload[0].payload.events}</span>
           <span className="text-muted-foreground">events</span>
         </div>
@@ -240,10 +240,10 @@ export default function Dashboard() {
       {/* QUICK MENU — first section */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { value: 79, color: "text-purple-500", count: "948",  label: "Calls",    route: "/calls"  },
-          { value: 82, color: "text-cyan-500",   count: "12.3k",label: "Messages", route: "/chats"  },
+          { value: 79, color: "text-red-500", count: "948",  label: "Calls",    route: "/calls"  },
+          { value: 82, color: "text-white",   count: "12.3k",label: "Messages", route: "/chats"  },
           { value: 38, color: "text-green-500",  count: "188",  label: "Location", route: null, onClick: openLocation },
-          { value: 60, color: "text-pink-500",   count: "1.2k", label: "Firewall", route: null, onClick: undefined   },
+          { value: 60, color: "text-red-500",   count: "1.2k", label: "Firewall", route: null, onClick: undefined   },
         ].map((item) => (
           item.route ? (
             <button
@@ -319,7 +319,7 @@ export default function Dashboard() {
         onClick={openSpycam}
         className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 hover:border-primary/50 transition-all cursor-pointer relative overflow-hidden group"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         <div className="flex justify-between items-start mb-4">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
@@ -360,7 +360,7 @@ export default function Dashboard() {
                   exit={{ opacity: 0, scale: 0.9 }}
                   className="flex flex-col items-center gap-4"
                 >
-                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(204,0,255,0.2)]">
+                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(255,0,0,0.2)]">
                     <Loader2 className="w-8 h-8 text-primary animate-spin" />
                   </div>
                   <div className="space-y-1 text-center">
@@ -399,7 +399,7 @@ export default function Dashboard() {
                   </div>
                   <button
                     onClick={() => { closeSpycam(); openCoinShop(); }}
-                    className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity"
+                    className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:opacity-90 transition-opacity"
                   >
                     Get Credit Coins
                   </button>
@@ -429,7 +429,7 @@ export default function Dashboard() {
                   exit={{ opacity: 0, scale: 0.9 }}
                   className="flex flex-col items-center gap-4"
                 >
-                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(204,0,255,0.2)]">
+                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(255,0,0,0.2)]">
                     <Loader2 className="w-8 h-8 text-primary animate-spin" />
                   </div>
                   <div className="space-y-1 text-center">
@@ -468,7 +468,7 @@ export default function Dashboard() {
                   </div>
                   <button
                     onClick={() => { closeLocation(); openCoinShop(); }}
-                    className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity"
+                    className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:opacity-90 transition-opacity"
                   >
                     Get Credit Coins
                   </button>
@@ -492,7 +492,7 @@ export default function Dashboard() {
             <AnimatePresence mode="wait">
               {keylogsLoading ? (
                 <motion.div key="loading" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="flex flex-col items-center gap-4">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(204,0,255,0.2)]">
+                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(255,0,0,0.2)]">
                     <Loader2 className="w-8 h-8 text-primary animate-spin" />
                   </div>
                   <div className="space-y-1 text-center">
@@ -517,7 +517,7 @@ export default function Dashboard() {
                   <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
                     <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 Keylog Season</p>
                   </div>
-                  <button onClick={() => { closeKeylogs(); openCoinShop(); }} className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity">
+                  <button onClick={() => { closeKeylogs(); openCoinShop(); }} className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:opacity-90 transition-opacity">
                     Get Credit Coins
                   </button>
                 </motion.div>
@@ -540,7 +540,7 @@ export default function Dashboard() {
             <AnimatePresence mode="wait">
               {emailsLoading ? (
                 <motion.div key="loading" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="flex flex-col items-center gap-4">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(204,0,255,0.2)]">
+                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(255,0,0,0.2)]">
                     <Loader2 className="w-8 h-8 text-primary animate-spin" />
                   </div>
                   <div className="space-y-1 text-center">
@@ -565,7 +565,7 @@ export default function Dashboard() {
                   <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
                     <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 Email Season</p>
                   </div>
-                  <button onClick={() => { closeEmails(); openCoinShop(); }} className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity">
+                  <button onClick={() => { closeEmails(); openCoinShop(); }} className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:opacity-90 transition-opacity">
                     Get Credit Coins
                   </button>
                 </motion.div>
@@ -588,7 +588,7 @@ export default function Dashboard() {
             <AnimatePresence mode="wait">
               {firewallLoading ? (
                 <motion.div key="loading" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="flex flex-col items-center gap-4">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(204,0,255,0.2)]">
+                  <div className="w-16 h-16 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(255,0,0,0.2)]">
                     <Loader2 className="w-8 h-8 text-primary animate-spin" />
                   </div>
                   <div className="space-y-1 text-center">
@@ -613,7 +613,7 @@ export default function Dashboard() {
                   <div className="w-full p-3 rounded-xl bg-yellow-500/5 border border-yellow-500/20">
                     <p className="text-[10px] text-yellow-400 uppercase tracking-widest font-bold text-center">20 Credit Coins = 1 Firewall Season</p>
                   </div>
-                  <button onClick={() => { closeFirewall(); openCoinShop(); }} className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(204,0,255,0.3)] hover:opacity-90 transition-opacity">
+                  <button onClick={() => { closeFirewall(); openCoinShop(); }} className="w-full py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest shadow-[0_0_12px_rgba(255,0,0,0.3)] hover:opacity-90 transition-opacity">
                     Get Credit Coins
                   </button>
                 </motion.div>
@@ -772,12 +772,12 @@ export default function Dashboard() {
         
         <div className="grid grid-cols-3 gap-4">
           {[
-            { value: 79, color: "text-purple-500", count: "948",  label: "Calls",    onClick: () => navigate("/calls") },
-            { value: 82, color: "text-cyan-500",   count: "12.3k",label: "Messages", onClick: () => navigate("/chats") },
+            { value: 79, color: "text-red-500", count: "948",  label: "Calls",    onClick: () => navigate("/calls") },
+            { value: 82, color: "text-white",   count: "12.3k",label: "Messages", onClick: () => navigate("/chats") },
             { value: 38, color: "text-green-500",  count: "188",  label: "Location", onClick: openLocation  },
             { value: 45, color: "text-yellow-500", count: "2.2k", label: "Keylogs",  onClick: openKeylogs  },
             { value: 70, color: "text-red-400",    count: "348",  label: "Emails",   onClick: openEmails   },
-            { value: 60, color: "text-pink-500",   count: "1.2k", label: "Firewall", onClick: openFirewall },
+            { value: 60, color: "text-red-500",   count: "1.2k", label: "Firewall", onClick: openFirewall },
           ].map((item) => (
             <button
               key={item.label}
@@ -819,7 +819,7 @@ export default function Dashboard() {
                   onClick={() => setVisRange(r)}
                   className={`px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-widest transition-all ${
                     visRange === r
-                      ? "bg-primary text-white shadow-[0_0_8px_rgba(139,92,246,0.6)]"
+                      ? "bg-primary text-white shadow-[0_0_8px_rgba(255,0,0,0.6)]"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -850,8 +850,8 @@ export default function Dashboard() {
         {/* Summary stats */}
         <div className="grid grid-cols-3 gap-2 mb-4">
           {[
-            { label: "Peak", val: `${peak}%`, color: "text-purple-400" },
-            { label: "Avg", val: `${avg}%`, color: "text-cyan-400" },
+            { label: "Peak", val: `${peak}%`, color: "text-red-400" },
+            { label: "Avg", val: `${avg}%`, color: "text-white/80" },
             { label: "Events", val: totalEvents.toLocaleString(), color: "text-green-400" },
           ].map((s) => (
             <div key={s.label} className="bg-secondary/30 rounded-xl p-2.5 text-center border border-border/30">
@@ -876,25 +876,25 @@ export default function Dashboard() {
                 <AreaChart data={visData} margin={{ top: 4, right: 4, left: -28, bottom: 0 }}>
                   <defs>
                     <linearGradient id="visGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.35} />
-                      <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#ff0000" stopOpacity={0.35} />
+                      <stop offset="95%" stopColor="#ff0000" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
                   <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} dy={8} />
                   <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(v) => `${v}%`} />
-                  <Tooltip content={<CustomTooltip />} cursor={{ stroke: "rgba(139,92,246,0.3)", strokeWidth: 1, strokeDasharray: "4 2" }} />
-                  <ReferenceLine y={avg} stroke="rgba(139,92,246,0.3)" strokeDasharray="4 2" />
-                  <Area type="monotone" dataKey="value" stroke="#8b5cf6" strokeWidth={2} fill="url(#visGrad)" dot={{ fill: "#8b5cf6", r: 3, strokeWidth: 0 }} activeDot={{ r: 5, fill: "#8b5cf6", stroke: "rgba(139,92,246,0.4)", strokeWidth: 3 }} />
+                  <Tooltip content={<CustomTooltip />} cursor={{ stroke: "rgba(255,0,0,0.3)", strokeWidth: 1, strokeDasharray: "4 2" }} />
+                  <ReferenceLine y={avg} stroke="rgba(255,0,0,0.3)" strokeDasharray="4 2" />
+                  <Area type="monotone" dataKey="value" stroke="#ff0000" strokeWidth={2} fill="url(#visGrad)" dot={{ fill: "#ff0000", r: 3, strokeWidth: 0 }} activeDot={{ r: 5, fill: "#ff0000", stroke: "rgba(255,0,0,0.4)", strokeWidth: 3 }} />
                 </AreaChart>
               ) : (
                 <BarChart data={visData} margin={{ top: 4, right: 4, left: -28, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
                   <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} dy={8} />
                   <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} tickFormatter={(v) => `${v}%`} />
-                  <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(139,92,246,0.08)" }} />
-                  <ReferenceLine y={avg} stroke="rgba(139,92,246,0.3)" strokeDasharray="4 2" />
-                  <Bar dataKey="value" fill="#8b5cf6" radius={[4, 4, 0, 0]} barSize={18} opacity={0.85} />
+                  <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(255,0,0,0.08)" }} />
+                  <ReferenceLine y={avg} stroke="rgba(255,0,0,0.3)" strokeDasharray="4 2" />
+                  <Bar dataKey="value" fill="#ff0000" radius={[4, 4, 0, 0]} barSize={18} opacity={0.85} />
                 </BarChart>
               )}
             </ResponsiveContainer>
