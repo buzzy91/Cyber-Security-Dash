@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Database, TrendingUp, TrendingDown, BarChart2, Activity, Camera, Loader2, MapPin, Keyboard, Mail, Shield, CheckCircle2, ShieldAlert } from "lucide-react";
+import { Database, TrendingUp, TrendingDown, BarChart2, Activity, Camera, Loader2, MapPin, Keyboard, Mail, Shield, CheckCircle2 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { VpnAccessDialog } from "@/components/VpnAccessDialog";
 import {
   AreaChart, Area, BarChart, Bar,
   ResponsiveContainer, XAxis, YAxis, Tooltip,
@@ -693,32 +694,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <Dialog open={vpnAccessOpen} onOpenChange={setVpnAccessOpen}>
-        <DialogContent className="bg-card border-primary/30 sm:max-w-md text-center">
-          <DialogHeader>
-            <div className="mx-auto mb-3 w-14 h-14 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(255,0,0,0.2)]">
-              <ShieldAlert className="w-7 h-7 text-primary" />
-            </div>
-            <DialogTitle className="text-primary font-bold uppercase tracking-widest text-center">
-              VPN Access Required
-            </DialogTitle>
-            <DialogDescription className="text-center text-sm leading-relaxed pt-2">
-              This section is protected and requires VPN access. A VPN activation fee of $150 is required for this demo environment.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="pt-3">
-            <button
-              onClick={() => setVpnAccessOpen(false)}
-              className="w-full py-3 rounded-xl bg-primary text-primary-foreground text-sm font-bold uppercase tracking-widest shadow-[0_0_14px_rgba(255,0,0,0.3)] hover:bg-primary/90 transition-colors"
-            >
-              Continue
-            </button>
-            <p className="mt-3 text-[10px] text-muted-foreground uppercase tracking-wider">
-              Demo only — no payment information is collected
-            </p>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <VpnAccessDialog open={vpnAccessOpen} onOpenChange={setVpnAccessOpen} />
 
       {/* VISIBILITY — interactive */}
       <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 relative overflow-hidden">

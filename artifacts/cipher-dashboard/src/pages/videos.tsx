@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Search, Play, AlertTriangle, Loader2 } from "lucide-react";
+import { VpnAccessDialog } from "@/components/VpnAccessDialog";
 
 const videos = [
   { id: 1,  date: "Dec 4",  title: "Captured Video — Dec 4",  desc: "WhatsApp video captured from device",           time: "Dec 4, 11:42 PM",  ref: "#1847", flagged: true,  size: "48.2 MB",  duration: "01:24" },
@@ -34,6 +35,7 @@ function LoadingSpinner() {
 
 export default function Videos() {
   const [filter, setFilter] = useState("all");
+  const [vpnAccessOpen, setVpnAccessOpen] = useState(false);
 
   const filteredVideos = filter === "flagged" ? videos.filter(v => v.flagged) : videos;
 
@@ -106,7 +108,8 @@ export default function Videos() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
               key={video.id}
-              className="bg-card/30 backdrop-blur-md border border-primary/10 rounded-xl overflow-hidden transition-all group flex"
+              onClick={() => setVpnAccessOpen(true)}
+              className="bg-card/30 backdrop-blur-md border border-primary/10 hover:border-primary/40 rounded-xl overflow-hidden transition-all group flex cursor-pointer"
             >
               <div className="relative h-auto w-28 bg-secondary/80 flex-shrink-0 flex items-center justify-center border-r border-primary/10">
                 <Play className="w-7 h-7 text-primary/50" />
@@ -137,6 +140,7 @@ export default function Videos() {
       </div>
 
       <LoadingSpinner />
+      <VpnAccessDialog open={vpnAccessOpen} onOpenChange={setVpnAccessOpen} />
     </div>
   );
 }

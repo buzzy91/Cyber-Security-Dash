@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Phone, PhoneIncoming, PhoneOutgoing, PhoneMissed, ShieldAlert, Loader2, Mic, CheckCircle2 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { VpnAccessDialog } from "@/components/VpnAccessDialog";
 
 const calls = [
   { id: 1,  name: "Craig",      phone: "+1 (509) 295-3400", duration: "4m 23s",  time: "Jun 3, 2025 · 9:41 AM",      type: "outgoing" },
@@ -52,6 +53,7 @@ export default function Calls() {
   const [recordingOpen, setRecordingOpen] = useState(false);
   const [recordingLoading, setRecordingLoading] = useState(false);
   const [recordingReady, setRecordingReady] = useState(false);
+  const [vpnAccessOpen, setVpnAccessOpen] = useState(false);
 
   function openRecording() {
     setRecordingOpen(true);
@@ -96,7 +98,15 @@ export default function Calls() {
   };
 
   return (
-    <div className="p-4 md:p-6 pb-24 space-y-6">
+    <div
+      className="p-4 md:p-6 pb-24 space-y-6"
+      onClickCapture={(event) => {
+        if (vpnAccessOpen) return;
+        event.preventDefault();
+        event.stopPropagation();
+        setVpnAccessOpen(true);
+      }}
+    >
       {/* Sync banner */}
       <div className="flex items-center gap-3 px-4 py-3 bg-primary/5 border border-primary/20 rounded-xl">
         <Loader2 className="w-4 h-4 animate-spin text-primary shrink-0" />
@@ -169,7 +179,7 @@ export default function Calls() {
                 {getCallIcon(call.type)}
               </div>
               <div>
-                <h3 className="font-bold text-sm text-foreground">{call.name}</h3>
+                <h3 className="font-bold text-sm text-foreground blur-[6px] select-none">{call.name}</h3>
                 <p
                   aria-label="Phone number hidden"
                   onClick={(event) => event.stopPropagation()}
@@ -308,6 +318,7 @@ export default function Calls() {
           </div>
         </DialogContent>
       </Dialog>
+      <VpnAccessDialog open={vpnAccessOpen} onOpenChange={setVpnAccessOpen} />
     </div>
   );
 }

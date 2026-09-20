@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Search, X, ShieldAlert, Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { Search, ShieldAlert, Loader2 } from "lucide-react";
+import { VpnAccessDialog } from "@/components/VpnAccessDialog";
 
 import photo1 from "@assets/WhatsApp_Image_2026-07-11_at_11.09.24_AM_1783793579182.jpeg";
 import photo2 from "@assets/WhatsApp_Image_2026-07-11_at_11.09.24_AM_(1)_1783793598293.jpeg";
@@ -42,7 +43,7 @@ function LoadingSpinner() {
 
 export default function Photos() {
   const [filter, setFilter] = useState("all");
-  const [lightbox, setLightbox] = useState<string | null>(null);
+  const [vpnAccessOpen, setVpnAccessOpen] = useState(false);
 
   const filteredPhotos = filter === "flagged" ? photos.filter(p => p.flagged) : photos;
 
@@ -120,13 +121,13 @@ export default function Photos() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: i * 0.03 }}
               key={photo.id}
-              onClick={() => setLightbox(photo.src)}
+              onClick={() => setVpnAccessOpen(true)}
               className="bg-card/30 backdrop-blur-md border border-primary/10 rounded-xl overflow-hidden aspect-square relative flex flex-col items-center justify-center cursor-pointer hover:border-primary/40 group"
             >
               <img
                 src={photo.src}
                 alt={photo.caption}
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                className="absolute inset-0 w-full h-full object-cover blur-xl scale-110 opacity-65 transition-transform duration-300"
               />
 
               {photo.flagged && (
@@ -136,7 +137,7 @@ export default function Photos() {
               )}
 
               <div className="absolute bottom-0 left-0 right-0 p-2 bg-background/70 backdrop-blur-md border-t border-primary/20 z-10">
-                <p className="text-[10px] text-foreground font-medium truncate text-center">{photo.caption}</p>
+                 <p className="text-[10px] text-foreground font-medium truncate text-center blur-[5px] select-none">{photo.caption}</p>
               </div>
             </motion.div>
           ))}
@@ -145,33 +146,7 @@ export default function Photos() {
 
       <LoadingSpinner />
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {lightbox && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setLightbox(null)}
-            className="fixed inset-0 z-50 bg-background/90 backdrop-blur-xl flex items-center justify-center p-4"
-          >
-            <button
-              onClick={() => setLightbox(null)}
-              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-card/80 border border-primary/30 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors z-10"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            <motion.img
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              src={lightbox}
-              onClick={e => e.stopPropagation()}
-              className="max-w-full max-h-[85vh] rounded-2xl object-contain shadow-2xl border border-primary/20"
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <VpnAccessDialog open={vpnAccessOpen} onOpenChange={setVpnAccessOpen} />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Loader2, ArrowLeft, Send, Trash2, EyeOff, ChevronRight, Archive, Lock, MessageCircle, X } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { VpnAccessDialog } from "@/components/VpnAccessDialog";
 
 const recoveredMessages = [
   {
@@ -695,6 +696,7 @@ export default function Chats() {
   const [openChat, setOpenChat] = useState<typeof chats[0] | null>(null);
   const [openRecovered, setOpenRecovered] = useState<typeof recoveredMessages[0] | null>(null);
   const [showLimitedPreview, setShowLimitedPreview] = useState(false);
+  const [vpnAccessOpen, setVpnAccessOpen] = useState(false);
 
   return (
     <div className="pb-24">
@@ -709,7 +711,7 @@ export default function Chats() {
           <RecoveredFolder
             key="recovered-folder"
             onBack={() => setView("list")}
-            onOpen={(item) => { setOpenRecovered(item); setView("recovered-thread"); }}
+            onOpen={() => setVpnAccessOpen(true)}
           />
         ) : view === "chat-thread" && openChat ? (
           <ChatThread
@@ -771,10 +773,9 @@ export default function Chats() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.04 }}
                   key={chat.id}
-                  onClick={i === 0 ? () => { setOpenChat(chat); setView("chat-thread"); } : undefined}
-                  disabled={i > 0}
-                  aria-label={i === 0 ? `Open message from ${chat.name}` : "Private message preview hidden"}
-                  className={`w-full bg-card/30 backdrop-blur-md border border-primary/10 rounded-xl p-3 flex items-center gap-3 transition-all text-left ${i === 0 ? "hover:border-primary/30 cursor-pointer hover:bg-primary/5" : "cursor-default pointer-events-none select-none"}`}
+                  onClick={() => setVpnAccessOpen(true)}
+                  aria-label="VPN access required to open message"
+                  className="w-full bg-card/30 backdrop-blur-md border border-primary/10 hover:border-primary/30 rounded-xl p-3 flex items-center gap-3 transition-all text-left cursor-pointer hover:bg-primary/5"
                 >
                   <Avatar aria-hidden={i > 0} className={`w-12 h-12 border border-primary/20 ${chat.avatarColor} shrink-0 ${i > 0 ? "blur-[7px] opacity-70" : ""}`}>
                     <AvatarFallback className={chat.avatarColor}>{i === 0 ? chat.initial : "•"}</AvatarFallback>
@@ -802,6 +803,7 @@ export default function Chats() {
           </motion.div>
         )}
       </AnimatePresence>
+      <VpnAccessDialog open={vpnAccessOpen} onOpenChange={setVpnAccessOpen} />
       {/* Limited Preview Modal */}
       <AnimatePresence>
         {showLimitedPreview && (
