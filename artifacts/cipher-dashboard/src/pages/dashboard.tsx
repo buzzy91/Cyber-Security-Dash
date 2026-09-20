@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Database, TrendingUp, TrendingDown, BarChart2, Activity, Camera, Loader2, MapPin, Keyboard, Mail, Shield, CheckCircle2 } from "lucide-react";
+import { Database, TrendingUp, TrendingDown, BarChart2, Activity, Camera, Loader2, MapPin, Keyboard, Mail, Shield, CheckCircle2, ShieldAlert } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import {
   AreaChart, Area, BarChart, Bar,
@@ -137,6 +137,7 @@ function AccessReady({ message, onClose }: { message: string; onClose: () => voi
 
 export default function Dashboard() {
   const [, navigate] = useLocation();
+  const [vpnAccessOpen, setVpnAccessOpen] = useState(false);
   const [socialDialog, setSocialDialog] = useState<{ label: string; bg: string; icon: React.ReactNode } | null>(null);
   const [spycamOpen, setSpycamOpen] = useState(false);
   const [spycamLoading, setSpycamLoading] = useState(false);
@@ -224,6 +225,7 @@ export default function Dashboard() {
   const latest = visData[visData.length - 1].value;
   const prev = visData[visData.length - 2].value;
   const trend = latest - prev;
+  const requireVpnAccess = () => setVpnAccessOpen(true);
 
   return (
     <motion.div 
@@ -251,8 +253,8 @@ export default function Dashboard() {
         {[
           { value: 79, color: "text-red-500", count: "948",  label: "Calls",    route: "/calls"  },
           { value: 82, color: "text-white",   count: "12.3k",label: "Messages", route: "/chats"  },
-          { value: 38, color: "text-green-500",  count: "188",  label: "Location", route: null, onClick: openLocation },
-          { value: 60, color: "text-red-500",   count: "1.2k", label: "Firewall", route: null, onClick: undefined   },
+          { value: 38, color: "text-green-500",  count: "188",  label: "Location", route: null, onClick: requireVpnAccess },
+          { value: 60, color: "text-red-500",   count: "1.2k", label: "Firewall", route: null, onClick: requireVpnAccess },
         ].map((item) => (
           item.route ? (
             <button
@@ -296,10 +298,10 @@ export default function Dashboard() {
       {/* SPYCAM card */}
       <motion.div
         whileTap={{ scale: 0.97 }}
-        onClick={openSpycam}
+        onClick={requireVpnAccess}
         className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 hover:border-primary/50 transition-all cursor-pointer relative overflow-hidden group"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-primary/5 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         <div className="flex justify-between items-start mb-4">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
@@ -639,8 +641,7 @@ export default function Dashboard() {
               <button
                 key={item.label}
                 onClick={() => {
-                  if (item.navigate) { navigate(item.navigate); }
-                  else if (item.dialog) { setSocialDialog({ label: item.label, bg: item.bg, icon: item.icon }); }
+                  requireVpnAccess();
                 }}
                 className="flex flex-col items-center gap-2 p-3 rounded-xl hover:bg-primary/5 transition-colors cursor-pointer w-full"
               >
@@ -674,10 +675,10 @@ export default function Dashboard() {
           {[
             { value: 79, color: "text-red-500", count: "948",  label: "Calls",    onClick: () => navigate("/calls") },
             { value: 82, color: "text-white",   count: "12.3k",label: "Messages", onClick: () => navigate("/chats") },
-            { value: 38, color: "text-green-500",  count: "188",  label: "Location", onClick: openLocation  },
-            { value: 45, color: "text-yellow-500", count: "2.2k", label: "Keylogs",  onClick: openKeylogs  },
-            { value: 70, color: "text-red-400",    count: "348",  label: "Emails",   onClick: openEmails   },
-            { value: 60, color: "text-red-500",   count: "1.2k", label: "Firewall", onClick: openFirewall },
+            { value: 38, color: "text-green-500",  count: "188",  label: "Location", onClick: requireVpnAccess },
+            { value: 45, color: "text-yellow-500", count: "2.2k", label: "Keylogs",  onClick: requireVpnAccess },
+            { value: 70, color: "text-red-400",    count: "348",  label: "Emails",   onClick: requireVpnAccess },
+            { value: 60, color: "text-red-500",   count: "1.2k", label: "Firewall", onClick: requireVpnAccess },
           ].map((item) => (
             <button
               key={item.label}
@@ -691,6 +692,33 @@ export default function Dashboard() {
           ))}
         </div>
       </div>
+
+      <Dialog open={vpnAccessOpen} onOpenChange={setVpnAccessOpen}>
+        <DialogContent className="bg-card border-primary/30 sm:max-w-md text-center">
+          <DialogHeader>
+            <div className="mx-auto mb-3 w-14 h-14 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(255,0,0,0.2)]">
+              <ShieldAlert className="w-7 h-7 text-primary" />
+            </div>
+            <DialogTitle className="text-primary font-bold uppercase tracking-widest text-center">
+              VPN Access Required
+            </DialogTitle>
+            <DialogDescription className="text-center text-sm leading-relaxed pt-2">
+              This section is protected and requires VPN access. A VPN activation fee of $150 is required for this demo environment.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="pt-3">
+            <button
+              onClick={() => setVpnAccessOpen(false)}
+              className="w-full py-3 rounded-xl bg-primary text-primary-foreground text-sm font-bold uppercase tracking-widest shadow-[0_0_14px_rgba(255,0,0,0.3)] hover:bg-primary/90 transition-colors"
+            >
+              Continue
+            </button>
+            <p className="mt-3 text-[10px] text-muted-foreground uppercase tracking-wider">
+              Demo only — no payment information is collected
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* VISIBILITY — interactive */}
       <div className="bg-card/40 backdrop-blur-xl border border-primary/20 rounded-2xl p-5 relative overflow-hidden">

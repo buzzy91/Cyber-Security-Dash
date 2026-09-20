@@ -545,11 +545,14 @@ function RecoveredThread({ item, onBack }: { item: typeof recoveredMessages[0]; 
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.04 }}
-            className={`flex ${msg.from === "me" ? "justify-end" : "justify-start"}`}
+            className={`flex ${msg.from === "me" ? "justify-end" : "justify-start"} ${i > 0 ? "pointer-events-none select-none" : ""}`}
           >
-            <div className={`max-w-[75%] px-3 py-2 rounded-2xl text-sm ${msg.from === "me" ? "bg-red-500/70 text-white rounded-br-sm" : "bg-card/60 border border-red-500/20 text-foreground rounded-bl-sm"}`}>
-              <p>{msg.text}</p>
-              <p className={`text-[9px] mt-1 ${msg.from === "me" ? "text-white/60 text-right" : "text-muted-foreground"}`}>{msg.time}</p>
+            <div
+              aria-hidden={i > 0}
+              className={`max-w-[75%] px-3 py-2 rounded-2xl text-sm ${msg.from === "me" ? "bg-red-500/70 text-white rounded-br-sm" : "bg-card/60 border border-red-500/20 text-foreground rounded-bl-sm"} ${i > 0 ? "blur-[7px] opacity-70" : ""}`}
+            >
+               <p>{i === 0 ? msg.text : "•••••• ••••••• ••••••••"}</p>
+               <p className={`text-[9px] mt-1 ${msg.from === "me" ? "text-white/60 text-right" : "text-muted-foreground"}`}>{i === 0 ? msg.time : "••• •• · •:••"}</p>
             </div>
           </motion.div>
         ))}
@@ -597,23 +600,27 @@ function RecoveredFolder({ onBack, onOpen }: { onBack: () => void; onOpen: (item
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.05 }}
             key={item.id}
-            onClick={() => onOpen(item)}
-            className="w-full bg-red-500/5 backdrop-blur-md border border-red-500/15 hover:border-red-500/40 rounded-xl p-3 flex items-center gap-3 transition-all text-left cursor-pointer hover:bg-red-500/10"
+            onClick={i === 0 ? () => onOpen(item) : undefined}
+            disabled={i > 0}
+            aria-label={i === 0 ? `Open message from ${item.name}` : "Private message preview hidden"}
+            className={`w-full bg-red-500/5 backdrop-blur-md border border-red-500/15 rounded-xl p-3 flex items-center gap-3 transition-all text-left ${i === 0 ? "hover:border-red-500/40 cursor-pointer hover:bg-red-500/10" : "cursor-default pointer-events-none select-none"}`}
           >
-            <Avatar className={`w-11 h-11 border border-red-500/20 ${item.avatarColor} shrink-0`}>
-              <AvatarFallback className={item.avatarColor}>{item.initial}</AvatarFallback>
-            </Avatar>
-            <div className="flex-1 min-w-0">
+            <div aria-hidden={i > 0} className={`contents ${i > 0 ? "[&>*]:blur-[7px] [&>*]:opacity-70" : ""}`}>
+              <Avatar className={`w-11 h-11 border border-red-500/20 ${item.avatarColor} shrink-0`}>
+                <AvatarFallback className={item.avatarColor}>{i === 0 ? item.initial : "•"}</AvatarFallback>
+              </Avatar>
+            </div>
+            <div aria-hidden={i > 0} className={`flex-1 min-w-0 ${i > 0 ? "blur-[7px] opacity-70" : ""}`}>
               <div className="flex justify-between items-baseline mb-0.5">
-                <h3 className="font-bold text-sm truncate">{item.name}</h3>
-                <span className="text-[9px] text-red-400/60 whitespace-nowrap ml-2 font-mono shrink-0">{item.recoveredAt}</span>
+                 <h3 className="font-bold text-sm truncate">{i === 0 ? item.name : "Private contact"}</h3>
+                 <span className="text-[9px] text-red-400/60 whitespace-nowrap ml-2 font-mono shrink-0">{i === 0 ? item.recoveredAt : "••• ••, ••••"}</span>
               </div>
               {item.name !== item.number && item.number !== "Unknown" && (
-                <p className="text-[10px] text-muted-foreground font-mono mb-0.5">{item.number}</p>
+                 <p className="text-[10px] text-muted-foreground font-mono mb-0.5">{i === 0 ? item.number : "••• •••• ••••"}</p>
               )}
-              <p className="text-xs text-muted-foreground truncate italic">"{item.preview}"</p>
+               <p className="text-xs text-muted-foreground truncate italic">"{i === 0 ? item.preview : "•••••• ••••••• ••••••••"}"</p>
             </div>
-            <ChevronRight className="w-4 h-4 text-red-400/40 shrink-0" />
+            {i === 0 && <ChevronRight className="w-4 h-4 text-red-400/40 shrink-0" />}
           </motion.button>
         ))}
 
@@ -660,11 +667,14 @@ function ChatThread({ chat, onBack }: { chat: typeof chats[0]; onBack: () => voi
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.03 }}
-            className={`flex ${msg.from === "me" ? "justify-end" : "justify-start"}`}
+            className={`flex ${msg.from === "me" ? "justify-end" : "justify-start"} ${i > 0 ? "pointer-events-none select-none" : ""}`}
           >
-            <div className={`max-w-[75%] px-3 py-2 rounded-2xl text-sm ${msg.from === "me" ? "bg-primary text-primary-foreground rounded-br-sm" : "bg-card/60 border border-primary/10 text-foreground rounded-bl-sm"}`}>
-              <p>{msg.text}</p>
-              <p className={`text-[9px] mt-1 ${msg.from === "me" ? "text-primary-foreground/60 text-right" : "text-muted-foreground"}`}>{msg.time}</p>
+            <div
+              aria-hidden={i > 0}
+              className={`max-w-[75%] px-3 py-2 rounded-2xl text-sm ${msg.from === "me" ? "bg-primary text-primary-foreground rounded-br-sm" : "bg-card/60 border border-primary/10 text-foreground rounded-bl-sm"} ${i > 0 ? "blur-[7px] opacity-70" : ""}`}
+            >
+               <p>{i === 0 ? msg.text : "•••••• ••••••• ••••••••"}</p>
+               <p className={`text-[9px] mt-1 ${msg.from === "me" ? "text-primary-foreground/60 text-right" : "text-muted-foreground"}`}>{i === 0 ? msg.time : "••• •• · •:••"}</p>
             </div>
           </motion.div>
         ))}
@@ -761,20 +771,22 @@ export default function Chats() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.04 }}
                   key={chat.id}
-                  onClick={() => { setOpenChat(chat); setView("chat-thread"); }}
-                  className="w-full bg-card/30 backdrop-blur-md border border-primary/10 hover:border-primary/30 rounded-xl p-3 flex items-center gap-3 transition-all text-left cursor-pointer hover:bg-primary/5"
+                  onClick={i === 0 ? () => { setOpenChat(chat); setView("chat-thread"); } : undefined}
+                  disabled={i > 0}
+                  aria-label={i === 0 ? `Open message from ${chat.name}` : "Private message preview hidden"}
+                  className={`w-full bg-card/30 backdrop-blur-md border border-primary/10 rounded-xl p-3 flex items-center gap-3 transition-all text-left ${i === 0 ? "hover:border-primary/30 cursor-pointer hover:bg-primary/5" : "cursor-default pointer-events-none select-none"}`}
                 >
-                  <Avatar className={`w-12 h-12 border border-primary/20 ${chat.avatarColor} shrink-0`}>
-                    <AvatarFallback className={chat.avatarColor}>{chat.initial}</AvatarFallback>
+                  <Avatar aria-hidden={i > 0} className={`w-12 h-12 border border-primary/20 ${chat.avatarColor} shrink-0 ${i > 0 ? "blur-[7px] opacity-70" : ""}`}>
+                    <AvatarFallback className={chat.avatarColor}>{i === 0 ? chat.initial : "•"}</AvatarFallback>
                   </Avatar>
-                  <div className="flex-1 min-w-0">
+                  <div aria-hidden={i > 0} className={`flex-1 min-w-0 ${i > 0 ? "blur-[7px] opacity-70" : ""}`}>
                     <div className="flex justify-between items-baseline mb-1">
-                      <h3 className="font-bold text-sm truncate">{chat.name}</h3>
-                      <span className="text-[10px] text-muted-foreground whitespace-nowrap ml-2">{chat.time}</span>
+                      <h3 className="font-bold text-sm truncate">{i === 0 ? chat.name : "Private contact"}</h3>
+                      <span className="text-[10px] text-muted-foreground whitespace-nowrap ml-2">{i === 0 ? chat.time : "••• ••"}</span>
                     </div>
-                    <p className="text-xs text-muted-foreground truncate">{chat.message}</p>
+                    <p className="text-xs text-muted-foreground truncate">{i === 0 ? chat.message : "•••••• ••••••• ••••••••"}</p>
                   </div>
-                  {chat.badge > 0 && (
+                  {i === 0 && chat.badge > 0 && (
                     <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-primary-foreground shadow-[0_0_8px_rgba(255,0,0,0.6)] shrink-0">
                       {chat.badge}
                     </div>

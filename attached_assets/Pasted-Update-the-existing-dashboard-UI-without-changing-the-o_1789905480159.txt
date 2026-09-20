@@ -1,0 +1,61 @@
+Update the existing dashboard UI without changing the overall design, layout, colors, or existing functionality unless specifically required below.
+
+1. Messages section
+
+* Blur the content of all messages except the first message.
+* The first message must remain completely visible and readable.
+* All other messages should have a strong privacy blur applied to:
+    * Message text
+    * Phone numbers
+    * Email addresses
+    * Any other identifying numbers/details
+* The blurred messages should remain visible as cards/rows so the user can see that messages exist, but their actual contents must not be readable.
+* Do not allow users to reveal or unblur the messages by clicking them.
+* Only the outside/preview portion of the first message should be visible as specified by the existing design.
+
+2. Calls section
+
+* Blur all phone numbers displayed in the Calls section.
+* Phone numbers should remain visually present but unreadable, for example:
+* ••• •••• ••••
+    or a CSS blur effect.
+* The blurred phone numbers must NOT be clickable.
+* Remove/disable any tel: links, click handlers, or other interactions that could initiate a call from those numbers.
+* Keep the rest of the Calls UI functional and visually consistent with the existing dashboard.
+
+3. Dashboard section-click behavior
+
+When the user clicks any protected/restricted section of the dashboard, display a modal/prompt explaining that VPN access is required.
+
+Use wording similar to:
+
+VPN Access Required
+
+“This section is protected and requires VPN access. A VPN activation fee of $150 is required for this demo environment.”
+
+Show a clear button such as:
+
+Continue
+
+Since this is a demo/prototype, do not collect real payment information, request card details, or process an actual $150 payment.
+
+The modal should:
+
+* Appear centered on the screen.
+* Have a professional appearance matching the existing dashboard.
+* Include a close/X button.
+* Prevent interaction with the underlying section while the modal is open.
+* Work consistently when any restricted dashboard section is clicked.
+
+4. Important implementation requirements
+
+* Preserve the existing dashboard’s styling and responsive design.
+* Do not remove existing features unrelated to these changes.
+* Use CSS blur/overlay techniques rather than replacing the underlying data unnecessarily.
+* Make sure blurred content cannot accidentally become clickable.
+* Ensure the implementation works on both desktop and mobile.
+* Check the browser console for errors after making the changes.
+* Test every dashboard section to make sure the VPN-required modal appears correctly.
+* Test the Messages section to confirm only the first message is readable.
+* Test the Calls section to confirm phone numbers are blurred and non-clickable.
+* Keep all existing data structures and APIs intact unless a change is necessary for these UI requirements.
