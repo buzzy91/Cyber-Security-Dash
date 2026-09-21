@@ -499,7 +499,7 @@ const threads: Record<string, { from: "me" | "them"; text: string; time: string 
 };
 
 const chats = [
-  { id: 1,  name: "Matt",              initial: "M",  avatarColor: "bg-blue-500/20 text-blue-400",     message: "I can't stop thinking about you... last night meant everything 💕", time: "Apr 15"  , badge: 3 },
+  { id: 1,  name: "Gina",              initial: "G",  avatarColor: "bg-blue-500/20 text-blue-400",     message: "This should be the last time I'll do this for u", time: "Apr 15"  , badge: 3 },
   { id: 2,  name: "Craig",             initial: "C",  avatarColor: "bg-red-500/20 text-red-400", message: "You free tonight? Wanna grab some food",                                 time: "May 2"   , badge: 1 },
   { id: 3,  name: "Ashley",            initial: "A",  avatarColor: "bg-rose-500/20 text-rose-400",     message: "Already on my calendar 😊",                                             time: "May 28"  , badge: 0 },
   { id: 4,  name: "Justin",            initial: "J",  avatarColor: "bg-white/20 text-white/80",     message: "That's what I'm saying bro it was historic",                            time: "Jun 15"  , badge: 0 },
