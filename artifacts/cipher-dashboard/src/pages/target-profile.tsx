@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { 
   User, Mail, Calendar, Activity, 
   Users, ShieldAlert, AlertOctagon, FileWarning, FileText, Home,
-  FileSearch, Scan, ChevronDown, LockKeyhole
+  FileSearch, Scan, ChevronDown
 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { VpnAccessDialog } from "@/components/VpnAccessDialog";
@@ -156,7 +156,6 @@ export default function TargetProfile() {
             <p className="text-[10px] text-muted-foreground uppercase tracking-widest mt-1">VPN access required</p>
           </div>
         </div>
-        <LockKeyhole className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
       </button>
 
       <VpnAccessDialog open={vpnAccessOpen} onOpenChange={setVpnAccessOpen} />
@@ -200,10 +199,7 @@ function ReportCard({
               <ChevronDown className={`w-3 h-3 transition-transform ${expanded ? "rotate-180" : ""}`} />
             </span>
           ) : (
-            <span className="flex items-center gap-1.5">
-              <LockKeyhole className="w-3 h-3" />
-              View
-            </span>
+            "View"
           )}
         </div>
       </button>
