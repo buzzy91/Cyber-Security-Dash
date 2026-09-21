@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { 
   User, Mail, Calendar, Activity, 
   Users, ShieldAlert, AlertOctagon, FileWarning, FileText, Home,
-  FileSearch, Scan
+  FileSearch, Scan, ChevronDown, LockKeyhole
 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { VpnAccessDialog } from "@/components/VpnAccessDialog";
 
 export default function TargetProfile() {
+  const [relativesOpen, setRelativesOpen] = useState(false);
+  const [vpnAccessOpen, setVpnAccessOpen] = useState(false);
+
+  const relatives = ["Adele Rhodes", "Jeff Rhodes", "Jerry Rhodes", "Lois Cole", "Amie Rhodes"];
+
   const reportEntries = [
     {
       title: "Relatives",
@@ -108,21 +114,76 @@ export default function TargetProfile() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {reportEntries.map((entry, idx) => (
-          <ReportCard key={idx} {...entry} />
+          <ReportCard
+            key={entry.title}
+            {...entry}
+            expanded={entry.title === "Relatives" && relativesOpen}
+            onClick={() => {
+              if (entry.title === "Relatives") {
+                setRelativesOpen((open) => !open);
+              } else {
+                setVpnAccessOpen(true);
+              }
+            }}
+          >
+            {entry.title === "Relatives" && relativesOpen && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-4 mt-4 border-t border-primary/10">
+                {relatives.map((relative) => (
+                  <div
+                    key={relative}
+                    className="rounded-lg border border-primary/10 bg-secondary/25 px-3 py-2.5 text-sm font-medium"
+                  >
+                    {relative}
+                  </div>
+                ))}
+              </div>
+            )}
+          </ReportCard>
         ))}
       </div>
+
+      <button
+        type="button"
+        onClick={() => setVpnAccessOpen(true)}
+        className="w-full rounded-2xl border border-primary/30 bg-card/40 p-5 flex items-center justify-between gap-4 text-left hover:border-primary/60 hover:bg-primary/5 transition-all group"
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+            <FileSearch className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="font-bold tracking-wide">View Full Background Report</h3>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-widest mt-1">VPN access required</p>
+          </div>
+        </div>
+        <LockKeyhole className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+      </button>
+
+      <VpnAccessDialog open={vpnAccessOpen} onOpenChange={setVpnAccessOpen} />
 
     </motion.div>
   );
 }
 
-function ReportCard({ title, icon }: { title: string; icon: React.ReactNode }) {
+function ReportCard({
+  title,
+  icon,
+  expanded,
+  onClick,
+  children,
+}: {
+  title: string;
+  icon: React.ReactNode;
+  expanded: boolean;
+  onClick: () => void;
+  children?: React.ReactNode;
+}) {
   return (
     <motion.div 
       whileHover={{ scale: 1.01 }}
       className="bg-card/30 backdrop-blur-xl border border-primary/10 hover:border-primary/40 transition-all duration-300 rounded-2xl p-5 group"
     >
-      <div className="flex items-center justify-between gap-4">
+      <button type="button" onClick={onClick} className="w-full flex items-center justify-between gap-4 text-left">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-secondary/50 border border-primary/20 flex items-center justify-center text-muted-foreground group-hover:text-primary group-hover:bg-primary/5 transition-colors">
             {icon}
@@ -133,9 +194,20 @@ function ReportCard({ title, icon }: { title: string; icon: React.ReactNode }) {
           </div>
         </div>
         <div className="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-widest border border-primary/20 bg-primary/10 text-primary">
-          Included
+          {title === "Relatives" ? (
+            <span className="flex items-center gap-1.5">
+              {expanded ? "Hide" : "View"}
+              <ChevronDown className={`w-3 h-3 transition-transform ${expanded ? "rotate-180" : ""}`} />
+            </span>
+          ) : (
+            <span className="flex items-center gap-1.5">
+              <LockKeyhole className="w-3 h-3" />
+              View
+            </span>
+          )}
         </div>
-      </div>
+      </button>
+      {children}
     </motion.div>
   );
 }
